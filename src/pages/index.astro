@@ -1,81 +1,82 @@
 ---
-import Layout from 'src/layouts/Layout.astro';
-import Card from '../components/Card.astro';
+import Layout from "src/layouts/BaseLayout.astro";
+import JobCard from "src/components/JobCard.astro";
+import GridContainer from "src/components/GridContainer.astro";
+import volvo from "src/assets/volvo.jpg";
+import gum from "src/assets/gum.jpg";
+import up from "src/assets/univers-paie.jpg";
+import aa from "src/assets/atelier-amelie.png";
+import ipv4 from "src/assets/ipv4.png";
+import cmd from "src/assets/cmd.png";
+import ProjectCard from "src/components/ProjectCard.astro";
 ---
 
-<Layout title="Welcome to Astro.">
-	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p>
-		<ul role="list" class="link-card-grid">
-			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
-			/>
-			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
-			/>
-			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Community"
-				body="Come say hi to our amazing Discord community. ❤️"
-			/>
-		</ul>
-	</main>
-</Layout>
+<Layout title="Accueil">
+  <h2>Qui suis-je ? 🚶🏻‍♂️</h2>
+  <p>
+    Bonjour 👋 je m'appelle Alexandre Dos Reis et je suis développeur fullstack
+    depuis 2019. Je suis en <b>recherche d'emploi</b> depuis la rentrée !
+  </p>
+  <p>
+    Ce site me sert de portfolio mais aussi de recueil d'articles et procédures
+    écrit pendant mes études.
+  </p>
+  <h2>Mes compétences 🤹</h2>
+  <p>
+    Mes principales compétences sont le développement d'application web, depuis
+    la modélisation de données jusqu'à l'interface utilisateur, en passant par
+    l'infrastructure et l'administration système.
+  </p>
 
-<style>
-	main {
-		margin: auto;
-		padding: 1.5rem;
-		max-width: 60ch;
-	}
-	h1 {
-		font-size: 3rem;
-		font-weight: 800;
-		margin: 0;
-	}
-	.text-gradient {
-		background-image: var(--accent-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0%;
-	}
-	.instructions {
-		line-height: 1.6;
-		margin: 1rem 0;
-		border: 1px solid rgba(var(--accent), 25%);
-		background-color: white;
-		padding: 1rem;
-		border-radius: 0.4rem;
-	}
-	.instructions code {
-		font-size: 0.875em;
-		font-weight: bold;
-		background: rgba(var(--accent), 12%);
-		color: rgb(var(--accent));
-		border-radius: 4px;
-		padding: 0.3em 0.45em;
-	}
-	.instructions strong {
-		color: rgb(var(--accent));
-	}
-	.link-card-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-		gap: 1rem;
-		padding: 0;
-	}
-</style>
+  <h2>Technos 🚀</h2>
+  <p>
+    Actuellement pour développer une application, les technos que je privilégie
+    sont : NodeJS, ReactJs, NextJs, Typescript, tRPC, Docker, PostGreSQL, Directus,
+    VSCode.
+  </p>
+  <p>
+    Mais j'ai pu aussi utiliser : GraphQL, Astro, Dotnet, Angular, Sql Server, Symfony,
+    Ansible et d'autres...
+  </p>
+
+  <h2>Mes derniers jobs 👨‍💻</h2>
+  <GridContainer>
+    <JobCard
+      imageSrc={volvo}
+      href="https://www.volvogroup.com/fr"
+      title="Volvo Trucks"
+      content="Digital & IT developer | 2021 - 2022"
+    />
+    <JobCard
+      imageSrc={up}
+      href="https://www.universpaie.com"
+      title="HR-Path Univers Paie"
+      content="Technicien d'exploitation | 2019 - 2021"
+    />
+    <JobCard
+      imageSrc={gum}
+      href="https://www.gum.paris"
+      title="Green United Music"
+      content="Ingénieur du son | 2012 - 2019"
+    />
+  </GridContainer>
+  <h2 class="mb-4">Mes derniers projets 🗃️</h2>
+  <ProjectCard
+    imageSrc={aa}
+    href="https://atelier-amelie.fr/"
+    title="L'atelier d'Amélie"
+    content="Le site d'Amélie Gille Dos Reis. Il est dédié à l'enluminure et à la calligraphie."
+  />
+  <ProjectCard
+    imageSrc={ipv4}
+    href="https://www.npmjs.com/package/ipv4-calc"
+    title="Calculatrice IPv4"
+    content="Une librarie Javascript permettant d'effectuer des calculs de réseaux IPv4."
+  />
+  <ProjectCard
+    imageSrc={cmd}
+    href="https://linux-debian-commandes.alexandre-dosreis.me"
+    title="Lexique commandes linux"
+    content="Un lexique de commandes GNU Linux dont je me sers tout le temps."
+  />
+</Layout>
