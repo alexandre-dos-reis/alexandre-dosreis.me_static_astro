@@ -17,7 +17,7 @@
     }
 
     h1, h2, h3, h4, h5, h6 {
-       @apply mb-3 mt-12 text-gray-200 font-semibold
+       @apply mb-3 text-gray-200 font-semibold
     }
 
     h1 {
@@ -44,12 +44,25 @@
         @apply font-bold
     }
 
+    section {
+        @apply mb-16
+    }
+
     p {
         @apply leading-6 mb-3
     }
 
+    p a {
+        @apply text-yellow-400
+    }
+
     a {
-        @apply underline underline-offset-4 decoration-gray-400 decoration-1 hover:text-gray-400
+        /* @apply underline underline-offset-4 decoration-gray-400 decoration-1 hover:text-gray-400 */
+        @apply hover:opacity-60
+    }
+
+    u {
+        @apply underline underline-offset-4
     }
 
     strong, b {

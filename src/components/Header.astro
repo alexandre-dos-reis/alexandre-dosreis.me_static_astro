@@ -5,27 +5,27 @@ const navLinks: { href: string; label: string }[] = [
     label: "Accueil",
   },
   { href: "/blog", label: "Blog" },
-{ href: "/a-propos", label: "Parcours" },
+  { href: "/parcours", label: "Parcours" },
   {
-    href: "/contact",
+    href: "mailto:ajm.dosreis.daponte@gmail.com",
     label: "Contact",
   },
 ];
 ---
 
 <header
-  class="max-w-3xl mx-auto px-4 md:px-0 mt-4 flex flex-wrap md:flex-nowrap"
+  class="max-w-3xl mx-auto p-2 md:px-0 mt-4 mb-14 flex flex-wrap md:flex-nowrap handwriting sticky top-0 backdrop-blur-md w-full z-50"
 >
   <a
-    class="handwriting no-underline text-5xl w-full text-center md:text-left mb-6 md:mb-0"
+    class="no-underline text-5xl w-full text-center md:text-left mb-6 md:mb-0"
     href="/">Alexandre&nbsp;Dos&nbsp;Reis</a
   >
   <nav class="w-full">
     <ul class="flex w-full h-full list-none justify-center md:justify-end">
       {
         navLinks.map((n, i) => (
-          <li class="flex justify-center items-center m-0">
-            <a href={n.href} class="mx-3 no-underline tracking-wide">
+          <li class="flex justify-center items-end m-0">
+            <a href={n.href} class="mx-3 no-underline tracking-wide text-2xl">
               {n.label}
             </a>
             {i === navLinks.length - 1 ? "" : " |"}
