@@ -1,20 +1,42 @@
 ---
 import Link from "src/components/Link.astro";
 import Layout from "src/layouts/BaseLayout.astro";
+import { getCategories, sortMdByDate } from "src/utils/functions";
 import type { Article } from "src/utils/types";
 
-const articles = (await Astro.glob<Article>("/src/pages/blog/*.md")).filter(
-  (a) => a.frontmatter.draft
-);
+const articlesOnline = sortMdByDate(
+  (await Astro.glob<Article>(`/src/pages/blog/**/*.mdx`)).filter(
+    (a) => !a.frontmatter.draft
+  )
+).map((a) => {
+  a.frontmatter.imageSrc = `/src/pages${a.url}/head.png`;
+  return a;
+});
+
+const categories = getCategories(articlesOnline, Astro.url.pathname);
 ---
 
 <Layout title="Blog">
   <section>
-    <ul>
+    <h2>{articlesOnline.length} Publications 📄</h2>
+    <ul class="list-none">
       {
-        articles.map((a) => (
+        articlesOnline.map((a) => (
           <li>
+            <img src={a.frontmatter.imageSrc} />
             <Link href={a.url}>{a.frontmatter.title}</Link>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+  <section>
+    <h2>Catégories 🏷️</h2>
+    <ul class="list-none">
+      {
+        categories.map((c) => (
+          <li>
+            <Link href={c.href}>{c.name}</Link>
           </li>
         ))
       }

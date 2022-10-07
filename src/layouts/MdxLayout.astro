@@ -1,0 +1,44 @@
+---
+import Header from "src/components/Header.astro";
+import type { MDXLayoutProps } from "astro";
+import type { Article } from "src/utils/types";
+
+type Props = MDXLayoutProps<Article>;
+
+// 1. The frontmatter prop gives access to frontmatter and other data
+const { frontmatter: fm } = Astro.props;
+const headerSrcImage = "/src/pages" + fm.url + "/head.jpg";
+
+
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title></title>
+  </head>
+  <body>
+    <Header />
+    <section class="relative flex justify-center items-center h-[21rem] md:h-[30rem] mb-4">
+      <div class="p-4 z-40">
+        <div class="w-full text-center">Ecrit le {fm.date}</div>
+        <h1 class="w-full text-center">{fm.title}</h1>
+      </div>
+      <img
+        src={headerSrcImage}
+        class="absolute top-0 h-full w-full object-cover opacity-40"
+      />
+    </section>
+    <main class="px-8 mx-auto max-w-3xl markdown">
+      <slot />
+    </main>
+    <footer></footer>
+    <style is:global>
+      @import "../styles/global.css";
+    </style>
+  </body>
+</html>

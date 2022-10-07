@@ -2,7 +2,8 @@
 layout: src/layouts/MdLayout.astro
 title: "Example 1"
 date: "09 Aug 2022  "
-draft: true
+draft: false
+imageSrc: "head.png"
 ---
 
 # Hi there!
