@@ -1,4 +1,6 @@
 ---
+import Link from "./Link.astro";
+
 interface Props {
   href: string;
   imageSrc: string;
@@ -9,12 +11,7 @@ interface Props {
 const { href, imageSrc, title, content } = Astro.props;
 ---
 
-<a
-  href={href}
-  class="relative overflow-hidden rounded-lg group"
-  target="_blank"
-  rel="noreferrer noopener"
->
+<Link href={href} class="relative overflow-hidden rounded-lg group">
   <img
     src={imageSrc}
     class="h-full w-100 object-cover transition-all opacity-60 group-hover:opacity-20 hover:scale-105"
@@ -23,4 +20,4 @@ const { href, imageSrc, title, content } = Astro.props;
     <h4 class="mt-0 font-bold">{title}</h4>
     <p class="font-bold">{content}</p>
   </div>
-</a>
+</Link>

@@ -1,11 +1,12 @@
 ---
 import Header from "src/components/Header.astro";
+import type { MarkdownLayoutProps } from "astro";
+import type { Article } from "src/utils/types";
 
-export interface Props {
-  title: string;
-}
+type Props = MarkdownLayoutProps<Article>;
 
-const { title } = Astro.props;
+// 1. The frontmatter prop gives access to frontmatter and other data
+const { frontmatter: fm, url } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -15,13 +16,12 @@ const { title } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>
-      Alexandre Dos Reis | Portfolio & Blog{title ? ` | ${title}` : ""}
-    </title>
+    <title></title>
   </head>
   <body>
     <Header />
-    <main class="max-w-3xl mx-auto px-8">
+    <main class="px-8 mx-auto max-w-3xl">
+      <div>{fm.date} {url}</div>
       <slot />
     </main>
     <footer></footer>

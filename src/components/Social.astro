@@ -1,22 +1,22 @@
+---
+import Link from "./Link.astro";
+---
+
 <ul class="flex items-center flex-1 sm:flex-initial list-none gap-x-4">
   <li>
-    <a
+    <Link
       href="https://www.linkedin.com/in/a-dos-reis"
       class="inline-block hover:opacity-60"
-      target="_blank"
-      rel="noreferrer noopener"
       ><img
         width="26"
         src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg"
       />
-    </a>
+    </Link>
   </li>
   <li>
-    <a
+    <Link
       href="https://github.com/alexandre-dos-reis"
       class="inline-block hover:opacity-60"
-      target="_blank"
-      rel="noreferrer noopener"
     >
       <svg width="28" viewBox="0 0 128 128">
         <g fill="white"
@@ -29,14 +29,12 @@
           ></path>
         </g>
       </svg>
-    </a>
+    </Link>
   </li>
   <li>
-    <a
+    <Link
       href="mailto:ajm.dosreis.daponte@gmail.com"
       class="inline-block hover:opacity-60"
-      target="_blank"
-      rel="noreferrer noopener"
     >
       <svg
         width="32"
@@ -52,6 +50,6 @@
         <rect x="3" y="5" width="18" height="14" rx="2"></rect>
         <polyline points="3 7 12 13 21 7"></polyline>
       </svg>
-    </a>
+    </Link>
   </li>
 </ul>

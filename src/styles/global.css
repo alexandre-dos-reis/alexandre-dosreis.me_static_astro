@@ -56,6 +56,10 @@
         @apply text-yellow-400
     }
 
+    p code {
+        @apply bg-black p-1 rounded-md
+    }
+
     a {
         /* @apply underline underline-offset-4 decoration-gray-400 decoration-1 hover:text-gray-400 */
         @apply hover:opacity-60

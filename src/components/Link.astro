@@ -1,16 +1,23 @@
 ---
-interface Props {
-  href: string;
-}
+type Props = astroHTML.JSX.AnchorHTMLAttributes;
 
-const { href } = Astro.props;
-const isExternal = href.startsWith("http");
+const { href, ...attrs } = Astro.props;
+
+let isExternal = false;
+
+if (typeof href === "string") {
+  isExternal = href?.startsWith("http");
+}
 ---
 
 {
   isExternal ? (
-    <a href={href} target="_blank" rel="noreferrer noopener"><slot /></a>
+    <a {...attrs} href={href} target="_blank" rel="noreferrer noopener">
+      <slot />
+    </a>
   ) : (
-    <a href={href}><slot /></a>
+    <a {...attrs} href={href}>
+      <slot />
+    </a>
   )
 }

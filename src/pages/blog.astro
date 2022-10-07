@@ -1,0 +1,23 @@
+---
+import Link from "src/components/Link.astro";
+import Layout from "src/layouts/BaseLayout.astro";
+import type { Article } from "src/utils/types";
+
+const articles = (await Astro.glob<Article>("/src/pages/blog/*.md")).filter(
+  (a) => a.frontmatter.draft
+);
+---
+
+<Layout title="Blog">
+  <section>
+    <ul>
+      {
+        articles.map((a) => (
+          <li>
+            <Link href={a.url}>{a.frontmatter.title}</Link>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Layout>
