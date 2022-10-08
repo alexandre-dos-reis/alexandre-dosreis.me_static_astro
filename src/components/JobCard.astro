@@ -14,7 +14,7 @@ const { href, imageSrc, title, content } = Astro.props;
 <Link href={href} class="relative overflow-hidden rounded-lg group">
   <img
     src={imageSrc}
-    class="h-full w-100 object-cover transition-all opacity-60 group-hover:opacity-20 hover:scale-105"
+    class="h-full w-100 object-cover transition-all opacity-60 group-hover:opacity-20 group-hover:scale-105"
   />
   <div class="absolute bottom-0 group-hover:text-white text-sm m-3">
     <h4 class="mt-0 font-bold">{title}</h4>

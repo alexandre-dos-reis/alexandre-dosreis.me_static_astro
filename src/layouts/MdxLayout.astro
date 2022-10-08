@@ -8,8 +8,6 @@ type Props = MDXLayoutProps<Article>;
 // 1. The frontmatter prop gives access to frontmatter and other data
 const { frontmatter: fm } = Astro.props;
 const headerSrcImage = "/src/pages" + fm.url + "/head.jpg";
-
-
 ---
 
 <!DOCTYPE html>
@@ -25,7 +23,7 @@ const headerSrcImage = "/src/pages" + fm.url + "/head.jpg";
     <Header />
     <section class="relative flex justify-center items-center h-[21rem] md:h-[30rem] mb-4">
       <div class="p-4 z-40">
-        <div class="w-full text-center">Ecrit le {fm.date}</div>
+        <div class="w-full text-center">Publié le {fm.date}</div>
         <h1 class="w-full text-center">{fm.title}</h1>
       </div>
       <img

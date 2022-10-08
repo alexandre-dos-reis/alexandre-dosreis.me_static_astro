@@ -7,3 +7,4 @@
 [https://www.copyandpastesymbols.net/](Emoji)
 
 [https://github.com/shikijs/shiki/blob/main/docs/themes.md#all-themes](Shiki themes)
+[https://unsplash.com/s/photos/monitoring?orientation=landscape](Free pictures)
