@@ -11,9 +11,8 @@ export const components = { a: Link };
 
 ## Documentations
 
-##### Zabbix 5.4 - Licence GPL V2 - [Docs](https://www.zabbix.com/documentation/current/manual/introduction)
-
-##### Grafana 7.5.7 - Licence Apache 2.0 - [Docs](https://grafana.com/docs/?plcmt=footer)
+- Zabbix 5.4 - Licence GPL V2 - [Docs](https://www.zabbix.com/documentation/current/manual/introduction)
+- Grafana 7.5.7 - Licence Apache 2.0 - [Docs](https://grafana.com/docs/?plcmt=footer)
 
 ## Présentation
 
@@ -128,31 +127,31 @@ La configuration se passr via le front-end. On se rend donc sur l'adresse *http:
 
 On devrait avoir cette fenêtre, naturellement on choisit la langue par défaut en français.
 
-![Zabbix écran de configuration](/zabbix1.png)
+![Zabbix écran de configuration](./img/zabbix1.png)
 
 On vérifie bien que tous les prérequis sont au verts.
 
-![Zabbix écran de configuration](/zabbix2.png)
+![Zabbix écran de configuration](./img/zabbix2.png)
 
 On configure l'accès de l'application Zabbix à la base de données :
 
-![Zabbix écran de configuration](/zabbix3.png)
+![Zabbix écran de configuration](./img/zabbix3.png)
 
 Si on a installer le serveur zabbix sur un autre hôte, on peut le renseigner ici sinon on laisse tout par défaut :
 
-![Zabbix écran de configuration](/zabbix4.png)
+![Zabbix écran de configuration](./img/zabbix4.png)
 
 On choisit le fuseau horaire (UTC+2:00 pour la France) et le thème :
 
-![Zabbix écran de configuration](/zabbix5.png)
+![Zabbix écran de configuration](./img/zabbix5.png)
 
 On récapitule la configuration :
 
-![Zabbix écran de configuration](/zabbix6.png)
+![Zabbix écran de configuration](./img/zabbix6.png)
 
 Ecran de succès si toute la conf est correcte :
 
-![Zabbix écran de configuration](/zabbix7.png)
+![Zabbix écran de configuration](./img/zabbix7.png)
 
 ## Installation de l'agent sur une machine à superviser
 
@@ -186,15 +185,15 @@ Se reporter à la procédure sur le [site officiel.](https://www.zabbix.com/docu
 
 Même si nous avons installer l'agent sur la machine à monitorer, l'apparition de celle-ci ne se fait pas tout seule, pour cela il faut se rendre dans _Configuration_, _hôtes_ puis _Créer un hôte_ en haut à droite. Voila les informations à remplir pour superviser une machine Debian :
 
-![Zabbix écran de configuration](/zabbix8.png)
+![Zabbix écran de configuration](./img/zabbix8.png)
 
 Sur l'onglet _modèles_, on ajoute un template :
 
-![Zabbix écran de configuration](/zabbix9.png)
+![Zabbix écran de configuration](./img/zabbix9.png)
 
 Puis on clique sur _Ajouter_. Après quelques secondes, la machine devrait être active dans l'onglet _Surveillance_, _Hôtes_ :
 
-![Zabbix écran de configuration](/zabbix10.png)
+![Zabbix écran de configuration](./img/zabbix10.png)
 
 ## Installation de Grafana
 
@@ -261,11 +260,11 @@ A chaque changement du fichier de configuration, il faut relancer Grafana :
 
 L'application devrait être accessible par défaut sur le port 3000 : *http://172.16.0.47:3000*
 
-![Grafana](/grafana1.png)
+![Grafana](./img/grafana1.png)
 
 Le mot de passe par défaut est _admin_ et _admin_. La page d'accueil devrait resssembler à ça :
 
-![Grafana](/grafana3.png)
+![Grafana](./img/grafana3.png)
 
 ### Base de données
 
@@ -302,17 +301,17 @@ Restart grafana after installing plugins . <service grafana-server restart>
 
 Il faut maintenant l'activer sur l'application, pour ce faire, sur le menu de gauche aller dans _Configuration_, _Plugins_, taper _zabbix_ dans la barre de recherche, le plugin devrait apparaitre, cliquer dessus.
 
-![Grafana](/grafana2.png)
+![Grafana](./img/grafana2.png)
 
 Toujours dans le menu _Configuration_, sélectionner _Data source_ puis _Add data source_. Tapper _zabbix_ dans la recherche. Pour une configuration de base, voici ce qu'il faut remplir :
 
-![Grafana](/grafana4.png)
+![Grafana](./img/grafana4.png)
 
-![Grafana](/grafana5.png)
+![Grafana](./img/grafana5.png)
 
 ne pas oublier d'importer les dashboards par défaut qui sont livrés avec le plugins :
 
-![Grafana](/grafana6.png)
+![Grafana](./img/grafana6.png)
 
 Puis cliquer sur _test and Save_.
 
@@ -322,8 +321,8 @@ Les métriques devraient être disponible dans _Dashboard_, _Manage_.
 
 Sur le menu de gauche, aller _Configuration_, puis _Preferences_. Dérouler la liste de _Home Dashboard_, les dashboard existant devraient apparaître. Cliquer sur _Save_.
 
-![Grafana](/grafana7.png)
+![Grafana](./img/grafana7.png)
 
 Retourner sur la page d'accueil pour tester.
 
-![Grafana](/grafana8.png)
+![Grafana](./img/grafana8.png)

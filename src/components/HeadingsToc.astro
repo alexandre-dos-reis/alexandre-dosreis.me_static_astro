@@ -1,0 +1,33 @@
+---
+import type { MarkdownHeading } from "astro";
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+const { headings } = Astro.props;
+
+const getMargin = (depth: number) => {
+  const table: { [index: number]: string } = {
+    1: "ml-0",
+    2: "ml-0",
+    3: "ml-6",
+    4: "ml-6",
+    5: "ml-9",
+    6: "ml-12",
+  };
+  return table[depth];
+};
+---
+<h2 class="text-sm">Table des matières</h2>
+<ul class="list-none">
+  {
+    headings.map((h) => (
+      <li class="mb-[.4rem]">
+        <a href={`#${h.slug}`} class={`text-gray-500 hover:text-white ${getMargin(h.depth)} block`}>
+          # {h.text}
+        </a>
+      </li>
+    ))
+  }
+</ul>
