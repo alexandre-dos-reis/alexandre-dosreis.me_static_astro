@@ -26,7 +26,7 @@ const headerSrcImage = "/src/pages" + fm.url + "/head.jpg";
       class="relative flex justify-center items-center h-[21rem] md:h-[30rem] mb-4"
     >
       <div class="p-4 z-40">
-        <div class="w-full text-center">Publié le {fm.date}</div>
+        <div class="w-full text-center text-xl">Publié le {fm.date}</div>
         <h1 class="w-full text-center">{fm.title}</h1>
       </div>
       <img
@@ -34,12 +34,11 @@ const headerSrcImage = "/src/pages" + fm.url + "/head.jpg";
         class="absolute top-0 h-full w-full object-cover opacity-40"
       />
     </section>
-    <!-- <main class="px-8 mx-auto max-w-3xl markdown grid grid-cols-[3fr_1fr]"> -->
     <main class="grid grid-cols-[2fr_1fr] items-start mx-auto max-w-4xl gap-x-10">
-      <article class="max-w-xl markdown">
+      <article class="max-w-xl markdown z-30">
         <slot />
       </article>
-      <aside class="block sticky top-24 text-xs overflow-y-auto mt-16">
+      <aside class="block sticky top-24 text-xs overflow-y-auto mt-20">
         <HeadingsToc headings={headings} />
       </aside>
     </main>

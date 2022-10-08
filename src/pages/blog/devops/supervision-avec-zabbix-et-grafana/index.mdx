@@ -5,7 +5,7 @@ date: "04 Jun 2021"
 draft: false
 ---
 
-import AP from "src/components/mdx/AP.astro";
+import AP from "src/components/AP.astro";
 import Link from "src/components/Link.astro";
 export const components = { a: Link };
 
@@ -55,7 +55,7 @@ Une base de donnée est nécessaire, ici on choisit mariaDB :
 
 <AP>apt install mariadb-server</AP>
 
-On sécurise avec cette commande, on colle un mot de passe pour _root_ :
+On sécurise avec cette commande, on colle un mot de passe pour `root` :
 
 <AP>mysql\_secure\_installation</AP>
 
@@ -110,7 +110,7 @@ On peut vérifier que les tables ont bien été crées avec :
 166 rows in set (0.001 sec)
 ```
 
-On édite le fichier _/etc/zabbix/zabbix_server.conf_ pour y ajouter le mot de passe de la bdd zabbix :
+On édite le fichier `/etc/zabbix/zabbix_server.conf` pour y ajouter le mot de passe de la bdd zabbix :
 
 ```
 DBPassword=******
@@ -123,7 +123,7 @@ On va démarrer le serveur, l'agent et apache2 puis on les active au lancement d
 
 ### Configuration de Zabbix
 
-La configuration se passr via le front-end. On se rend donc sur l'adresse *http://172.16.0.47/zabbix* :
+La configuration se passr via le front-end. On se rend donc sur l'adresse `http://172.16.0.47/zabbix` :
 
 On devrait avoir cette fenêtre, naturellement on choisit la langue par défaut en français.
 
@@ -161,7 +161,7 @@ L’agent est un programme qui se lance en tant que service et qui va faire des 
 
 <AP>apt install zabbix-agent</AP>
 
-Puis on édite le fichier de configuration situé ici _/etc/zabbix/zabbix_agentd.conf_ :
+Puis on édite le fichier de configuration situé ici `/etc/zabbix/zabbix_agentd.conf`` :
 
 ```make
 Server=172.16.0.47
@@ -169,9 +169,9 @@ ServerActive=172.16.0.47
 Hostname=client-zabbix
 ```
 
-_Server_ : L'adresse ou le nom du serveur Zabbix. Les connexions entrantes seront acceptées uniquement à partir des hôtes répertoriés ici.
-_ServerActive_ : L'adresse ou le nom du serveur Zabbix où seront envoyés les informations de l'agent. Plusieurs adresses délimitées par des virgules peuvent être fournies pour utiliser plusieurs serveurs Zabbix indépendants en parallèle.
-_Hostname_ : Doit correspondre au nom de la machine à superviser. Obligatoire pour les vérifications actives et doit correspondre aux noms d'hôte configurés sur le serveur.
+`Server` : L'adresse ou le nom du serveur Zabbix. Les connexions entrantes seront acceptées uniquement à partir des hôtes répertoriés ici.
+`ServerActive` : L'adresse ou le nom du serveur Zabbix où seront envoyés les informations de l'agent. Plusieurs adresses délimitées par des virgules peuvent être fournies pour utiliser plusieurs serveurs Zabbix indépendants en parallèle.
+`Hostname` : Doit correspondre au nom de la machine à superviser. Obligatoire pour les vérifications actives et doit correspondre aux noms d'hôte configurés sur le serveur.
 
 ### Agent pour MacOS
 
@@ -183,15 +183,15 @@ Se reporter à la procédure sur le [site officiel.](https://www.zabbix.com/docu
 
 ## Création d'un hôte dans Zabbix
 
-Même si nous avons installer l'agent sur la machine à monitorer, l'apparition de celle-ci ne se fait pas tout seule, pour cela il faut se rendre dans _Configuration_, _hôtes_ puis _Créer un hôte_ en haut à droite. Voila les informations à remplir pour superviser une machine Debian :
+Même si nous avons installer l'agent sur la machine à monitorer, l'apparition de celle-ci ne se fait pas tout seule, pour cela il faut se rendre dans `Configuration`, `hôtes` puis `Créer un hôte` en haut à droite. Voila les informations à remplir pour superviser une machine Debian :
 
 ![Zabbix écran de configuration](./img/zabbix8.png)
 
-Sur l'onglet _modèles_, on ajoute un template :
+Sur l'onglet `modèles`, on ajoute un template :
 
 ![Zabbix écran de configuration](./img/zabbix9.png)
 
-Puis on clique sur _Ajouter_. Après quelques secondes, la machine devrait être active dans l'onglet _Surveillance_, _Hôtes_ :
+Puis on clique sur `Ajouter`. Après quelques secondes, la machine devrait être active dans l'onglet `Surveillance`, `Hôtes` :
 
 ![Zabbix écran de configuration](./img/zabbix10.png)
 
@@ -205,7 +205,7 @@ Puis on clique sur _Ajouter_. Après quelques secondes, la machine devrait être
 
 <AP>sudo dpkg -i grafana_7.5.7_amd64.deb</AP>
 
-L'utilisateur _grafana_ a été créé.
+L'utilisateur `grafana` a été créé.
 
 ```make
 Sélection du paquet grafana précédemment désélectionné.
@@ -232,13 +232,13 @@ On execute les commandes citées :
 
 ### Configuration du fichier grafana.ini
 
-Le fichier de configuration principale se trouve ici : _/etc/grafana/grafana.ini_, voici la [documentation](https://grafana.com/docs/grafana/next/administration/configuration/) du site officiel.
+Le fichier de configuration principale se trouve ici : `/etc/grafana/grafana.ini`, voici la [documentation](https://grafana.com/docs/grafana/next/administration/configuration/) du site officiel.
 
 Voici quelques exemples de configuration :
 
-_;http_port = 3000_ : Définit le port d'écoute de l'application.
-_;cert_file =_ : Chemin d'accès au fichier de certificat (si le protocole est défini sur https ou h2).
-_;cert_key =_ : Chemin d'accès au fichier de la clé de certificat (si le protocole est défini sur https ou h2).
+- `;http_port = 3000` : Définit le port d'écoute de l'application.
+- `;cert_file = ` : Chemin d'accès au fichier de certificat (si le protocole est défini sur https ou h2).
+- `;cert_key = ` : Chemin d'accès au fichier de la clé de certificat (si le protocole est défini sur https ou h2).
 
 ```make
 [database]
@@ -258,11 +258,11 @@ A chaque changement du fichier de configuration, il faut relancer Grafana :
 
 <AP>systemctl restart grafana-server</AP>
 
-L'application devrait être accessible par défaut sur le port 3000 : *http://172.16.0.47:3000*
+L'application devrait être accessible par défaut sur le port 3000 : `http://172.16.0.47:3000`
 
 ![Grafana](./img/grafana1.png)
 
-Le mot de passe par défaut est _admin_ et _admin_. La page d'accueil devrait resssembler à ça :
+Le mot de passe par défaut est `admin` et `admin`. La page d'accueil devrait resssembler à ça :
 
 ![Grafana](./img/grafana3.png)
 
@@ -270,7 +270,7 @@ Le mot de passe par défaut est _admin_ et _admin_. La page d'accueil devrait re
 
 Grafana a besoin d'une base de données pour stocker les utilisateurs et les tableaux de bord (et d'autres choses). Par défaut, il est configuré pour utiliser _sqlite3_ qui est une base de données embarquée (incluse dans le binaire principal de Grafana).
 
-On créé un utilisateur _grafana_ et une base de donnée _grafana_ :
+On créé un utilisateur `grafana` et une base de donnée `grafana` :
 
 <AP>mysql -uroot -p</AP>
 
@@ -299,27 +299,27 @@ Restart grafana after installing plugins . <service grafana-server restart>
 
 <AP>service grafana-server restart</AP>
 
-Il faut maintenant l'activer sur l'application, pour ce faire, sur le menu de gauche aller dans _Configuration_, _Plugins_, taper _zabbix_ dans la barre de recherche, le plugin devrait apparaitre, cliquer dessus.
+Il faut maintenant l'activer sur l'application, pour ce faire, sur le menu de gauche aller dans `Configuration`, `Plugins`, taper `zabbix` dans la barre de recherche, le plugin devrait apparaitre, cliquer dessus.
 
 ![Grafana](./img/grafana2.png)
 
-Toujours dans le menu _Configuration_, sélectionner _Data source_ puis _Add data source_. Tapper _zabbix_ dans la recherche. Pour une configuration de base, voici ce qu'il faut remplir :
+Toujours dans le menu `Configuration`, sélectionner `Data source` puis `Add data source`. Tapper `zabbix` dans la recherche. Pour une configuration de base, voici ce qu'il faut remplir :
 
 ![Grafana](./img/grafana4.png)
 
 ![Grafana](./img/grafana5.png)
 
-ne pas oublier d'importer les dashboards par défaut qui sont livrés avec le plugins :
+Ne pas oublier d'importer les dashboards par défaut qui sont livrés avec le plugins :
 
 ![Grafana](./img/grafana6.png)
 
-Puis cliquer sur _test and Save_.
+Puis cliquer sur `test and Save`.
 
-Les métriques devraient être disponible dans _Dashboard_, _Manage_.
+Les métriques devraient être disponible dans `Dashboard`, `Manage`.
 
 ### Mettre un dashboard par défaut sur la page d'accueil
 
-Sur le menu de gauche, aller _Configuration_, puis _Preferences_. Dérouler la liste de _Home Dashboard_, les dashboard existant devraient apparaître. Cliquer sur _Save_.
+Sur le menu de gauche, aller `Configuration`, puis `Preferences`. Dérouler la liste de `Home Dashboard`, les dashboard existant devraient apparaître. Cliquer sur `Save`.
 
 ![Grafana](./img/grafana7.png)
 
