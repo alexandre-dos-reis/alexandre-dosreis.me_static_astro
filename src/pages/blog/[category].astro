@@ -31,7 +31,7 @@ const length = articlesByCategory.length;
   <section>
     <h2>
       {length} Publication{length !== 1 ? "s" : ""} pour la catégorie <i
-        >{category}</i>
+        >{category as string}</i>
     </h2>
     <ul class="list-none">
       {

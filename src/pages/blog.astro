@@ -45,11 +45,11 @@ const length = articlesOnline.length
     <section>
       <!-- <h3>Catégories 🏷️</h3> -->
       <h3>Catégories</h3>
-      <ul class="list-none">
+      <ul class="list-none flex flex-wrap">
         {
           categories.map((c) => (
-            <li>
-              <Link href={c.href}>{c.name}</Link>
+            <li class="bg-gray-300 py-[2px] px-2 m-1 rounded-lg">
+              <Link class="text-gray-800 text-sm" href={c.href}>{c.name}</Link>
             </li>
           ))
         }
