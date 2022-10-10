@@ -12,12 +12,8 @@ if (typeof href === "string") {
 
 {
   isExternal ? (
-    <a {...attrs} href={href} target="_blank" rel="noreferrer noopener">
-      <slot />
-    </a>
+    <a {...attrs} href={href} target="_blank" rel="noreferrer noopener"><slot /></a>
   ) : (
-    <a {...attrs} href={href}>
-      <slot />
-    </a>
+    <a {...attrs} href={href}><slot /></a>
   )
 }

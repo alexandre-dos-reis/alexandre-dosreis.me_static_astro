@@ -112,7 +112,7 @@
     }
 
     .markdown table {
-        @apply min-w-full border text-center border-collapse bg-gray-800 border-gray-600
+        @apply min-w-full border text-center border-collapse bg-gray-800 border-gray-600 mt-3 mb-6
     }
 
     .markdown thead, .markdown tr {

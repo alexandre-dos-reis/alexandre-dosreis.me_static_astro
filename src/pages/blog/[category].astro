@@ -1,0 +1,49 @@
+---
+import Link from "src/components/Link.astro";
+import BaseLayout from "src/layouts/BaseLayout.astro";
+import { getCategories, sortMdByDate, unslugify } from "src/utils/functions";
+import type { Article } from "src/utils/types";
+
+export async function getStaticPaths() {
+  const articlesOnline = sortMdByDate(
+    (await Astro.glob<Article>(`/src/pages/blog/**/*.mdx`)).filter(
+      (a) => !a.frontmatter.draft
+    )
+  );
+
+  return getCategories(articlesOnline, "/blog").map((c) => ({
+    params: { category: c.slug },
+  }));
+}
+
+const { category } = Astro.params;
+
+const articlesByCategory = sortMdByDate(
+  (await Astro.glob<Article>(`/src/pages/blog/**/*.mdx`)).filter(
+    (a) => !a.frontmatter.draft
+  )
+).filter((a) => a.url?.startsWith(Astro.url.pathname));
+
+const length = articlesByCategory.length;
+---
+
+<BaseLayout title={unslugify(category as string)}>
+  <section>
+    <h2>
+      {length} Publication{length !== 1 ? "s" : ""} pour la catégorie <i
+        >{category}</i>
+    </h2>
+    <ul class="list-none">
+      {
+        articlesByCategory.map((a) => (
+          <li class="flex gap-x-10">
+            <time class="text-gray-500 whitespace-nowrap">
+              {a.frontmatter.date}
+            </time>
+            <Link href={a.url}>{a.frontmatter.title}</Link>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>

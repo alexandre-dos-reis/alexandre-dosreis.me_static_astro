@@ -1,5 +1,5 @@
 ---
-import Header from "src/components/Header.astro";
+import HtmlLayout from "./HtmlLayout.astro";
 
 export interface Props {
   title: string;
@@ -8,25 +8,8 @@ export interface Props {
 const { title } = Astro.props;
 ---
 
-<!DOCTYPE html>
-<html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>
-      Alexandre Dos Reis | Portfolio & Blog{title ? ` | ${title}` : ""}
-    </title>
-  </head>
-  <body>
-    <Header />
-    <main class="max-w-3xl mx-auto px-8 mt-16">
-      <slot />
-    </main>
-    <footer></footer>
-    <style is:global>
-      @import "../styles/global.css";
-    </style>
-  </body>
-</html>
+<HtmlLayout title={title}>
+  <main class="max-w-3xl mx-auto px-8 mt-16">
+    <slot />
+  </main>
+</HtmlLayout>

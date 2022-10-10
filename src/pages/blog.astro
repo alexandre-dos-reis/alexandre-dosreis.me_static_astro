@@ -8,38 +8,52 @@ const articlesOnline = sortMdByDate(
   (await Astro.glob<Article>(`/src/pages/blog/**/*.mdx`)).filter(
     (a) => !a.frontmatter.draft
   )
-).map((a) => {
-  a.frontmatter.imageSrc = `/src/pages${a.url}/head.png`;
-  return a;
-});
+);
+
+// const articlesWithLogo = await Promise.all(
+//   articlesOnline.map(async (a) => {
+//     const filesAvailable = await Astro.glob<{ default: string }>(
+//       `/src/pages/**/logo.{png,jpg,jpeg}`
+//     );
+//     const imageSrc = filesAvailable.find((f) =>
+//       f.default.startsWith(`/src/pages${a.url}`)
+//     )?.default;
+//     a.frontmatter.imageSrc = imageSrc || "";
+//     return a;
+//   })
+// );
 
 const categories = getCategories(articlesOnline, Astro.url.pathname);
+const length = articlesOnline.length
 ---
 
 <Layout title="Blog">
-  <section>
-    <h2>{articlesOnline.length} Publications 📄</h2>
-    <ul class="list-none">
-      {
-        articlesOnline.map((a) => (
-          <li>
-            <img src={a.frontmatter.imageSrc} />
-            <Link href={a.url}>{a.frontmatter.title}</Link>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
-  <section>
-    <h2>Catégories 🏷️</h2>
-    <ul class="list-none">
-      {
-        categories.map((c) => (
-          <li>
-            <Link href={c.href}>{c.name}</Link>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
+  <div class="grid grid-cols-[3fr_1fr] items-start mx-auto max-w-4xl gap-x-10">
+    <section>
+      <h2>{length} Publication{length !== 1 ? "s" : ""} 📄</h2>
+      <ul class="list-none">
+        {
+          articlesOnline.map((a) => (
+            <li class="flex gap-x-10">
+              <time class="text-gray-500 whitespace-nowrap">{a.frontmatter.date}</time>
+              <Link href={a.url}>{a.frontmatter.title}</Link>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+    <section>
+      <!-- <h3>Catégories 🏷️</h3> -->
+      <h3>Catégories</h3>
+      <ul class="list-none">
+        {
+          categories.map((c) => (
+            <li>
+              <Link href={c.href}>{c.name}</Link>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
 </Layout>

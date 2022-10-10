@@ -1,7 +1,7 @@
-import type { MarkdownInstance } from "astro";
+import type { MDXInstance } from "astro";
 import type { Article } from "./types";
 
-function unslugify(slug: string) {
+export function unslugify(slug: string) {
   const result = slug.replace(/\-/g, " ");
   return result.replace(/\w\S*/g, function (txt) {
     return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase();
@@ -9,12 +9,12 @@ function unslugify(slug: string) {
 }
 
 export function getCategories(
-  articles: MarkdownInstance<Article>[],
+  articles: MDXInstance<Article>[],
   pathname: string
 ) {
   const categoriesWithDup = articles.map((a) => {
     const slug = a.url?.replace(pathname + "/", "").replace(/\/.*/, "");
-    return { href: `${pathname}/${slug}`, name: unslugify(slug!) };
+    return { href: `${pathname}/${slug}`, name: unslugify(slug!), slug };
   });
 
   return categoriesWithDup.filter((c, i) => {
@@ -22,7 +22,7 @@ export function getCategories(
   });
 }
 
-export function sortMdByDate(articles: MarkdownInstance<Article>[] = []) {
+export function sortMdByDate(articles: MDXInstance<Article>[]) {
   return articles.sort(
     (a, b) =>
       new Date(b.frontmatter.date).valueOf() -
