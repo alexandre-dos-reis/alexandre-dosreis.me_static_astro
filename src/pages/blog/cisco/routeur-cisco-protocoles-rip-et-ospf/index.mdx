@@ -34,7 +34,6 @@ Unicast délivre un message à un seul nœud spécifique en utilisant une associ
 
 ![broadcast](./img/broadcast.png)
 
-
 Broadcast transmet un message à tous les nœuds du réseau à l'aide d'une association un-à-tous ; un datagramme unique d'un expéditeur est acheminé vers tous les points d'extrémité éventuellement multiples associés à l'adresse de diffusion. Le réseau réplique automatiquement les datagrammes selon les besoins pour atteindre tous les destinataires dans le cadre de la diffusion, qui est généralement un sous-réseau entier.
 
 ### Multicast
@@ -112,7 +111,7 @@ Il y a 6 réseaux :
 
 Configuration pour R1 :
 
-```cisco
+```
 interface FastEthernet0/0
  ip address 172.30.1.1 255.255.255.0
  duplex auto
@@ -131,7 +130,7 @@ interface Serial0/1/0
 
 Implémentation de RIP V1 pour R1 :
 
-```cisco
+```
 R1#conf t
 R1(config)#router rip
 R1(config-router)#passive-interface FastEthernet0/0
@@ -142,7 +141,7 @@ R1(config-router)#network 209.165.200.0
 
 Configuration pour R2 :
 
-```cisco
+```
 interface FastEthernet0/0
  ip address 10.1.0.1 255.255.0.0
  duplex auto
@@ -159,7 +158,7 @@ interface Serial0/1/1
 
 Implémentation de RIP V1 pour R2 :
 
-```cisco
+```
 R2#conf t
 R2(config)#router rip
 R2(config-router)#passive-interface FastEthernet0/0
@@ -169,7 +168,7 @@ R2(config-router)#network 209.165.200.0
 
 Configuration pour R3 :
 
-```cisco
+```
 interface Serial0/1/0
  no ip address
  clock rate 2000000
@@ -183,7 +182,7 @@ interface Serial0/1/1
 
 Implémentation de RIP V1 pour R3 :
 
-```cisco
+```
 R3#conf t
 R3(config)#router rip
 R3(config-router)#passive-interface FastEthernet0/0
@@ -191,21 +190,21 @@ R3(config-router)#network 172.30.0.0
 R3(config-router)#network 209.165.200.0
 ```
 
-Il est possible de définir des interfaces passives qui ne redistribueront pas les tables de routage RIP, typiquement cela est utile lorsque des interfaces se trouvent en bout de réseaux. La déclaration des interfaces passives s'effectue comme ceci : *passive-interface NomDeL'interface*. 
+Il est possible de définir des interfaces passives qui ne redistribueront pas les tables de routage RIP, typiquement cela est utile lorsque des interfaces se trouvent en bout de réseaux. La déclaration des interfaces passives s'effectue comme ceci : _passive-interface NomDeL'interface_.
 
 Sur un routeur, il faut alors déclarer à RIP tous les réseaux IP qui sont reliés à ce routeur, mais en respectant les masques par défaut car RIP V1 est un protocole de routage Classful et ne prend pas en charge le masquage de sous-réseau de longueur variable.
 
 Exemple :
 
-- Le réseau *10.1.0.0 / 16* donne en RIP V1 *10.0.0.0* car c'est une adresse de type classe A avec un masque à 8 bits.
-- Le réseau *172.30.1.0 / 24* donne en RIP V1 *172.30.0.0* car c'est une adresse de type classe B avec un masque à 16 bits.
-- Le réseau *209.165.200.232 / 30* donne en RIP V1 *209.165.200.0* car c'est une adresse de type classe C avec un masque à 24 bits.
+- Le réseau _10.1.0.0 / 16_ donne en RIP V1 _10.0.0.0_ car c'est une adresse de type classe A avec un masque à 8 bits.
+- Le réseau _172.30.1.0 / 24_ donne en RIP V1 _172.30.0.0_ car c'est une adresse de type classe B avec un masque à 16 bits.
+- Le réseau _209.165.200.232 / 30_ donne en RIP V1 _209.165.200.0_ car c'est une adresse de type classe C avec un masque à 24 bits.
 
 ### Test de ping avec RIP V1
 
-Si on effectue un ping depuis la machine qui a pour adresse IP *10.1.0.10* vers la machine *172.30.1.10*, voici ce que l'on obtient :
+Si on effectue un ping depuis la machine qui a pour adresse IP _10.1.0.10_ vers la machine _172.30.1.10_, voici ce que l'on obtient :
 
-```cisco
+```
 Pinging 172.30.1.10 with 32 bytes of data:
 
 Reply from 172.30.1.10: bytes=32 time=1ms TTL=126
@@ -219,7 +218,7 @@ Approximate round trip times in milli-seconds:
     Minimum = 1ms, Maximum = 35ms, Average = 26ms
 ```
 
-Il y aura systèmatiquement 50% de pertes au moins des paquets car le protocole RIP V1 considère que les réseaux *209.165.200.228 / 30* et *209.165.200.232 / 30* sont en fait un seul et unique réseau le *209.165.200.0*, le routeur R2 envoie donc ses paquets alternativement à R1 et à R3 raison pour laquelle R3 nous répond avec l'adresse *209.165.200.232*.
+Il y aura systèmatiquement 50% de pertes au moins des paquets car le protocole RIP V1 considère que les réseaux _209.165.200.228 / 30_ et _209.165.200.232 / 30_ sont en fait un seul et unique réseau le _209.165.200.0_, le routeur R2 envoie donc ses paquets alternativement à R1 et à R3 raison pour laquelle R3 nous répond avec l'adresse _209.165.200.232_.
 
 RIP V1 considère qu'il y a ici 4 réseaux :
 
@@ -234,7 +233,7 @@ Pour éviter la perte de paquets, il faudrait rédéfinir les réseaux en respec
 
 Configuration pour R1 :
 
-```cisco
+```
 interface FastEthernet0/0
  ip address 172.30.1.1 255.255.255.0
  duplex auto
@@ -253,7 +252,7 @@ interface Serial0/1/0
 
 Implémentation de RIP V1 pour R1 :
 
-```cisco
+```
 R1#conf t
 R1(config)#router rip
 R1(config-router)#version 2
@@ -266,7 +265,7 @@ R1(config-router)#no auto-summary
 
 Configuration pour R2 :
 
-```cisco
+```
 interface FastEthernet0/0
  ip address 10.1.0.1 255.255.0.0
  duplex auto
@@ -283,7 +282,7 @@ interface Serial0/1/1
 
 Implémentation de RIP V1 pour R2 :
 
-```cisco
+```
 R2#conf t
 R2(config)#router rip
 R2(config-router)#version 2
@@ -295,7 +294,7 @@ R2(config-router)#no auto-summary
 
 Configuration pour R3 :
 
-```cisco
+```
 interface Serial0/1/0
  no ip address
  clock rate 2000000
@@ -309,7 +308,7 @@ interface Serial0/1/1
 
 Implémentation de RIP V1 pour R3 :
 
-```cisco
+```
 R3#conf t
 R3(config)#router rip
 R3(config-router)#version 2
@@ -319,23 +318,23 @@ R3(config-router)#network 209.165.200.0
 R3(config-router)#no auto-summary
 ```
 
-Il est possible de définir des interfaces passives qui ne redistribueront pas les tables de routage RIP, typiquement cela est utile lorsque des interfaces se trouvent en bout de réseaux. La déclaration des interfaces passives s'effectue comme ceci : *passive-interface NomDeL'interface*.
+Il est possible de définir des interfaces passives qui ne redistribueront pas les tables de routage RIP, typiquement cela est utile lorsque des interfaces se trouvent en bout de réseaux. La déclaration des interfaces passives s'effectue comme ceci : _passive-interface NomDeL'interface_.
 
-On déclare l'utilisation du protocole RIP V2 avec la commande *version 2*
+On déclare l'utilisation du protocole RIP V2 avec la commande _version 2_
 
 Sur un routeur, il faut alors déclarer à RIP tous les réseaux IP qui sont reliés à ce routeur, mais en respectant les masques par défaut.
 
 Exemple :
 
-- Le réseau *10.1.0.0 / 16* donne en RIP V1 *10.0.0.0* car c'est une adresse de type classe A avec un masque à 8 bits.
-- Le réseau *172.30.1.0 / 24* donne en RIP V1 *172.30.0.0* car c'est une adresse de type classe B avec un masque à 16 bits.
-- Le réseau *209.165.200.232 / 30* donne en RIP V1 *209.165.200.0* car c'est une adresse de type classe C avec un masque à 24 bits.
+- Le réseau _10.1.0.0 / 16_ donne en RIP V1 _10.0.0.0_ car c'est une adresse de type classe A avec un masque à 8 bits.
+- Le réseau _172.30.1.0 / 24_ donne en RIP V1 _172.30.0.0_ car c'est une adresse de type classe B avec un masque à 16 bits.
+- Le réseau _209.165.200.232 / 30_ donne en RIP V1 _209.165.200.0_ car c'est une adresse de type classe C avec un masque à 24 bits.
 
 ### Test de ping avec RIP V2
 
-Si on effectue un ping depuis la machine qui a pour adresse IP *10.1.0.10* vers la machine *172.30.1.10*, voici ce que l'on obtient :
+Si on effectue un ping depuis la machine qui a pour adresse IP _10.1.0.10_ vers la machine _172.30.1.10_, voici ce que l'on obtient :
 
-```cisco
+```
 Pinging 172.30.1.10 with 32 bytes of data:
 
 Reply from 172.30.1.10: bytes=32 time=1ms TTL=126
@@ -387,7 +386,7 @@ OSPF est devenu un protocole de routage dynamique populaire. D'autres protocoles
 
 ## Mise en pratique
 
-Le but ici est de démontrer que le protocole OSPF ne cherche pas le chemin le plus court pour trouver sa route mais plutôt le coût le plus bas.  
+Le but ici est de démontrer que le protocole OSPF ne cherche pas le chemin le plus court pour trouver sa route mais plutôt le coût le plus bas.
 
 ### Topologie OSPF
 
@@ -410,15 +409,15 @@ Il y 12 réseaux pour 9 routeurs allant de R1 à R10 :
 - 9.9.9.0 / 24
 - 10.10.10.0 / 24
 
-OSPF utilise des aires appelé *AREA* permettant de découper les réseaux en plusieurs petits groupes de travails, un AREA ne peut pas contenir plus de 15 routeurs. Le découpage en aire permet de réduire la charge CPU des routeurs.
+OSPF utilise des aires appelé _AREA_ permettant de découper les réseaux en plusieurs petits groupes de travails, un AREA ne peut pas contenir plus de 15 routeurs. Le découpage en aire permet de réduire la charge CPU des routeurs.
 
-Les routeurs appartenant à une même aire et au même réseau s'envoit des paquers de type *hello* pour se présenter, ils construisent ainsi leur voisinage et s'assure de la disponibilité de leurs voisins. C'est dans la LSDB (Link State DataBase)que le routeur va stocker toutes les informations de ses voisins appelé LSA (Link State Advertisment). La commande *show ip ospf database* permet d'afficher le contenu de cette base de donnée.
+Les routeurs appartenant à une même aire et au même réseau s'envoit des paquers de type _hello_ pour se présenter, ils construisent ainsi leur voisinage et s'assure de la disponibilité de leurs voisins. C'est dans la LSDB (Link State DataBase)que le routeur va stocker toutes les informations de ses voisins appelé LSA (Link State Advertisment). La commande _show ip ospf database_ permet d'afficher le contenu de cette base de donnée.
 
 Ici le routeur R4 connecte 2 aires, il se fait donc appelé ABR pour Area Border Router.
 
 Si on avait un routeur qui implémenterait un autre protocole de routage comme RIP, il serait appelé ASBR pour Autonomous System Border Routers.
 
-Sur les liaisons plus rapides comme le gigabit ou le 10 gigabit, il est nécessaire indispensable de déclarer la bande passante de référence avec la commande *auto-cost reference bandwidth 1000*.
+Sur les liaisons plus rapides comme le gigabit ou le 10 gigabit, il est nécessaire indispensable de déclarer la bande passante de référence avec la commande _auto-cost reference bandwidth 1000_.
 
 ### Configuration
 
@@ -426,7 +425,7 @@ Voici la configuration OSPF des 9 routeurs :
 
 Pour R1
 
-```cisco
+```
 router ospf 1
  router-id 1.1.1.1
  log-adjacency-changes
@@ -434,12 +433,12 @@ router ospf 1
  network 192.168.1.0 0.0.0.255 area 0
  network 1.1.1.0 0.0.0.255 area 0
  network 4.4.4.0 0.0.0.255 area 0
- network 6.6.6.0 0.0.0.255 area 
+ network 6.6.6.0 0.0.0.255 area
 ```
 
 Pour R2 :
 
-```cisco
+```
 router ospf 2
  router-id 2.2.2.2
  log-adjacency-changes
@@ -449,7 +448,7 @@ router ospf 2
 
 Pour R3 :
 
-```cisco
+```
 router ospf 3
  router-id 3.3.3.3
  log-adjacency-changes
@@ -459,7 +458,7 @@ router ospf 3
 
 Pour R4 :
 
-```cisco
+```
 router ospf 4
  router-id 4.4.4.4
  log-adjacency-changes
@@ -469,7 +468,7 @@ router ospf 4
 
 Pour R5
 
-```cisco
+```
 router ospf 5
  router-id 5.5.5.5
  log-adjacency-changes
@@ -479,7 +478,7 @@ router ospf 5
 
 Pour R6
 
-```cisco
+```
 router ospf 6
  router-id 6.6.6.6
  log-adjacency-changes
@@ -489,7 +488,7 @@ router ospf 6
 
 Pour R7 :
 
-```cisco
+```
 router ospf 7
  router-id 7.7.7.7
  log-adjacency-changes
@@ -503,7 +502,7 @@ router ospf 7
 
 Pour R8 :
 
-```cisco
+```
 router ospf 8
  router-id 8.8.8.8
  log-adjacency-changes
@@ -513,7 +512,7 @@ router ospf 8
 
 Pour R9 :
 
-```cisco
+```
 router ospf 9
  router-id 9.9.9.9
  log-adjacency-changes
@@ -521,9 +520,9 @@ router ospf 9
  network 8.8.8.0 0.0.0.255 area 1
 ```
 
-La commande *show ip ospf neighbor* permet d'afficher les routeurs présent dans une même aire, pour R1 cela donne :
+La commande _show ip ospf neighbor_ permet d'afficher les routeurs présent dans une même aire, pour R1 cela donne :
 
-```cisco
+```
 Neighbor ID     Pri   State           Dead Time   Address         Interface
 4.4.4.4           1   FULL/DR         00:00:39    4.4.4.2         GigabitEthernet0/1
 2.2.2.2           0   FULL/  -        00:00:39    1.1.1.2         Serial0/1/0
@@ -532,12 +531,12 @@ Neighbor ID     Pri   State           Dead Time   Address         Interface
 
 ### 1er test
 
-On effectue un test avec la commande *tracert* de PC1 à PC3. Cette commande va nous retourner la route que va prendre un ping en spécifiant les routeurs empruntés sur sa route :
+On effectue un test avec la commande _tracert_ de PC1 à PC3. Cette commande va nous retourner la route que va prendre un ping en spécifiant les routeurs empruntés sur sa route :
 
 ```make
 C:\>tracert 192.168.2.10
 
-Tracing route to 192.168.2.10 over a maximum of 30 hops: 
+Tracing route to 192.168.2.10 over a maximum of 30 hops:
 
   1   0 ms      0 ms      0 ms      192.168.1.1
   2   0 ms      0 ms      0 ms      4.4.4.2
@@ -553,19 +552,19 @@ Le ping passe bien par le routeur R1, puis R4 puis R7 pour aller jusqu'à PC3 ca
 
 On va modifier R4 et lui rajouter un côut sur l'interface Gigabit 0/0, voici la commande :
 
-```cisco
+```
 R4#conf t
 Enter configuration commands, one per line.  End with CNTL/Z.
 R4(config)#interface gigabitEthernet 0/0
 R4(config-if)#ip ospf cost 60000
 ```
 
-On refait le même test que précédemment, on utilise la commande *tracert* pour suivre le chemin que prend un ping, voici le résultat :
+On refait le même test que précédemment, on utilise la commande _tracert_ pour suivre le chemin que prend un ping, voici le résultat :
 
-```cisco
+```
 tracert 192.168.2.10
 
-Tracing route to 192.168.1.10 over a maximum of 30 hops: 
+Tracing route to 192.168.1.10 over a maximum of 30 hops:
 
   1   1 ms      0 ms      0 ms      192.168.1.1
   2   5 ms      7 ms      16 ms     1.1.1.2
@@ -579,10 +578,10 @@ Trace complete.
 
 Si on continue à faire la commande, OSPF se mettra à faire du load balacing car le chemin du haut et le chemin du bas ont le même coût.
 
-```cisco
+```
 tracert 192.168.2.10
 
-Tracing route to 192.168.1.10 over a maximum of 30 hops: 
+Tracing route to 192.168.1.10 over a maximum of 30 hops:
 
   1   1 ms      0 ms      0 ms      192.168.1.1
   2   5 ms      7 ms      16 ms     6.6.6.2

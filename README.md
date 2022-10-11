@@ -2,9 +2,9 @@
 
 ## Links
 
-[https://tailwindcomponents.com/cheatsheet/](Tailwind Cheat Sheet)
-[https://emojiterra.com/laptop-computer/](Emoji)
-[https://www.copyandpastesymbols.net/](Emoji)
+[Tailwind Cheat Sheet](https://tailwindcomponents.com/cheatsheet)
+[Emoji](https://emojiterra.com/laptop-computer)
+[Emoji](https://www.copyandpastesymbols.net)
 
-[https://github.com/shikijs/shiki/blob/main/docs/themes.md#all-themes](Shiki themes)
-[https://unsplash.com/s/photos/monitoring?orientation=landscape](Free pictures)
+[Shiki themes](https://github.com/shikijs/shiki/blob/main/docs/themes.md#all-themes)
+[Free pictures](https://unsplash.com/s/photos/monitoring?orientation=landscape)

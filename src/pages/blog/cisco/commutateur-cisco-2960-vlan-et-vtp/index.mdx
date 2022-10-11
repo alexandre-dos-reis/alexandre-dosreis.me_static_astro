@@ -10,13 +10,13 @@ Cisco IOS Software, Version 15.0(2)SE4 [Documentation en français](https://www.
 
 ## Présentation
 
-Un réseau local virtuel, communément appelé VLAN pour *Virtual Local Area Network*, est un réseau informatique logique indépendant. De nombreux VLAN peuvent coexister au sein d'un même commutateur en établissant un réseau logique virtuel par-dessus le réseau physique. Les VLAN permettent de :
+Un réseau local virtuel, communément appelé VLAN pour _Virtual Local Area Network_, est un réseau informatique logique indépendant. De nombreux VLAN peuvent coexister au sein d'un même commutateur en établissant un réseau logique virtuel par-dessus le réseau physique. Les VLAN permettent de :
 
 - Séparer les flux.
 - Segmenter et réduire la taille d'un domaine de broadcast.
 - Créer un ensemble logique isolé pour améliorer la sécurité. Le seul moyen pour communiquer entre des machines appartenant à des VLAN différents est alors de passer par un routeur.
 
-Le standard *IEEE 802.1Q* définit le contenu de la balise de VLAN avec laquelle on complète l'en-tête de trame Ethernet. Il permet de propager plusieurs VLANs sur un même lien physique (trunk). 
+Le standard _IEEE 802.1Q_ définit le contenu de la balise de VLAN avec laquelle on complète l'en-tête de trame Ethernet. Il permet de propager plusieurs VLANs sur un même lien physique (trunk).
 
 Par conséquent, les VLAN permettent aussi d'améliorer la gestion du réseau et d'optimiser la bande passante.
 
@@ -37,9 +37,9 @@ Dans notre schéma ci-dessus, nous pouvons remarquer que pc1 et pc2 sont suppos�
 
 On établira les mêmes VLANs aux mêmes ports pour les commutateurs 1, 2 et 3, à savoir :
 
--	Port 1 à 10 : VLAN 20 
--	Port 11 à 23 : VLAN 30
--	Port 24 : VLAN 10
+- Port 1 à 10 : VLAN 20
+- Port 11 à 23 : VLAN 30
+- Port 24 : VLAN 10
 
 ## Configuration
 
@@ -47,7 +47,7 @@ On établira les mêmes VLANs aux mêmes ports pour les commutateurs 1, 2 et 3, 
 
 Sur chaque commutateur, on effectuera les commandes suivantes :
 
-```cisco
+```
 Switch>enable
 Switch#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
@@ -60,11 +60,11 @@ Switch(config)#vlan 20
 Switch(config-vlan)#name COMPTA
 ```
 
-*switchport mode access* selectionne pour les ports concernés le *trunking mode*, ces ports ne serviront pas à faire transiter des trames inter-vlans, ce qui est le rôle des *trunks*
+_switchport mode access_ selectionne pour les ports concernés le _trunking mode_, ces ports ne serviront pas à faire transiter des trames inter-vlans, ce qui est le rôle des _trunks_
 
 On répétera ces commandes pour les autres VLAN 10 et 30. Ensuite on vérifie que les VLANs ont bien été créés avec la commande « show vlan » en mode enable :
 
-```cisco
+```
 VLAN Name                             Status    Ports
 ---- -------------------------------- --------- -------------------------------
 1    default                          active    Gig0/2
@@ -76,34 +76,34 @@ VLAN Name                             Status    Ports
                                                     Fa0/15, Fa0/16, Fa0/17, Fa0/18
                                                     Fa0/19, Fa0/20, Fa0/21, Fa0/22
                                                     Fa0/23
-1002 fddi-default                     active    
-1003 token-ring-default               active    
-1004 fddinet-default                  active    
+1002 fddi-default                     active
+1003 token-ring-default               active
+1004 fddinet-default                  active
 1005 trnet-default                    active
 ```
 
 On constate que les VLANs 10, 20 & 30 ont bien été créés avec leur nom respectif et que les ports ont bien été attribués. Mais on remarque qu’il y a un VLAN par défaut, le numéro 1 qui comporte les 2 ports Gigabits. On va le supprimer et lui enlever l’attribution d’adresse IP :
 
-```cisco
+```
 Switch#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 Switch(config)#interface vlan 1
 Switch(config-if)#no ip address
-Switch(config-if)#shutdown 
+Switch(config-if)#shutdown
 ```
 
 ### Nom d'hôte et suffixe DNS
 
 On donne un nom d'hôte et suffixe DNS :
 
-```cisco
+```
 Switch#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 Switch(config)#hostname Switch1
 Switch1(config)#
 ```
 
-```cisco
+```
 Switch1#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 Switch1(config)#ip domain-name sio.local
@@ -111,9 +111,9 @@ Switch1(config)#ip domain-name sio.local
 
 ### Port en mode Trunk
 
-Un *trunk* est un mode attribué à un port d'un commutateur lui permettant de faire circluer des trames de VLANs différentes, c'est donc un port inter-VLAN. Sur chaque commutateur, on dédie un ou plusieurs ports à la circulation des trames inter-VLANS. Evidemment, on prendra les ports qui sont le plus rapide vu qu'ils relient les différents réseaux. Ici on choisit les ports Gigabit 1 et 2 sur chaque Commutateur.
+Un _trunk_ est un mode attribué à un port d'un commutateur lui permettant de faire circluer des trames de VLANs différentes, c'est donc un port inter-VLAN. Sur chaque commutateur, on dédie un ou plusieurs ports à la circulation des trames inter-VLANS. Evidemment, on prendra les ports qui sont le plus rapide vu qu'ils relient les différents réseaux. Ici on choisit les ports Gigabit 1 et 2 sur chaque Commutateur.
 
-```cisco
+```
 Switch1>enable
 Switch1#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
@@ -133,9 +133,9 @@ Switch1(config-if-range)#switchport mode trunk
 
 Il y a 2 manières d’activer le mode Trunk, soit un mode dynamique qui se chargera de faire les changements automatiquement et le mode Trunk inconditionnel.
 
-La commande *show run* en mode enable permet de voir que notre configuration a bien été prise en compte :
+La commande _show run_ en mode enable permet de voir que notre configuration a bien été prise en compte :
 
-```cisco
+```
 Switch1>en
 Switch1#sh run
 Building configuration...
@@ -215,31 +215,31 @@ Notre configuration est bonne.
 
 ## Segmentation du réseau
 
-Nos VLANs sont en place sur tous les commutateurs, on va effectuera un test pour vérifier que les trames du vlan 20 ne sont pas diffusées sur les ports dédiés au vlan 30. Pour cela, on utilisera les pcs 1, 2, 3 et 5, on leur attribuera une adresse ip située dans le même réseau. On s’assurera que les PCs 1 et 2 communiquent bien ensemble au moyen de la commande *ping*.
+Nos VLANs sont en place sur tous les commutateurs, on va effectuera un test pour vérifier que les trames du vlan 20 ne sont pas diffusées sur les ports dédiés au vlan 30. Pour cela, on utilisera les pcs 1, 2, 3 et 5, on leur attribuera une adresse ip située dans le même réseau. On s’assurera que les PCs 1 et 2 communiquent bien ensemble au moyen de la commande _ping_.
 
-On s’assurera également que les tables *Mac* des commtateurs 1 et 2 et que les tables *Arp* de pc1 et pc2 sont vides, sinon on ne verrait pas clairement que les vlans sont actifs.
+On s’assurera également que les tables _Mac_ des commtateurs 1 et 2 et que les tables _Arp_ de pc1 et pc2 sont vides, sinon on ne verrait pas clairement que les vlans sont actifs.
 
 ### MAC - Contrôle d'accès au support
 
-La table *mac* d'un commutateur est un table qui permet de faire correspondre un port à un adresse *media control access*. La sous-couche de contrôle d'accès au support (MAC en français) est la moitié basse de la couche de liaison de données du modèle OSI, selon les standards de réseaux informatiques IEEE 802.x. Elle sert d'interface entre la partie logicielle contrôlant la liaison d'un nœud (Contrôle de la liaison logique) et la couche physique (matérielle). Par conséquent, elle est différente selon le type de média physique utilisé (Ethernet, Token Ring, WLAN, …)
+La table _mac_ d'un commutateur est un table qui permet de faire correspondre un port à un adresse _media control access_. La sous-couche de contrôle d'accès au support (MAC en français) est la moitié basse de la couche de liaison de données du modèle OSI, selon les standards de réseaux informatiques IEEE 802.x. Elle sert d'interface entre la partie logicielle contrôlant la liaison d'un nœud (Contrôle de la liaison logique) et la couche physique (matérielle). Par conséquent, elle est différente selon le type de média physique utilisé (Ethernet, Token Ring, WLAN, …)
 
 Une adresse MAC comporte une suite de 6 octets (souvent représentée sous la forme hexadécimale 01:23:45:67:89:ab) qui identifie de façon unique chaque interface réseau.
 
 <table>
-<tbody>
-<tr>
-    <td colspan="3">Organizationally Uniquer Identifier</td>
-    <td colspan="3">Universally Administered Address</td>
-</tr>
-<tr>
-    <td>00</td>
-    <td>1A</td>
-    <td>3F</td>
-    <td>F1</td>
-    <td>4C</td>
-    <td>C6</td>
-</tr>
-</tbody>
+  <tbody>
+    <tr>
+      <td colspan="3">Organizationally Uniquer Identifier</td>
+      <td colspan="3">Universally Administered Address</td>
+    </tr>
+    <tr>
+      <td>00</td>
+      <td>1A</td>
+      <td>3F</td>
+      <td>F1</td>
+      <td>4C</td>
+      <td>C6</td>
+    </tr>
+  </tbody>
 </table>
 
 ### ARP - Protocole de résolution d'adresse
@@ -250,7 +250,7 @@ L’Address Resolution Protocol (ARP, protocole de résolution d’adresse) est 
 
 La table MAC contient les couples d’enregistrement d’adresse MAC au ports pour que le commutateur envoit sa trame directement sur la bonne machine afin de ne pas inonder le réseau avec des trames broadcast.
 
-```cisco
+```
 Switch2>enable
 Switch2#show mac-address-table
           Mac Address Table
@@ -259,10 +259,10 @@ Switch2#show mac-address-table
 Vlan    Mac Address       Type        Ports
 ----    -----------       --------    -----
 
-   1    0001.c786.6319    DYNAMIC     Gig0/2    
-   1    0007.ec56.0619    DYNAMIC     Gig0/1	
-  20    0060.472a.e2d2    DYNAMIC     Gig0/1	
-  20    00d0.ba24.9d58    DYNAMIC     Fa0/1     
+   1    0001.c786.6319    DYNAMIC     Gig0/2
+   1    0007.ec56.0619    DYNAMIC     Gig0/1
+  20    0060.472a.e2d2    DYNAMIC     Gig0/1
+  20    00d0.ba24.9d58    DYNAMIC     Fa0/1
 Switch2#clear mac-address-table
 Switch2#show mac-address-table
 Mac Address Table
@@ -272,13 +272,13 @@ Vlan Mac Address Type Ports
 ---- ----------- -------- -----
 ```
 
-Ici, il y 4 entrés dans la table d'addresse mac qui correspondent aux PCs 1 et 2 ( VLAN 20 ) et au commutateurs 1 et 2 ( VLAN 1 ), puis on efface la table avec la commande *clear mac-address-table* puis on affiche la nouveau la table pour s'apercevoir qu'elle est vide.
+Ici, il y 4 entrés dans la table d'addresse mac qui correspondent aux PCs 1 et 2 ( VLAN 20 ) et au commutateurs 1 et 2 ( VLAN 1 ), puis on efface la table avec la commande _clear mac-address-table_ puis on affiche la nouveau la table pour s'apercevoir qu'elle est vide.
 
 Maintenant que la table vide, le commutateur sera obligé d'envoyer des trames broadcast c'est à dire à toutes les machines pour connaitre les emplacements de celle-ci et savoir où envoyer ses trames.
 
 Sur pc1, on fera les commandes suivantes pour vider la table ARP :
 
-```cisco
+```
 PC1>arp -a
 Internet Address Physical Address Type
 192.168.20.2 00d0.ba24.9d58 dynamic
@@ -291,7 +291,7 @@ La table Arp contient des enregistrements de couple adresse IPv4 – adresse mac
 
 Sur PC1, on effectue un test de ping ICMP avec PC2 en utilisant son adresse IP :
 
-```cisco
+```
 PC>ping 192.168.20.2
 
 Pinging 192.168.20.2 with 32 bytes of data:
@@ -308,7 +308,7 @@ Minimum = 0ms, Maximum = 0ms, Average = 0ms
 
 ```
 
-Sur Cisco Packet Tracer, on peut utiliser le mode simulation et appliquer des filtres pour mieux discerner le trafic. Ici on a mis le filtre *ARP*.
+Sur Cisco Packet Tracer, on peut utiliser le mode simulation et appliquer des filtres pour mieux discerner le trafic. Ici on a mis le filtre _ARP_.
 
 ![test-vlan-ping](./img/test-vlan-ping.png)
 
@@ -335,16 +335,15 @@ Sur Cisco Packet Tracer, on peut utiliser le mode simulation et appliquer des fi
 
 On remarque que la trame qui provient de PC est diffusée en broadcast et que le commutateur remplit sa table MAC avec le couple d’adresse Mac-Port de PC1. Comme la trame sortant de switch 1 est broadcast, on voit clairement qu’elle ne va pas en direction de pc3 car il appartient au Vlan 30 bien que sa trame soit broadcast. On a donc la preuve que les Vlans segmentent bien le réseau.
 
-
 ## VTP - Vlan Truncking Protocol
 
-Ce protocole permet de créer, modifier et supprimer des VLANs en désignant un commutateur qui sera le VTP Server ( maître ) tandis que les autres seront des VTP Client ( esclave ), permettant le transport des mêmes réglages de vlans à tous les commutateurs présents dans un même domaine de VTP. En revanche, les affections de ports au vlans ne seront pas effectuées et devront être faite individuellement sur chaque switch car elles restent des liaisons physiques et non logiques. Il faudra faire attention aux conflits en cas de  plusieurs VTP Server et n’en désigner qu’un seul.
+Ce protocole permet de créer, modifier et supprimer des VLANs en désignant un commutateur qui sera le VTP Server ( maître ) tandis que les autres seront des VTP Client ( esclave ), permettant le transport des mêmes réglages de vlans à tous les commutateurs présents dans un même domaine de VTP. En revanche, les affections de ports au vlans ne seront pas effectuées et devront être faite individuellement sur chaque switch car elles restent des liaisons physiques et non logiques. Il faudra faire attention aux conflits en cas de plusieurs VTP Server et n’en désigner qu’un seul.
 
 ### Domaine de VTP
 
 Affectation d'un commutateur à un domaine de VTP :
 
-```cisco
+```
 Switch#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 Switch(config)#vtp domain sio
@@ -355,7 +354,7 @@ Changing VTP domain name from NULL to sio
 
 Affectation du mot de passe du domaine de VTP :
 
-```cisco
+```
 Switch(config)#vtp password sio
 Setting device VLAN database password to sio
 ```
@@ -364,7 +363,7 @@ Setting device VLAN database password to sio
 
 Affectation du rôle Server ( Maître ) :
 
-```cisco
+```
 Switch(config)#vtp mode server
 Setting device to VTP SERVER mode.
 ```
@@ -373,7 +372,7 @@ Setting device to VTP SERVER mode.
 
 Affectation du rôle Client ( Esclave ) :
 
-```cisco
+```
 Switch(config)#vtp mode client
 Setting device to VTP CLIENT mode.
 ```
@@ -382,7 +381,7 @@ Setting device to VTP CLIENT mode.
 
 Affectation du rôle Transparent, il fera suivre les fichiers VTP mais ne les utilisera pas :
 
-```cisco
+```
 Switch(config)#vtp mode transparent
 Setting device to VTP TRANSPARENT mode.
 ```

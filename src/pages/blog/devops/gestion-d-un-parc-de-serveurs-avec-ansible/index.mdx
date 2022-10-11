@@ -210,10 +210,10 @@ Cette commande devrait échouer :
 ansible all -m apt -a update_cache=true
 
 Il faut donc la changer pour :
-ansible all -m apt -a update_cache=true --become --ask-become-pass --become-method=su
+ansible all -m apt -a update*cache=true --become --ask-become-pass --become-method=su
 --become : utilise le compte root pour toutes les machines
 --ask-become-pass : Demande l'utilisation d'un mot de passe
---become-method : Méthode d'authentification ici _su_
+--become-method : Méthode d'authentification ici \_su*
 
 Voici la même commande en plus court :
 
@@ -298,7 +298,7 @@ Tout l'intérêt de Ansible se situe dans les playbooks, il s'agit de renseigner
 
 Nous allons créer un playbook pour installer Apache2 sur nos 2 serveurs :
 
-```yml
+```yaml
 ---
 - hosts: webServers
 

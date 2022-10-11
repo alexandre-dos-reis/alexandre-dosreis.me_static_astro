@@ -131,7 +131,7 @@ On initialise un projet Git avec la commande suivante, le dossier courant n'a pa
 
 <AP>git init</AP>
 
-```git
+```bash
 Initialized empty Git repository in C:/Users/alexandre/dev/git-project-tuto/.git/
 ```
 
@@ -161,7 +161,7 @@ Par défaut, le nom de la branche qui a été choisie est celle que vous avez d�
 
 <AP>git status</AP>
 
-```git
+```bash
 On branch master
 
 No commits yet
@@ -189,7 +189,7 @@ Ceci est un test
 
 On refait la commande *git status*.
 
-```git
+```bash
 On branch master
 
 No commits yet
@@ -207,7 +207,7 @@ Git a bien détecté ce nouveau fichier, et nous demande d'effectuer la commande
 
 Si la commande ne retourne rien, c'est que tout s'est bien passé. On observe les changements sur la branche toujours avec la commande *git status*.
 
-```git
+```bash
 On branch master
 
 No commits yet
@@ -231,7 +231,7 @@ Ceci est un test de git add
 
 Et que l'on effectue un *git status* derrière :
 
-```git
+```bash
 On branch master
 
 No commits yet
@@ -258,14 +258,14 @@ C'est la que *git commit* intervient, elle va enregistrer toutes les modificatio
 
 <AP>git commit -m "1er commit"</AP>
 
-```git
+```bash
 [master (root-commit) e2b81d2] 1er commit
  1 file changed, 3 insertions(+)
  create mode 100644 test.md
 ```
 On peut faire un *git status*.
 
-```git
+```bash
 On branch master
 nothing to commit, working tree clean
 ```
@@ -318,7 +318,7 @@ Github nous propose le nom de la branche principale *main* mais rappelez-vous qu
 
 L'option *-u* est un alias pour l'option *--set-upstream-to*, elle permet de définir automatiquement l'association en amont pour toutes les futures tentatives push/pull. Donc on vient d'associer une branche en local à une branche du dépôt distant. On obtient donc :
 
-```git
+```bash
 Counting objects: 100% (3/3), done.
 Writing objects: 100% (3/3), 259 bytes | 259.00 KiB/s, done.
 Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
@@ -362,7 +362,7 @@ Cette commande ne renvoit rien. La branche a bien été créée mais on ne trava
 
 <AP>git switch nouvelle-feature</AP>
 
-```git
+```bash
 Switched to branch 'nouvelle-feature'
 ```
 
@@ -370,7 +370,7 @@ On peut voir toute les branches du projets en faisant :
 
 <AP>git branch -a</AP>
 
-```git
+```bash
 master
 * nouvelle-feature
   remotes/origin/master
@@ -390,7 +390,7 @@ Ceci est un test de la nouvelle branche
 
 On effectue les commandes vues précédemment pour enregistrer notre travail avec *git add* et *git commit*. On devrait avoir quelques chose comma ça :
 
-```git
+```bash
 [nouvelle-feature 7bcc633] 1er commit branche nouvelle-feature
  1 file changed, 1 insertion(+), 1 deletion(-)
  ```
@@ -403,7 +403,7 @@ On se place sur la branche que l'on souhaite garder ici la branche *master*.
 
 <AP>git switch master</AP>
 
-```git
+```bash
 Switched to branch 'master'
 Your branch is up to date with 'origin/master'.
 ```
@@ -412,7 +412,7 @@ On fusionne la branche *nouvelle-feature* avec la branche actuelle :
 
 <AP>git merge nouvelle-feature</AP>
 
-```git
+```bash
 Updating e2b81d2..7bcc633
 Fast-forward
  test.md | 2 +-
@@ -421,7 +421,7 @@ Fast-forward
 
 Cependant, si on effectue un *git status*, on obtient :
 
-```git
+```bash
 On branch master
 Your branch is ahead of 'origin/master' by 1 commit.
   (use "git push" to publish your local commits)    
@@ -433,7 +433,7 @@ Git nous prévient que notre branche actuelle est en avance par rapport à la br
 
 <AP>git push</AP>
 
-```git
+```bash
 Enumerating objects: 5, done.
 Counting objects: 100% (5/5), done.
 Delta compression using up to 8 threads
@@ -450,6 +450,6 @@ La branche *nouvelle-feature* existe toujours, on peux la supprimer comme ça :
 
 <AP>git branch -d nouvelle-feature</AP>
 
-```git
+```bash
 Deleted branch nouvelle-feature (was 7bcc633).
 ```

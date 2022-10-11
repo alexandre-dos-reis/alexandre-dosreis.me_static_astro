@@ -35,29 +35,30 @@ Sur Windows, une fois la connexion faite, se rendre dans le gestionnaire de pér
 ![Putty Serial](./img/switch2960PuttySerial.png)
 
 ## Accès Telnet
-*Telnet* pour *Terminal Network* est un protocole qui utilise les couches TCP/IP pour communiquer sur le réseau. Il fonctionne par l'envoi et la réception de lignes de texte. Ce protocole est assez vieux, il date des débuts d'internet c'est pourquoi il n'est pas du tout sécurisé, on lui préférera le protocole SSH cependant il nécéssite beaucoup moins de configuration. On l'utilisera dans un environnement de test.
+
+_Telnet_ pour _Terminal Network_ est un protocole qui utilise les couches TCP/IP pour communiquer sur le réseau. Il fonctionne par l'envoi et la réception de lignes de texte. Ce protocole est assez vieux, il date des débuts d'internet c'est pourquoi il n'est pas du tout sécurisé, on lui préférera le protocole SSH cependant il nécéssite beaucoup moins de configuration. On l'utilisera dans un environnement de test.
 
 ### Vlan d'administration
 
 On doit configurer le switch pour permettre un accès à distance via une adresse IP, on doit absolument configurer un VLAN pour car un switch travaille au niveau 2 de la couche OSI et ne peut pas accepter une adresse IP.
 
-```cisco
-Switch>en 
-Switch#conf t 
-Enter configuration commands, one per line.  End with CNTL/Z. 
-Switch(config)#int vlan 1 
-Switch(config-if)#ip address 192.168.1.10 255.255.255.0 
-Switch(config-if)#no shut 
+```
+Switch>en
+Switch#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#int vlan 1
+Switch(config-if)#ip address 192.168.1.10 255.255.255.0
+Switch(config-if)#no shut
 
-Switch(config-if)# 
-%LINK-5-CHANGED: Interface Vlan1, changed state to up 
+Switch(config-if)#
+%LINK-5-CHANGED: Interface Vlan1, changed state to up
 
 %LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed state to up
 ```
 
 Bien que l'adresse IP soit configurée, si on tente de se connecter au switch on obtiendra cette erreur :
 
-```cisco
+```
 telnet 192.168.1.10
 Trying 192.168.1.10 ...Open
 [Connection to 192.168.1.10 closed by foreign host]
@@ -65,18 +66,18 @@ Trying 192.168.1.10 ...Open
 
 ### Création d'un utilisateur
 
-```cisco
-Switch#conf t 
-Switch(config)#username alex secret cisco 
+```
+Switch#conf t
+Switch(config)#username alex secret cisco
 Switch(config)#username alex privilege 15
 ```
 
-On crée l'utilisateur *alex* avec un mot de passe chiffré *cisco*, on lui donne le niveau de privilège maximum. Ensuite, on sélectionne toutes les Virtual Teletype de 0 à 15, on indique qu'elle seront utilisées avec le protocole telnet et devront utiliser l'authentification en local définie précédemment.
+On crée l'utilisateur _alex_ avec un mot de passe chiffré _cisco_, on lui donne le niveau de privilège maximum. Ensuite, on sélectionne toutes les Virtual Teletype de 0 à 15, on indique qu'elle seront utilisées avec le protocole telnet et devront utiliser l'authentification en local définie précédemment.
 
-Lorsque l'on arrive sur le terminal, nous sommes en *User Exec Mode* ou l'utilisateur peut taper des commandes de bases mais pour modifier la configuration du commutateur, il est nécessaire d'entrer en *Privilege Mode*, raison pour laquelle nous avons donner les privilèges maximum à l'utilisateur alex. Sans ce privilège, on resterait bloqué avec le message suivant :
+Lorsque l'on arrive sur le terminal, nous sommes en _User Exec Mode_ ou l'utilisateur peut taper des commandes de bases mais pour modifier la configuration du commutateur, il est nécessaire d'entrer en _Privilege Mode_, raison pour laquelle nous avons donner les privilèges maximum à l'utilisateur alex. Sans ce privilège, on resterait bloqué avec le message suivant :
 
-```cisco
-Switch>en 
+```
+Switch>en
 % No password set
 Switch>
 ```
@@ -87,8 +88,8 @@ Switch>
 
 Pour autoriser la connexion, on doit utiliser les VTY pour Virtual TeletYpe qui sont des interfaces en ligne de commande virtuelles. On peut autoriser plusieurs connexions simultanément en spécifiant le nombre. On précisera un utilisateur et un mot de passe et enfin le protocole à utiliser pour les connexions entrantes.
 
-```cisco
-Switch#conf t 
+```
+Switch#conf t
 Switch(config)#line vty 0 15
 Switch(config-line)#transport input telnet
 Switch(config-line)#login local
@@ -97,23 +98,22 @@ Switch(config-line)#exit
 
 ### Test
 
-On effectue un test depuis un poste connecté sur le même réseau. Sur Windows, il suffit de lancer l'invite de commande via *cmd*, et de taper le nom du protocole suivi de l'adresse IP du switch que l'on souhaite joindre :
+On effectue un test depuis un poste connecté sur le même réseau. Sur Windows, il suffit de lancer l'invite de commande via _cmd_, et de taper le nom du protocole suivi de l'adresse IP du switch que l'on souhaite joindre :
 
+```
+telnet 192.168.1.10
+Trying 192.168.1.10 ...Open
 
-```cisco
-telnet 192.168.1.10 
-Trying 192.168.1.10 ...Open 
+User Access Verification
 
-User Access Verification 
-
-Username: alex 
-Password: 
+Username: alex
+Password:
 Switch#
 ```
 
 ## Accès SSH
 
-L'accès SSH est celui que l'on privilégira en production pour un accès à distance, il est le plus sécurisé mais nécessite la création d'une paire de clé privée et publique. 
+L'accès SSH est celui que l'on privilégira en production pour un accès à distance, il est le plus sécurisé mais nécessite la création d'une paire de clé privée et publique.
 
 A noter qu'il est nécessaire de créer [Un utilisateur](#IIIa) et [un vlan d'administration](#IIIb) avec une adresse IP.
 
@@ -121,7 +121,7 @@ Il sera nécessaire de spécifier nom de domaine pour la création des clés ain
 
 ### Définir un nom d'hôte
 
-```cisco
+```
 Switch#conf t
 Enter configuration commands, one per line.  End with CNTL/Z.
 Switch(config)#hostname Sw1
@@ -129,7 +129,7 @@ Switch(config)#hostname Sw1
 
 ### Définir un nom de domaine
 
-```cisco
+```
 Switch#conf t
 Enter configuration commands, one per line.  End with CNTL/Z.
 Switch(config)#ip domain-name cisco.fr
@@ -137,7 +137,7 @@ Switch(config)#ip domain-name cisco.fr
 
 ### Génération des paires de clés asymétriques
 
-```cisco
+```
 Switch#conf t
 Enter configuration commands, one per line.  End with CNTL/Z.
 Sw1(config)#crypto key generate rsa
@@ -150,11 +150,11 @@ How many bits in the modulus [512]: 1024
 % Generating 1024 bit RSA keys, keys will be non-exportable...[OK]
 ```
 
-Les clés générés utilisent l'algorythme de chiffrement RSA et sont de taille 1024 bit. 
+Les clés générés utilisent l'algorythme de chiffrement RSA et sont de taille 1024 bit.
 
 ### Activation du protocole SSH en version 2
 
-```cisco
+```
 Switch#conf t
 Enter configuration commands, one per line.  End with CNTL/Z.
 Sw1(config)#ip ssh version 2
@@ -167,20 +167,20 @@ Sw1(config-line)#login local
 
 On effectue un test de connexion ssh avec notre ordinateur client :
 
-```cisco
+```
 C:\>ssh -l alex 192.168.1.10
 
-Password: 
+Password:
 
 Sw1#
 ```
 
 Ou bien plus moderne :
 
-```cisco
+```
 C:\>ssh alex@192.168.1.10
 
-Password: 
+Password:
 
 Sw1#
 ```
@@ -189,9 +189,9 @@ Sw1#
 
 ### Commande de bases CLI
 
-Ceci est l'écran de base d'un CLI Cisco, après avoir taper la touche *entrée*, on inscrit la commande *enable* ou *en* pour rentrer dans le menu principale.
+Ceci est l'écran de base d'un CLI Cisco, après avoir taper la touche _entrée_, on inscrit la commande _enable_ ou _en_ pour rentrer dans le menu principale.
 
-```cisco
+```
 Switch con0 is now available
 
 Press RETURN to get started.
@@ -200,9 +200,9 @@ Switch>en
 Switch#
 ```
 
-Si on ne sait pas quoi taper, on peut rentrer un *?* pour afficher les commandes disponibles :
+Si on ne sait pas quoi taper, on peut rentrer un _?_ pour afficher les commandes disponibles :
 
-```cisco
+```
 Switch#?
 Exec commands:
   clear       Reset functions
@@ -236,7 +236,7 @@ Puis taper la barre d'espace pour afficher le reste.
 
 Lorsque que l'on se trompe dans une commande, l'interface Cisco ne reconnait pas la commande et lance une recherche dans le domaine, cela a pour effet de bloquer l'interface pendant de longues secondes.
 
-```cisco
+```
 Switch#typo
 Translating "typo"...domain server (255.255.255.255)
 % Unknown command or computer name, or unable to find computer address
@@ -244,8 +244,8 @@ Translating "typo"...domain server (255.255.255.255)
 
 Voici comment désactiver la recherche :
 
-```cisco
-Switch1#conf t 
+```
+Switch1#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 Switch1(config)#no ip domain-lookup
 ```
@@ -258,7 +258,7 @@ Il est possible d'effectuer ping entre des équipements de réseaux Cisco, d'un 
 
 Voici comment stipuler une adresse de passerelle, utile pour effectuer des tests de ping entre équipements de réseaux différents.
 
-```cisco
+```
 Sw1#conf t
 Enter configuration commands, one per line.  End with CNTL/Z.
 Sw1(config)#ip default-gateway 192.168.1.254
@@ -266,7 +266,7 @@ Sw1(config)#ip default-gateway 192.168.1.254
 
 ### Sauvegarder la configuration
 
-On peut sauvegarder notre configuration avec la commande *wr* en mode *enable*.
+On peut sauvegarder notre configuration avec la commande _wr_ en mode _enable_.
 
 ## Sécuriser
 
@@ -274,27 +274,27 @@ On peut sauvegarder notre configuration avec la commande *wr* en mode *enable*.
 
 La sécurisation de l’accès au port console se fait avec la commande suivante :
 
-```cisco
+```
 Switch1#conf t
-Switch(config)#line console 0 
+Switch(config)#line console 0
 Switch(config-line)#password cisco
 Switch(config-line)#login
 ```
 
 ### Sécuriser le mode Enable
 
-L'entrée d'un mot de passe pour l’accès au mode *enable*. Pour ce faire, on se met en mode *conf t* et on saisie la commande suivante :
+L'entrée d'un mot de passe pour l’accès au mode _enable_. Pour ce faire, on se met en mode _conf t_ et on saisie la commande suivante :
 
-```cisco
+```
 Switch1>en
 Switch1#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 Switch1  (config)#enable password mdpenclair
 ```
 
-Comme laisse supposer le mot de passe choisi, celui-ci s’affichera en clair dans *show run*.
+Comme laisse supposer le mot de passe choisi, celui-ci s’affichera en clair dans _show run_.
 
-```cisco
+```
 Switch1>enable
 Switch1#show run
 Building configuration...
@@ -313,15 +313,15 @@ enable password mdpenclair
 
 On va donc rentrer un 2ème de mot de passe chiffré celui-ci avec la commande suivante :
 
-```cisco
+```
 Switch1#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 Switch(config)#enable secret mdpchiffre
 ```
 
-A nouveau dans *show run* :
+A nouveau dans _show run_ :
 
-```cisco
+```
 Switch1>enable
 Switch1#show run
 Building configuration...
@@ -339,33 +339,33 @@ enable secret 5 $1$mERr$xE2TP0YuuB/G65aIdWeMu.
 enable password mdpenclair
 ```
 
-On voit bien nos 2 mots de passe *password* et *enable* mais c’est le 2ème qui sera pris en compte car il est plus sécurisé.
+On voit bien nos 2 mots de passe _password_ et _enable_ mais c’est le 2ème qui sera pris en compte car il est plus sécurisé.
 
 ### Sécuriser l'accès VTY
 
 Sécurisation de l’accès VTY **Virtual Terminal** pour une seule connexion en Telnet , mais on pourrait en autoriser plusieurs :
 
-```cisco
+```
 Switch#conf t
-Switch(config)#username admin password telnet  
-Switch(config)#line vty 0		
-Switch(config-line)#login local	
+Switch(config)#username admin password telnet
+Switch(config)#line vty 0
+Switch(config-line)#login local
 Switch(config-line)#transport input telnet
 ```
 
 ### Chiffrement des mots de passe
 
-Pour chiffrés tous les mots de passes dans le mode *show run*, on fera :
+Pour chiffrés tous les mots de passes dans le mode _show run_, on fera :
 
-```cisco
+```
 Switch#conf t
 Enter configuration commands, one per line.  End with CNTL/Z.
 Switch(config)#service password-encryption
 ```
 
-Dans *show run* :
+Dans _show run_ :
 
-```cisco
+```
 Switch1#sh run
 Building configuration...
 
@@ -404,11 +404,11 @@ Ainsi, au démarrage du switch, les configurations startup-config et running-con
 Si une modification de configuration est réalisée, la running-config sera modifiée. Par contre, la startup-config ne sera pas modifiée. Pour modifier la configuration de démarrage, il faudra enregistrer la configuration courante (running-config) dans la startup-config.
 Par conséquent, toute modification effectuée et non enregistrée sera annulée au prochain démarrage du switch.
 
-Cette caractéristique est intéressante en cas de problème grave suite à une modification de configuration (par exemple une perte de lien). Il suffira de redémarrer le switch pour revenir à l'état précédent la modification.*
+Cette caractéristique est intéressante en cas de problème grave suite à une modification de configuration (par exemple une perte de lien). Il suffira de redémarrer le switch pour revenir à l'état précédent la modification.\*
 
 ### Afficher la configuration startup-config
 
-```cisco
+```
 Switch#show startup-config
 Using 783 out of 65536 bytes
 !
@@ -427,7 +427,7 @@ boot-end-marker
 
 ### Afficher la configuration running-config
 
-```cisco
+```
 Switch#show running-config
 Building configuration...
 
@@ -446,33 +446,31 @@ boot-end-marker
 --More--
 ```
 
-## Réinitialisation 
+## Réinitialisation
 
 ### Mode bouton
 
-Il y a un bouton *mode* en façade du commutateur, on l’utilise pour réinitialiser le switch matériellement :
+Il y a un bouton _mode_ en façade du commutateur, on l’utilise pour réinitialiser le switch matériellement :
 
 - Débrancher le câble d'alimentation.
-- Le rebrancher tout en restant appuyé sur le *bouton mode* jusqu’à ce que le commutateur réagisse.
-- Initialiser la mémoire flash avec la commande : *flash_init*
-- On va aller voir ce que contient la mémoire NVRAM avec la commande *dir flash:* **Il ne faut surtout pas toucher au fichier c2960 car il sert pour démarrer le switch.**
-  - *Config.text* contient la configuration NVRAM.
-  - *Vlan.dat* contient la config des VLANs.
-  
-- Pour supprimer, on fait : *del flash:config.text* et *del flash:vlan.dat*
-- Redémarrer le switch avec la commande : *boot*
-- On ne veut pas de l’assistant de configuration : **Would you like to enter the initial config dialog ?** Choisir *non* car on veut le configurer soit même.
-  
+- Le rebrancher tout en restant appuyé sur le _bouton mode_ jusqu’à ce que le commutateur réagisse.
+- Initialiser la mémoire flash avec la commande : _flash_init_
+- On va aller voir ce que contient la mémoire NVRAM avec la commande _dir flash:_ **Il ne faut surtout pas toucher au fichier c2960 car il sert pour démarrer le switch.**
+  - _Config.text_ contient la configuration NVRAM.
+  - _Vlan.dat_ contient la config des VLANs.
+- Pour supprimer, on fait : _del flash:config.text_ et _del flash:vlan.dat_
+- Redémarrer le switch avec la commande : _boot_
+- On ne veut pas de l’assistant de configuration : **Would you like to enter the initial config dialog ?** Choisir _non_ car on veut le configurer soit même.
 - Pour vérifier qu’il n’a plus rien sur notre switch :
-  - En mode privilégié : *show running-config* ou *sh run* affiche la configuration présente sur la DRAM.
-  - En mode privilégié : *show flash* ou *sh flash* affiche la configuration présente sur la NVRAM. Le fichier *config.text* devrait être absent.
-- Si on fait *wr* puis *sh flash*, le fichier *config.text* devrait être présent.
+  - En mode privilégié : _show running-config_ ou _sh run_ affiche la configuration présente sur la DRAM.
+  - En mode privilégié : _show flash_ ou _sh flash_ affiche la configuration présente sur la NVRAM. Le fichier _config.text_ devrait être absent.
+- Si on fait _wr_ puis _sh flash_, le fichier _config.text_ devrait être présent.
 
 ### Mode CLI IOS
 
-- Pour configurer le switch en plus du mode enable, on passe en mode configuration terminal avec la commande *conf t*.
-- Supprimer le *config.text* en CLI IOS avec la commande *erase startup-config*.
-- Supprimer le *vlan.dat* avec la commande *delete flash:vlan.dat*.
-- Rechargé l’IOS avec la commande *reload* et ne pas sauvegarder la configuration car sinon on retourne en arrière. On ne veut pas sauvegarder la DRAM vers NVRAM, c’est-à-dire la running-config vers la startup-config (config.text).
+- Pour configurer le switch en plus du mode enable, on passe en mode configuration terminal avec la commande _conf t_.
+- Supprimer le _config.text_ en CLI IOS avec la commande _erase startup-config_.
+- Supprimer le _vlan.dat_ avec la commande _delete flash:vlan.dat_.
+- Rechargé l’IOS avec la commande _reload_ et ne pas sauvegarder la configuration car sinon on retourne en arrière. On ne veut pas sauvegarder la DRAM vers NVRAM, c’est-à-dire la running-config vers la startup-config (config.text).
 - On ne veut toujours pas de l’assistant de config : **Would you like to enter the initial config dialog ?**
-- Sauvegarder la config en NVRAM avec *wr*.
+- Sauvegarder la config en NVRAM avec _wr_.

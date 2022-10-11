@@ -10,7 +10,7 @@ OpenSSL 3.0.0-alpha15 22 Apr 2021
 
 ## Présentation
 
-L'HyperText Transfer Protocol Secure ou HTTPS, littéralement *protocole de transfert hypertextuel sécurisé* est la combinaison du HTTP avec une couche de chiffrement comme SSL ou TLS.
+L'HyperText Transfer Protocol Secure ou HTTPS, littéralement _protocole de transfert hypertextuel sécurisé_ est la combinaison du HTTP avec une couche de chiffrement comme SSL ou TLS.
 
 HTTPS permet au visiteur de vérifier l'identité du site web auquel il accède, grâce à un certificat d'authentification émis par une autorité tierce, réputée fiable (et faisant généralement partie de la liste blanche des navigateurs internet). Il garantit théoriquement la confidentialité et l'intégrité des données envoyées par l'utilisateur notamment des informations entrées dans les formulaires et reçues du serveur. Il peut permettre de valider l'identité du visiteur, si celui-ci utilise également un certificat d'authentification client.
 
@@ -58,7 +58,6 @@ CHANGES.md           CONTRIBUTING.md   external  LICENSE.txt  NOTES-PERL.md     
 
 On exécute un script qui détermine notre configuration système :
 
-
 <AP>./Configure</AP>
 
 Pour construire notre application, on fait tout simplement :
@@ -85,7 +84,7 @@ Une fois que l'installation s'est terminée et qu'elle a fini sans erreur, on ef
 
 <AP>ldconfig</AP>
 
-*ldconfig* crée les liens et cache nécessaires vers les bibliothèques partagées les plus récentes trouvées dans les répertoires spécifiés sur la ligne de commande, dans le fichier */etc/ld.so.conf* et dans les répertoires approuvés */lib* et */usr/lib*.
+_ldconfig_ crée les liens et cache nécessaires vers les bibliothèques partagées les plus récentes trouvées dans les répertoires spécifiés sur la ligne de commande, dans le fichier _/etc/ld.so.conf_ et dans les répertoires approuvés _/lib_ et _/usr/lib_.
 
 On devrait avoir installé la dernière version d'OpenSSL :
 
@@ -97,17 +96,18 @@ OpenSSL 3.0.0-alpha15 22 Apr 2021 (Library: OpenSSL 3.0.0-alpha15 22 Apr 2021)
 
 ## Configuration
 
-Il faut organiser les différents certificats de façon à ce que les clients et serveurs puissent les trouver et les tester. Il est possible de profiter de l'organisation proposée dans le fichier de configuration d’openssl nommé *openssl.cnf*.
+Il faut organiser les différents certificats de façon à ce que les clients et serveurs puissent les trouver et les tester. Il est possible de profiter de l'organisation proposée dans le fichier de configuration d’openssl nommé _openssl.cnf_.
 
 Celui-ci utilise l'organisation suivante :
-- *$dir* : le répertoire de base où sont situés tous les différents certificats, clés privées, etc.
-- *$dir/certs* : le répertoire où sont conservés les certificats (plus exactement, des noms de la forme hash.0)
-- *$dir/crl* : le répertoire où sont conservées les listes de révocation.
-- *$dir/newcerts* : le répertoire où sont stockés les certificats nouvellement créés.
-- *$dir/private* : le répertoire où sont stockées les clés privées
-- *$dir/serial* : le fichier qui contient le prochain numéro de série pour tout nouveau certificat qui sera créé. Il sert à initialiser le compteur de certificats.
-- *$dir/index.txt* : le fichier d'index de la base de données des certificats (on peut le créer par la commande «
-touch index.txt »).
+
+- _$dir_ : le répertoire de base où sont situés tous les différents certificats, clés privées, etc.
+- _$dir/certs_ : le répertoire où sont conservés les certificats (plus exactement, des noms de la forme hash.0)
+- _$dir/crl_ : le répertoire où sont conservées les listes de révocation.
+- _$dir/newcerts_ : le répertoire où sont stockés les certificats nouvellement créés.
+- _$dir/private_ : le répertoire où sont stockées les clés privées
+- _$dir/serial_ : le fichier qui contient le prochain numéro de série pour tout nouveau certificat qui sera créé. Il sert à initialiser le compteur de certificats.
+- _$dir/index.txt_ : le fichier d'index de la base de données des certificats (on peut le créer par la commande «
+  touch index.txt »).
 
 On va dans un premier temps créer l'architecture pour stocker nos certificats, clés privées et publiques.
 
@@ -119,7 +119,7 @@ Création de tous les dossiers :
 
 <AP>mkdir private certs crl newcerts</AP>
 
-Trouver et Copier le fichier de configuration d'OpenSSL nommé *openssl.cnf* dans le répertoire *~/ssl*:
+Trouver et Copier le fichier de configuration d'OpenSSL nommé _openssl.cnf_ dans le répertoire _~/ssl_:
 
 <AP>find / -type f -name "openssl.cnf"</AP>
 
@@ -129,7 +129,7 @@ Trouver et Copier le fichier de configuration d'OpenSSL nommé *openssl.cnf* dan
 
 <AP>cp /usr/local/ssl/openssl.cnf ~/ssl</AP>
 
-Ouvrir le fichier openssl.cnf et modifier la variable *dir* avec le dossier *ssl* que l'on vient de créer:
+Ouvrir le fichier openssl.cnf et modifier la variable _dir_ avec le dossier _ssl_ que l'on vient de créer:
 
 ```
 dir             = /home/alex/ssl        # Where everything is kept
@@ -137,9 +137,9 @@ dir             = /home/alex/ssl        # Where everything is kept
 
 Créer également 2 fichiers :
 
-- *index.txt* est le fichier d'index de la base de données des certificats.
-- *seial* est le fichier qui contient le prochain numéro de série pour tout nouveau certificat qui sera créé. Il
-sert à initialiser le compteur de certificats.
+- _index.txt_ est le fichier d'index de la base de données des certificats.
+- _seial_ est le fichier qui contient le prochain numéro de série pour tout nouveau certificat qui sera créé. Il
+  sert à initialiser le compteur de certificats.
 
 <AP>echo '01' > serial</AP>
 
@@ -151,8 +151,8 @@ sert à initialiser le compteur de certificats.
 
 Il s'agit de créer une paire de clés privée / publique puis un certificat racine autosigné. Cette étape nous permettra d'obtenir :
 
-- Une clée privée protégée par un mot de passe : *cakey.pem*
-- Une demande de certificat valable 365 jours *cacert.pem*
+- Une clée privée protégée par un mot de passe : _cakey.pem_
+- Une demande de certificat valable 365 jours _cacert.pem_
 
 Il faudra impérativement fournir les éléments suivants
 
@@ -169,14 +169,17 @@ Il faudra impérativement fournir les éléments suivants
 
 Voici la commande permettant de créer tout ce qui a été défini au dessus, elle lance un script qui pose les questions concernant le certificat :
 
-<AP>openssl req -new -x509 -extensions v3\_ca -keyout private/cakey.pem -out cacert.pem -days 365 -config ./openssl.cnf</AP>
+<AP>
+  openssl req -new -x509 -extensions v3\_ca -keyout private/cakey.pem -out
+  cacert.pem -days 365 -config ./openssl.cnf
+</AP>
 
 Normalement, 2 fichiers viennent d'être créé :
 
-- Certificat : *./cacert.pem*
-- Clé privée : *private/cakey.pem*
+- Certificat : _./cacert.pem_
+- Clé privée : _private/cakey.pem_
 
-Le fichier *cacert.pem* devrait être renseigné comme cela :
+Le fichier _cacert.pem_ devrait être renseigné comme cela :
 
 ```make
 -----BEGIN CERTIFICATE-----
@@ -186,8 +189,7 @@ U5YTUe95XL0sK2s6N6f45HR00hpcjEZ6Igx5EQcpJHyG5DM=
 -----END CERTIFICATE-----
 ```
 
-
-Le fichier *cakey.pem* devrait être renseigné comme cela :
+Le fichier _cakey.pem_ devrait être renseigné comme cela :
 
 ```make
 -----BEGIN ENCRYPTED PRIVATE KEY-----
@@ -254,10 +256,10 @@ Un certificat SSL est utile afin de sécuriser les échanges entre un serveur We
 Le certificat SSL, associé à une paire de clés publique/privée, permet au serveur d’échanger des données cryptées
 avec le navigateur du client. Il faut donc :
 
-- Créer une nouvelle paire de clé publique/privée *webkey.pem*
-- Créer une nouvelle demande de certificat pour le serveur qui contiendra la clé publique *newreq.pem*
-- Signer cette demande de certificat avec le certificat de l’autorité *cacert.pem* et obtenir un nouveau
-certificat *webcert.pem*
+- Créer une nouvelle paire de clé publique/privée _webkey.pem_
+- Créer une nouvelle demande de certificat pour le serveur qui contiendra la clé publique _newreq.pem_
+- Signer cette demande de certificat avec le certificat de l’autorité _cacert.pem_ et obtenir un nouveau
+  certificat _webcert.pem_
 
 ### Création de la paire de clé et de la demande de certificat
 
@@ -276,7 +278,10 @@ Les élements suivants doivent être fournis impérativement :
 
 Voici la commande :
 
-<AP>openssl req -config ./openssl.cnf -new -keyout private/webkey.pem -out certs/newreq.pem</AP>
+<AP>
+  openssl req -config ./openssl.cnf -new -keyout private/webkey.pem -out
+  certs/newreq.pem
+</AP>
 
 ```shell
 Generating a RSA private key
@@ -302,17 +307,20 @@ Common Name (e.g. server FQDN or YOUR name) []:web1
 Email Address []:admin@superboite.fr
 ```
 
-Il faut vérifier que 2 fichiers nommés *webkey.pem* et *newreq.pem* ont bien été créés :
+Il faut vérifier que 2 fichiers nommés _webkey.pem_ et _newreq.pem_ ont bien été créés :
 
-- *private/webkey.pem*
-- *certs/newreq.pem*
+- _private/webkey.pem_
+- _certs/newreq.pem_
 
 ### Signature de la demande de certificat par l'autorité
 
 Il faut maintenant signer ce certificat afin qu’il puisse être déployé sur le serveur Web. Pour cela, la clé privée de
 l’autorité de certification sera nécessaire puisqu’elle est la seule à pouvoir créer la signature numérique.
 
-<AP>openssl ca -config ./openssl.cnf -policy policy\_anything -out private/webcert.pem -infiles certs/newreq.pem</AP>
+<AP>
+  openssl ca -config ./openssl.cnf -policy policy\_anything -out
+  private/webcert.pem -infiles certs/newreq.pem
+</AP>
 
 Si la commande a bien fonctionné, on devrait nous demander de confimer la création du certificat.
 
@@ -353,7 +361,7 @@ Data Base Updated
 ### Vérification du chemin de certification
 
 L’objectif est de vérifier que la signature du certificat a bien été effectuée par notre autorité de certification. Cela
-prouve que le chemin de certification est correct. Pour cela, on utilise la commande *verify* d’openssl :
+prouve que le chemin de certification est correct. Pour cela, on utilise la commande _verify_ d’openssl :
 
 <AP>openssl verify --CAfile cacert.pem private/webcert.pem</AP>
 
@@ -365,14 +373,14 @@ private/webcert.pem: OK
 
 Les éléments nécessaires à Apache2 pour prendre en charge SSL sont les suivants :
 
-- Le certificat du serveur *webcert.pem*
+- Le certificat du serveur _webcert.pem_
 - La clé privée non cryptée du serveur
 
 **Remarque importante** : Le fait d’accéder à la clé privée du serveur pose un sérieux problème de sécurité. En effet, si quelqu’un s’empare de cette clé, il pourra décrypter tous les échanges entre le serveur et ses clients. Il est possible de maintenir un cryptage de la clé privée grâce à un mot de passe. Dans ce cas, dès que le serveur Apache2 démarre, il demandera le mot de passe. Dans ce TP, nous allons laisser la clé privée non-cryptée.
 
 ### Décryptage de la clé privée su serveur web
 
-La commande suivante permet de générer un nouveau fichier contenant la clé privée non cryptée *webkey-clair.pem*.
+La commande suivante permet de générer un nouveau fichier contenant la clé privée non cryptée _webkey-clair.pem_.
 
 <AP>openssl rsa -in private/webkey.pem -out private/webkey-clair.pem</AP>
 
@@ -381,7 +389,7 @@ Enter pass phrase for private/webkey.pem:
 writing RSA key
 ```
 
-### Copie des fichiers 
+### Copie des fichiers
 
 Il s'agit de copier les ficchiers que nous venons de créer dans les bons répertoires de manière à ce qu'Apache puis les utiliser :
 
@@ -389,7 +397,7 @@ Si ce n'est pas déjà fait, il faut installer Apache2 :
 
 <AP>apt install -y apache2</AP>
 
-Puis créer un dossier dans le dossier d'Apache nommé *ssl* à l'endroit duquel les fichiers seront copiés.
+Puis créer un dossier dans le dossier d'Apache nommé _ssl_ à l'endroit duquel les fichiers seront copiés.
 
 <AP>mkdir /etc/apache2/ssl</AP>
 
@@ -402,9 +410,9 @@ Il faut d’abord configurer le serveur Web pour qu’il utilise SSL. Le module 
 
 <AP>a2enmod ssl</AP>
 
-Nous devons créer un hôte virtuel *VirtualHost* pour qu’Apache soit capable de répondre aux requêtes SSL https. Editer le fichier */etc/apache2/sites-available/default-ssl* pour modifier le chemin des certificats, changer les lignes suivantes avec les fichiers précédemments copiés :
+Nous devons créer un hôte virtuel _VirtualHost_ pour qu’Apache soit capable de répondre aux requêtes SSL https. Editer le fichier _/etc/apache2/sites-available/default-ssl_ pour modifier le chemin des certificats, changer les lignes suivantes avec les fichiers précédemments copiés :
 
-```Apache
+```
 SSLCertificateFile      /etc/apache2/ssl/webcert.pem
 SSLCertificateKeyFile   /etc/apache2/ssl/webkey-clair.pem
 ```
@@ -429,7 +437,7 @@ Il reste un problème de résolution de noms DNS. En effet, la valeur du champ �
 
 ### Résolution du problème DNS
 
-Afin de résoudre ce problème sans pour autant modifier le système de résolution DNS, nous allons installer une résolution statique DNS par l’intermédiaire du fichier */etc/hosts*. Ajouter la ligne suivante :
+Afin de résoudre ce problème sans pour autant modifier le système de résolution DNS, nous allons installer une résolution statique DNS par l’intermédiaire du fichier _/etc/hosts_. Ajouter la ligne suivante :
 
 ```
 172.16.0.23 boitesuper.sio

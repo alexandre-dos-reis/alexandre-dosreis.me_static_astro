@@ -1,52 +1,58 @@
 ---
 import Link from "src/components/Link.astro";
 import Layout from "src/layouts/BaseLayout.astro";
+import idSrc from "src/assets/photo-id.jpg";
 ---
 
 <Layout title="Mon parcours">
-  <h2>Qui je suis ?</h2>
-  <p>
-    Depuis novembre 2021, je suis employé chez <Link
-      href="https://www.volvotrucks.fr/fr-fr/">Volvo Trucks</Link
-    > à Blainville-Sur-Orne en tant qu'alternant Digital & IT. En parallèle, je suis
-    en licence <b>Développement d'application Web & Mobile</b> dispensée à Sup'Avenir
-    en plein centre de Caen, cette formation est conduite par le <Link
-      href="https://www.cnam.fr/">CNAM</Link
-    >.
-  </p>
-  <p>
-    Précédemment, j'ai travaillé pour <Link href="https://www.universpaie.com/"
-      >Univers Paie</Link
-    > au sein du groupe <Link href="https://www.hr-path.com/fr/">HR-Path</Link> après
-    une reconversion professionelle en Septembre 2019, où j'ai débuté un BTS Service
-    Informatique aux Organisations en contrat de professionnalisation, option SISR
-    à Caen.
-  </p>
-  <p>
-    En 2011, j'ai été diplomé de <Link href="https://www.esra.edu/">l'ESRA</Link
-    > et j'ai travaillé pendant 7 ans pour <Link href="https://www.gum.paris/"
-      >Green United Music</Link
-    > et <Link href="https://prod.generalpop.com/fr/">Pop Productions</Link> en Île-de-France
-    dans la production sonore en tant qu'Opérateur Son, avant de me reconvertir dans
-    l'informatique.
-  </p>
-  <p>
-    Le détail de mon parcours est disponible sur <Link
-      href="https://fr.linkedin.com/in/Linklexandre-dos-reis-469708133"
-      >LinkedIn</Link
-    > ou sur mon <Link href="/cv">CV en ligne</Link>.
-  </p>
-  <p>
-    Je réalise aussi des <Link href="/projets">projets</Link> et <Link
-      href="/Linkrticles">articles</Link
-    > liés à ma formation.
-  </p>
-  <p>
-    Je suis passionné de musique et plus particulièrement de <Link
-      href="https://fr.wikipedia.org/wiki/Synth%C3%A9tiseur_modulaire"
-      >synthèse modulaire</Link
-    >. Ecoutez mes <Link href="https://soundcloud.com/user-271400891"
-      >compositions réalisées</Link
-    > avec un synthétiseur modulaire Eurorack.
-  </p>
+  <section class="flex justify-center">
+    <img src={idSrc} alt="Photo Alexandre Dos Reis" class="rounded-full" />
+  </section>
+  <section>
+    <h2>Parcours Pro</h2>
+    <p>
+      Après mon lycée dans le Val d'Oise. J'ai été diplomé en 2011 de <Link
+        href="https://www.esra.edu">l'ESRA</Link
+      > Paris et j'ai travaillé pendant 7 années pour <Link
+        href="https://www.gum.paris">Green United Music</Link
+      > et <Link href="https://prod.generalpop.com/fr">Pop Productions</Link>
+      dans la production sonore en tant qu'ingénieur du son.
+    </p>
+    <p>
+      En 2019, j'ai décidé d'effectuer une reconversion professionelle en
+      informatique et j'ai débuté un <b
+        >BTS Service Informatique aux Organisations Option Réseau</b
+      > en alternance à Caen. J'ai passé ces 2 années au sein d'<Link
+        href="https://www.universpaie.com/">Univers Paie</Link
+      > du groupe <Link href="https://www.hr-path.com/fr">HR-Path</Link> comme Technicien
+      d'exploitation.
+    </p>
+    <p>
+      Puis en 2021, j'ai débuté une licence en <b
+        >Développement d'application Web & Mobile</b
+      > dispensée au lycée Sup'Avenir à Caen. Cette formation est conduite par le
+      <Link href="https://www.cnam.fr">CNAM</Link>. Durant cette année, j'ai été
+      employé par <Link href="https://www.volvotrucks.fr/fr-fr"
+        >Volvo Trucks</Link
+      > à Blainville-Sur-Orne en tant que Développeur digital & IT.
+    </p>
+    <p>
+      Le détail de mon parcours est disponible sur <Link
+        href="https://fr.linkedin.com/in/Linklexandre-dos-reis-469708133"
+        >LinkedIn</Link
+      >.
+    </p>
+  </section>
+  <!-- <section>
+    <h2>Parcours Perso</h2>
+    <p>
+      Je suis passionné de musique et plus particulièrement de <Link
+        href="https://fr.wikipedia.org/wiki/Synth%C3%A9tiseur_modulaire"
+        >synthèse modulaire</Link
+      >. Vous pouvez écouter mes <Link
+        href="https://soundcloud.com/user-271400891"
+        >compositions réalisées</Link
+      > avec un synthétiseur modulaire Eurorack.
+    </p>
+  </section> -->
 </Layout>

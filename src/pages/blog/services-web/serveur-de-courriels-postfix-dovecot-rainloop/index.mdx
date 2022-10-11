@@ -16,7 +16,7 @@ Postfix est un serveur de messagerie électronique et un logiciel libre dévelop
 
 Il est le serveur de courriel par défaut dans plusieurs systèmes de type UNIX, comme Mac OS X, NetBSD3, diverses distributions GNU/Linux, etc.
 
-Postfix utilise le protocole *SMTP* pour *Simple Mail Transfer Protocol* (à ne pas confondre avec SNTP pour Simple Network Time Protocol). C'est un protocole de communication utilisé pour transférer le courrier électronique vers les serveurs de messagerie électronique utilisant le port 25 sur la couche TCP. SMTP est un protocole assez simple.
+Postfix utilise le protocole _SMTP_ pour _Simple Mail Transfer Protocol_ (à ne pas confondre avec SNTP pour Simple Network Time Protocol). C'est un protocole de communication utilisé pour transférer le courrier électronique vers les serveurs de messagerie électronique utilisant le port 25 sur la couche TCP. SMTP est un protocole assez simple.
 
 ## SMTP
 
@@ -26,9 +26,9 @@ SMTP est un protocole de livraison de courriel et ne s'occupe pas de délivrer l
 
 La session SMTP se compose de commandes émises par un client SMTP (l'agent initiateur, l'expéditeur ou l'émetteur) et les réponses correspondantes du serveur SMTP (l'agent d'écoute ou le récepteur) afin que la session soit ouverte et que les paramètres de session soient échangés. Une session peut inclure zéro ou plusieurs transactions SMTP. Une transaction SMTP se compose de trois séquences de commande / réponse :
 
-*MAIL*, pour établir l'adresse de retour, également appelée return-path, reverse-path, bounce address, mfrom ou enveloppe sender.
-*RCPT*, pour établir un destinataire du message. Cette commande peut être émise plusieurs fois, une pour chaque destinataire. Ces adresses font également partie de l'enveloppe.
-*DATA* pour signaler le début du texte du message, le contenu du message, par opposition à son enveloppe. Il se compose d'un en-tête de message et d'un corps de message séparés par une ligne vide. DATA est en fait un groupe de commandes, et le serveur répond deux fois: une fois à la commande DATA elle-même, pour confirmer qu'il est prêt à recevoir le texte, et la deuxième fois après la séquence de fin de données, pour accepter ou rejeter le message entier.
+_MAIL_, pour établir l'adresse de retour, également appelée return-path, reverse-path, bounce address, mfrom ou enveloppe sender.
+_RCPT_, pour établir un destinataire du message. Cette commande peut être émise plusieurs fois, une pour chaque destinataire. Ces adresses font également partie de l'enveloppe.
+_DATA_ pour signaler le début du texte du message, le contenu du message, par opposition à son enveloppe. Il se compose d'un en-tête de message et d'un corps de message séparés par une ligne vide. DATA est en fait un groupe de commandes, et le serveur répond deux fois: une fois à la commande DATA elle-même, pour confirmer qu'il est prêt à recevoir le texte, et la deuxième fois après la séquence de fin de données, pour accepter ou rejeter le message entier.
 
 ### Exemple
 
@@ -53,7 +53,7 @@ C: To: Alice Example <alice@example.com>
 C: Cc: theboss@example.com
 C: Date: Tue, 15 Jan 2008 16:02:43 -0500
 C: Subject: Test message
-C: 
+C:
 C: Hello Alice.
 C: This is a test message with 5 header fields and 4 lines in the message body.
 C: Your friend,
@@ -65,23 +65,23 @@ S: 221 Bye
 {The server closes the connection}
 ```
 
-Le client informe le destinataire de l'adresse e-mail d'origine du message dans une commande *MAIL FROM*. Il s'agit également de l'adresse de retour ou de renvoi au cas où le message ne pourrait pas être livré. Dans cet exemple, le message électronique est envoyé à deux boîtes aux lettres sur le même serveur SMTP: une pour chaque destinataire répertorié dans les champs d'en-tête À et Cc. La commande SMTP correspondante est *RCPT TO*. Chaque réception et exécution réussies d'une commande est acquittée par le serveur avec un code de résultat et un message de réponse (par exemple, 250 Ok).
+Le client informe le destinataire de l'adresse e-mail d'origine du message dans une commande _MAIL FROM_. Il s'agit également de l'adresse de retour ou de renvoi au cas où le message ne pourrait pas être livré. Dans cet exemple, le message électronique est envoyé à deux boîtes aux lettres sur le même serveur SMTP: une pour chaque destinataire répertorié dans les champs d'en-tête À et Cc. La commande SMTP correspondante est _RCPT TO_. Chaque réception et exécution réussies d'une commande est acquittée par le serveur avec un code de résultat et un message de réponse (par exemple, 250 Ok).
 
-La transmission du corps du message électronique est initiée par une commande *DATA* après quoi elle est transmise textuellement ligne par ligne et se termine par une séquence de fin de données. Cette séquence se compose d'une nouvelle ligne `<CR> <LF>`, d'un seul point (point), suivi d'une autre nouvelle ligne. Puisqu'un corps de message peut contenir une ligne avec juste un point dans le cadre du texte, le client envoie deux points à chaque fois qu'une ligne commence par un point; en conséquence, le serveur remplace chaque séquence de deux périodes au début d'une ligne par une seule. Une telle méthode d'échappement est appelée dot-stuffing.
+La transmission du corps du message électronique est initiée par une commande _DATA_ après quoi elle est transmise textuellement ligne par ligne et se termine par une séquence de fin de données. Cette séquence se compose d'une nouvelle ligne `<CR> <LF>`, d'un seul point (point), suivi d'une autre nouvelle ligne. Puisqu'un corps de message peut contenir une ligne avec juste un point dans le cadre du texte, le client envoie deux points à chaque fois qu'une ligne commence par un point; en conséquence, le serveur remplace chaque séquence de deux périodes au début d'une ligne par une seule. Une telle méthode d'échappement est appelée dot-stuffing.
 
 La réponse positive du serveur à la fin des données, comme illustré, implique que le serveur a pris la responsabilité de délivrer le message. Un message peut être doublé s'il y a une panne de communication à ce moment, par ex. en raison d'une panne de courant: tant que l'expéditeur n'a pas reçu cette 250 réponse, il doit supposer que le message n'a pas été remis. En revanche, une fois que le destinataire a décidé d'accepter le message, il doit supposer que le message lui a été remis. Ainsi, pendant cette période, les deux agents ont des copies actives du message qu'ils essaieront de délivrer. La probabilité qu'un échec de communication se produise exactement à cette étape est directement proportionnelle à la quantité de filtrage que le serveur effectue sur le corps du message, le plus souvent à des fins anti-spam. Le délai d'expiration limite est spécifié à 10 minutes.
 
-La commande *QUIT* met fin à la session. Si l'e-mail a d'autres destinataires situés ailleurs, le client effectue un *QUIT* et se connecte à un serveur SMTP approprié pour les destinataires suivants une fois que la ou les destinations actuelles ont été mises en file d'attente. Les informations que le client envoie dans les commandes *HELO* et *MAIL FROM* sont ajoutées (non vues dans l'exemple de code) en tant que champs d'en-tête supplémentaires au message par le serveur de réception. Il ajoute respectivement un champ d'en-tête *Received* et *Return-Path*.
+La commande _QUIT_ met fin à la session. Si l'e-mail a d'autres destinataires situés ailleurs, le client effectue un _QUIT_ et se connecte à un serveur SMTP approprié pour les destinataires suivants une fois que la ou les destinations actuelles ont été mises en file d'attente. Les informations que le client envoie dans les commandes _HELO_ et _MAIL FROM_ sont ajoutées (non vues dans l'exemple de code) en tant que champs d'en-tête supplémentaires au message par le serveur de réception. Il ajoute respectivement un champ d'en-tête _Received_ et _Return-Path_.
 
 Certains clients sont implémentés pour fermer la connexion une fois le message accepté (250 Ok: mis en file d'attente comme 12345), de sorte que les deux dernières lignes peuvent en fait être omises. Cela provoque une erreur sur le serveur lors de la tentative d'envoi de la réponse 221.
 
 ## POP
 
-Le protocole POP pour *Post Office Protocol* permet de récupérer les courriers électroniques situés sur un serveur de messagerie électronique. Il se connecte au serveur de messagerie, s'authentifie, récupère le courrier, **peut** effacer le courrier sur le serveur, et se déconnecte. Cette opération transite sur un réseau TCP/IP et utilise le protocole de transfert TCP via le port 110. Ce protocole a été réalisé en plusieurs versions, respectivement POP1, POP2 et actuellement POP3. Ce protocole est défini par la RFC 1939.
+Le protocole POP pour _Post Office Protocol_ permet de récupérer les courriers électroniques situés sur un serveur de messagerie électronique. Il se connecte au serveur de messagerie, s'authentifie, récupère le courrier, **peut** effacer le courrier sur le serveur, et se déconnecte. Cette opération transite sur un réseau TCP/IP et utilise le protocole de transfert TCP via le port 110. Ce protocole a été réalisé en plusieurs versions, respectivement POP1, POP2 et actuellement POP3. Ce protocole est défini par la RFC 1939.
 
 ## IMAP
 
-Le protocole *Interactive Message Access Protocol* est un peu l’inverse du protocole POP, c’est à dire qu’il garde une connexion constante au serveur de messagerie pour pouvoir consulter ses mails. Ce protocole synchronise en permanence les messages contenus sur le serveur et sur le poste de travail. Son avantage réside donc dans la possibilité de consulter ses mails depuis n’importe quel endroit et de pouvoir synchroniser et sauvegarder ses messages sur le serveur.
+Le protocole _Interactive Message Access Protocol_ est un peu l’inverse du protocole POP, c’est à dire qu’il garde une connexion constante au serveur de messagerie pour pouvoir consulter ses mails. Ce protocole synchronise en permanence les messages contenus sur le serveur et sur le poste de travail. Son avantage réside donc dans la possibilité de consulter ses mails depuis n’importe quel endroit et de pouvoir synchroniser et sauvegarder ses messages sur le serveur.
 
 ## Choisir entre POP et IMAP
 
@@ -89,7 +89,7 @@ La grande différence entre les protocoles de messagerie POP et IMAP est que POP
 
 Le protocole IMAP s’avère souvent plus pertinent pour plusieurs raisons :
 
-- Les messages restent stockés sur le serveur, ils donc sont sauvegardés dans la limite du stockage existant sur vote serveur. 
+- Les messages restent stockés sur le serveur, ils donc sont sauvegardés dans la limite du stockage existant sur vote serveur.
 - En cas de problème sur votre poste de travail, aucun de vos mails ne sera perdu.
 - IMAP gère les sous-dossiers distants, c’est à dire que vous retrouvez votre organisation de boîte aux lettres partout.
 - La synchronisation permanente permet une gestion très fine de vos messages. Par exemple, si sur votre mobile vous passez un message en « non lu », il le sera aussi automatiquement sur votre poste de travail.
@@ -114,7 +114,7 @@ Avant de pouvoir mettre en place un serveur de courriel, il est nécessaire d'av
 
 ### Définition des hôtes
 
-*etc/hosts*
+_etc/hosts_
 
 ```
 127.0.0.1       localhost
@@ -127,9 +127,9 @@ ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 ```
 
-### Déclaration des zones 
+### Déclaration des zones
 
-*/etc/bind/named.conf.local*
+_/etc/bind/named.conf.local_
 
 ```shell
 // Résolution directe :
@@ -151,9 +151,9 @@ zone "16.172.in-addr.arpa" IN {
 
 ### Enregistrement des résolutions directes
 
-*/var/cache/bind/db.sio2a.home*
+_/var/cache/bind/db.sio2a.home_
 
-```bind
+```
 $TTL 86400
 @   IN  SOA   dns.sio2a.home.   root.sio2a.home. (
         2020090302 ; numéro de série
@@ -172,11 +172,11 @@ imap            IN      CNAME   mail
 sio2a.home.     IN      MX      10      mail
 ```
 
-L'enregistrement de type *MX* pour Mail eXchange est nécessaire pour spécifier au DNS à quel serveur SMTP il faudra envoyer les courriels. ici en conséquence, tous les courriels à destination de *nimporte-qui@sio2a.home* seront envoyé à la machine appelé *mail*.
+L'enregistrement de type _MX_ pour Mail eXchange est nécessaire pour spécifier au DNS à quel serveur SMTP il faudra envoyer les courriels. ici en conséquence, tous les courriels à destination de *nimporte-qui@sio2a.home* seront envoyé à la machine appelé _mail_.
 
 ### Enregistrement des résolutions inversées
 
-*/var/cache/bind/rev.sio2a.home*
+_/var/cache/bind/rev.sio2a.home_
 
 ```
 $TTL 86400
@@ -217,12 +217,12 @@ Informations à renseigner lors de l'installation de Postfix
 
 ### Configuration
 
-Il s'agit d'éditer le fichier de configuration de Postfix situé ici */etc/postfix/main.cf* pour y ajouter les champs suivants :
+Il s'agit d'éditer le fichier de configuration de Postfix situé ici _/etc/postfix/main.cf_ pour y ajouter les champs suivants :
 
-- Nom du serveur pleinement qualité : *myhostname = mail.sio2a.home*
-- Nom du courrier : *mydestination = mail, mail.sio2a.home, localhost.sio2a.home, localhost, sio2a.home*
-- La portée de l’écoute : *inet_interfaces = localhost*
-- On indique où sera stocké le courrier pour chaque utilisateur : *home_mailbox = MailDir/* 
+- Nom du serveur pleinement qualité : _myhostname = mail.sio2a.home_
+- Nom du courrier : _mydestination = mail, mail.sio2a.home, localhost.sio2a.home, localhost, sio2a.home_
+- La portée de l’écoute : _inet_interfaces = localhost_
+- On indique où sera stocké le courrier pour chaque utilisateur : _home_mailbox = MailDir/_
 
 Voici le fichier de configuration édité :
 
@@ -372,7 +372,7 @@ Le courrier est au format mbox ou Maildir, Postfix a créé 3 dossiers dans le h
 
 ## Logs
 
-Les journaux de logs de Postfix sont situés dans */var/log/*. Entre l'envoi et le réception du mail, tous les fichiers suivants ont été modifiés :
+Les journaux de logs de Postfix sont situés dans _/var/log/_. Entre l'envoi et le réception du mail, tous les fichiers suivants ont été modifiés :
 
 ```make
 -rw-r-----  1 root  adm    5624 juin   1 16:28 debug
@@ -388,7 +388,7 @@ Les journaux de logs de Postfix sont situés dans */var/log/*. Entre l'envoi et 
 -rw-r-----  1 root  adm    1267 juin   1 16:48 mail.info
 ```
 
-Dans *mail.info* ou *mail.log*, on aperçoit l'envoi et la réception :
+Dans _mail.info_ ou _mail.log_, on aperçoit l'envoi et la réception :
 
 ```make
 Jun  1 16:47:34 mail postfix/smtpd[951]: connect from localhost[127.0.0.1]
@@ -406,7 +406,7 @@ Notre serveur d'envoi et de réception de mail est fonctionnel, on se chargera d
 
 <AP>apt install dovecot-common</AP>
 
-Ce paquet est l'installation de base, on y ajoutera les modules additionels. 
+Ce paquet est l'installation de base, on y ajoutera les modules additionels.
 
 ### dovecot-pop3d
 
@@ -414,22 +414,22 @@ On installe l'extension dovecot pour pop3 :
 
 <AP>apt install dovecot-pop3d</AP>
 
-On utilise pour commencer une politique d’authentification simple en texte clair (sans sécurité). 
-On édite les fichiers suivants dans */etc/dovecot/conf.d/* :
+On utilise pour commencer une politique d’authentification simple en texte clair (sans sécurité).
+On édite les fichiers suivants dans _/etc/dovecot/conf.d/_ :
 
-- *10-auth.conf*
+- _10-auth.conf_
 
 ```make
 disable_plaintext_auth = no
 ```
 
-- *20-pop3.conf*
+- _20-pop3.conf_
 
 ```make
 pop3_uidl_format = %08Xu%08Xv
 ```
 
-- *10-mail.conf*
+- _10-mail.conf_
 
 ```make
 mail_location = maildir:/home/%u/MailDir
@@ -449,7 +449,8 @@ LISTEN    0         100                0.0.0.0:110              0.0.0.0:*       
 LISTEN    0         100                   [::]:995                 [::]:*        users:(("dovecot",pid=423,fd=24))
 LISTEN    0         100                   [::]:110                 [::]:*        users:(("dovecot",pid=423,fd=22))
 ```
-Les résultats sont doublés car on écoute en IPv4 et IPv6. *110* est le port par défaut de POP3 et *995* est sa version TLS/SSL chiffrés soit POP3S.
+
+Les résultats sont doublés car on écoute en IPv4 et IPv6. _110_ est le port par défaut de POP3 et _995_ est sa version TLS/SSL chiffrés soit POP3S.
 
 ### Test POP avec Telnet
 
@@ -503,13 +504,13 @@ Connection closed by foreign host.
 
 Voici une description générale des commandes utilisables :
 
-- *USER alex* : Nom du compte
-- *PASS alex* : Le mot de passe associé à ce compte
-- *LIST* : Liste les messages présents sur la boite ainsi que leur taille
-- *RETR 1* : Récupère le message numéro 1 de la liste fournie par **LIST**
-- *DEL 1* : Supprime le message numéro 1.
-- *STAT* : Fournit le nombre de message et la taille occupée par l'ensemble de ceux-ci.
-- *CAPA* : Affiche lmes informations du serveur.
+- _USER alex_ : Nom du compte
+- _PASS alex_ : Le mot de passe associé à ce compte
+- _LIST_ : Liste les messages présents sur la boite ainsi que leur taille
+- _RETR 1_ : Récupère le message numéro 1 de la liste fournie par **LIST**
+- _DEL 1_ : Supprime le message numéro 1.
+- _STAT_ : Fournit le nombre de message et la taille occupée par l'ensemble de ceux-ci.
+- _CAPA_ : Affiche lmes informations du serveur.
 
 ### dovecot-imapd
 
@@ -535,7 +536,8 @@ LISTEN    0         100                   [::]:995                [::]:*        
 LISTEN    0         100                   [::]:110                [::]:*         users:(("dovecot",pid=423,fd=22))
 LISTEN    0         100                   [::]:143                [::]:*         users:(("dovecot",pid=423,fd=39))
 ```
-Dovecot écoute maintenant sur les ports POP3 et IMAP, *143* étant le port par défaut IMAP et *993* sa version TLS/SSL chiffrés soit IMAPS.
+
+Dovecot écoute maintenant sur les ports POP3 et IMAP, _143_ étant le port par défaut IMAP et _993_ sa version TLS/SSL chiffrés soit IMAPS.
 
 ### Test IMAP avec Telnet
 
@@ -565,7 +567,10 @@ RainLoop est un client webmail libre pour le protocole IMAP écrit en PHP avec u
 
 <AP>apt update</AP>
 
-<AP>apt install apache2 php7.3 libapache2-mod-php7.3 php7.3-curl php7.3-xml mariadb-server</AP>
+<AP>
+  apt install apache2 php7.3 libapache2-mod-php7.3 php7.3-curl php7.3-xml
+  mariadb-server
+</AP>
 
 ### Installation via un script
 
@@ -575,13 +580,13 @@ Une procédure pour l'installation se trouve sur le [site officiel](https://www.
 
 ### Permissions
 
-On autorise l'application à lire et à écrire sur les fichiers présent dans */var/www/rainloop* :
+On autorise l'application à lire et à écrire sur les fichiers présent dans _/var/www/rainloop_ :
 
 <AP>cd /var/www/rainloop</AP>
 <AP>find . -type d -exec chmod 755 {} \;</AP>
 <AP>find . -type f -exec chmod 644 {} \;</AP>
 
-On met à jour le propriétaire des dossiers de manière récursives pour *www-data*:
+On met à jour le propriétaire des dossiers de manière récursives pour _www-data_:
 
 <AP>cd /var/www/rainloop</AP>
 <AP>chown -R www-data:www-data .</AP>
@@ -592,9 +597,9 @@ L'administration de l'application devrait être accessible depuis cette adresse 
 
 ![Rainloop page d'accueil](./img/rainloop1.png)
 
-L'utilisateur par défaut est : *admin*, et le mot de passe : *12345*. Ceci est à changer absolument au plus vite dans l'onglet *Sécurité*.
+L'utilisateur par défaut est : _admin_, et le mot de passe : _12345_. Ceci est à changer absolument au plus vite dans l'onglet _Sécurité_.
 
-Dans *Domains*, il faut renseigner notre nom de domaine, les ports SMTP et IMAP comme ceci :
+Dans _Domains_, il faut renseigner notre nom de domaine, les ports SMTP et IMAP comme ceci :
 
 ![Rainloop page d'accueil](./img/rainloop2.png)
 
@@ -604,7 +609,7 @@ Après avoir configurer l'application, nous allons essayer de nous connecter à 
 
 ![Rainloop page d'accueil](./img/rainloop3.png)
 
-Dans la *Boîte de réception*, on peut apercevoir le mail de test effectué avec Telnet auparavant :
+Dans la _Boîte de réception_, on peut apercevoir le mail de test effectué avec Telnet auparavant :
 
 ![Rainloop page d'accueil](./img/rainloop4.png)
 

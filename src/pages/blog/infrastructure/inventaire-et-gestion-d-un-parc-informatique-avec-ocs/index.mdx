@@ -32,11 +32,14 @@ OCS nécéssite un serveur web, ainsi qu'une base de donnée pour fonctionner, o
 
 ### Création de la base de donnée OCS
 
-On créé un utilisateur *ocsuser* et lui donner tout pouvoir sur la base de donnée *ocsweb*.
+On créé un utilisateur _ocsuser_ et lui donner tout pouvoir sur la base de donnée _ocsweb_.
 
 <AP>mysql -uroot -p</AP>
 <AP>CREATE DATABASE ocsweb CHARACTER SET utf8 COLLATE utf8_bin;</AP>
-<AP>GRANT ALL PRIVILEGES ON ocsweb.&ast; TO ocsuser@localhost identified by 'ocsmdp';</AP>
+<AP>
+  GRANT ALL PRIVILEGES ON ocsweb.&ast; TO ocsuser@localhost identified by
+  'ocsmdp';
+</AP>
 
 ### Installation d'OCS
 
@@ -54,9 +57,9 @@ http://172.16.0.53/ocsreports/
 
 ![Ecran de configuration](./img/ocs1.png)
 
-Le fichier de configuration Apache d'OCS se trouve ici : */etc/apache2/conf-enabled/ocsinventory-server.conf*, il faut modifier les lignes ci-contre :
+Le fichier de configuration Apache d'OCS se trouve ici : _/etc/apache2/conf-enabled/ocsinventory-server.conf_, il faut modifier les lignes ci-contre :
 
-```apache
+```
 # Master Database settings
   # Replace DATABASE_SERVER by hostname or ip of MySQL server for WRITE
   PerlSetEnv OCS_DB_HOST localhost
@@ -81,22 +84,21 @@ On demande d'effectuer une mise à jour de la base de donnée, on répond oui.
 
 ![Ecran de configuration](./img/ocs3.png)
 
-On devrait arriver sur cet écran d'accueil, par défaut l'utilisateur est *admin* et le mot de passe *admin*.
+On devrait arriver sur cet écran d'accueil, par défaut l'utilisateur est _admin_ et le mot de passe _admin_.
 
 ![Ecran de configuration](./img/ocs4.png)
 
-
 ### Activation des logs
 
-Aller dans le menu du haut : *configuration*, *General Configuration*, puis sur la gauche *Serveur* et enfin mettre le *LOGLEVEL* à *ON*.
+Aller dans le menu du haut : _configuration_, _General Configuration_, puis sur la gauche _Serveur_ et enfin mettre le _LOGLEVEL_ à _ON_.
 
 ![Ecran de configuration](./img/ocs5.png)
 
-Les logs iront se placer dans le répertoire : */var/log/ocsinventory-server/*
+Les logs iront se placer dans le répertoire : _/var/log/ocsinventory-server/_
 
 ### Fréquence de lancement de l'agent
 
-On peut modifier la fréquence en heures le lancement de l'agent par le service avec l'option *PROLOG_FREQ*, ici on choisit 1 heure.
+On peut modifier la fréquence en heures le lancement de l'agent par le service avec l'option _PROLOG_FREQ_, ici on choisit 1 heure.
 
 ![Ecran de configuration](./img/ocs6.png)
 
@@ -110,7 +112,7 @@ Commencer par installer l'agent :
 
 <AP>apt install ocsinventory-agent</AP>
 
-L'installation fait apparaitre cet écran et demande la méthode de transimission des informations, ici on choisit *HTTP* pour envoyer par le réseau.
+L'installation fait apparaitre cet écran et demande la méthode de transimission des informations, ici on choisit _HTTP_ pour envoyer par le réseau.
 
 ![Ecran de configuration](./img/ocs7.png)
 
@@ -118,22 +120,21 @@ On rentre l'adresse IP ou le nom DNS du serveur :
 
 ![Ecran de configuration](./img/ocs8.png)
 
-Un répertoire */var/log/ocsinventory-client* destiné à accueillir le fichier de log est également créé.
+Un répertoire _/var/log/ocsinventory-client_ destiné à accueillir le fichier de log est également créé.
 
 3 fichiers ont été créés :
 
-- *etc/ocsinventory/ocsinventory-agent.cfg*, il contient l'adresse du serveur OCS :
+- _etc/ocsinventory/ocsinventory-agent.cfg_, il contient l'adresse du serveur OCS :
 
 ```make
 server=172.16.0.53
 tag=Linux_Serveur
 ```
 
-Le *tag* est une rapide description de la machine et permettra des recherches par catégorie : S'il n'a pas été précisé lors de la configuration de l'agent, il peut être ajouté ou modifié via la console d'administration du serveur.
+Le _tag_ est une rapide description de la machine et permettra des recherches par catégorie : S'il n'a pas été précisé lors de la configuration de l'agent, il peut être ajouté ou modifié via la console d'administration du serveur.
 
-- *etc/ocsinventory/modules.conf*, contient une liste de module qui seront chargé par l'agent lors de son éxecution :
-  
-- */etc/logrotate.d/ocsinventory-agent*, contient la configuration pour la rotation des logs de l'agent OCS, par défaut les fichiers sont compresséset gardé pendant 7 jours.
+- _etc/ocsinventory/modules.conf_, contient une liste de module qui seront chargé par l'agent lors de son éxecution :
+- _/etc/logrotate.d/ocsinventory-agent_, contient la configuration pour la rotation des logs de l'agent OCS, par défaut les fichiers sont compresséset gardé pendant 7 jours.
 
 ```make
 /var/log/ocsinventory-client/*.log {
@@ -155,7 +156,7 @@ Pour forcer la remontée d'inventaire manuellement sans attendre le premier déc
 [info] [download] Option turned off. Exiting.
 ```
 
-On peut maintenant contrôler que le client à bien fait remonter les informations au serveur OCS. Sur l'interface OCS, dans le menu du gaut, choisir *Toutes les machines*, la Debian devrait apparaitre :
+On peut maintenant contrôler que le client à bien fait remonter les informations au serveur OCS. Sur l'interface OCS, dans le menu du gaut, choisir _Toutes les machines_, la Debian devrait apparaitre :
 
 ![Ecran de configuration](./img/ocs9.png)
 
@@ -165,7 +166,7 @@ Pour automatiser le déployement d'application, il est nécessaire d'utiliser le
 
 ### Création d'un certificat avec OpenSSL
 
-Génération d'un clé privée pour le serveur Apache nommé *server.key*, il faut une taille de 2048 minimum sinon Apache n'en voudra pas.
+Génération d'un clé privée pour le serveur Apache nommé _server.key_, il faut une taille de 2048 minimum sinon Apache n'en voudra pas.
 
 <AP>openssl genrsa -out server.key 2048</AP>
 
@@ -176,11 +177,13 @@ Generating RSA private key, 2048 bit long modulus (2 primes)
 e is 65537 (0x010001)
 ```
 
-Génération d'un certficat à partir auto-signé pour le serveur Apache à partir de la clé privée nommée *server.crt*
+Génération d'un certficat à partir auto-signé pour le serveur Apache à partir de la clé privée nommée _server.crt_
 
-<AP>openssl req -outform PEM -new -key server.key -x509 -days 1825 -out server.crt</AP>
+<AP>
+  openssl req -outform PEM -new -key server.key -x509 -days 1825 -out server.crt
+</AP>
 
-**Important**, le *Common Name* doit correspondre au nom DNS ou à l'IP du serveur.
+**Important**, le _Common Name_ doit correspondre au nom DNS ou à l'IP du serveur.
 
 ```make
 You are about to be asked to enter information that will be incorporated
@@ -201,7 +204,7 @@ Email Address []:admin@ocs-test.fr
 
 ### Module SSL Apache2
 
-Pour qu'Apache puisse utiliser HTTPS, il est nécessaire d'activer un module SSL nommé qui se trouve dans */etc/apache2/mods-available* :
+Pour qu'Apache puisse utiliser HTTPS, il est nécessaire d'activer un module SSL nommé qui se trouve dans _/etc/apache2/mods-available_ :
 
 <AP>a2enmod ssl</AP>
 
@@ -226,7 +229,7 @@ Pour voir la liste des modules actifs d'apache2 :
 
 <AP>a2query -m</AP>
 
-```apache
+```
 (...)
 ssl (enabled by site administrator)
 (...)
@@ -238,7 +241,9 @@ On copie la clé et le certificat dans le repertoire SSL :
 
 On va configurer Apache2 pour qu'il prenne en compte ces fichiers, par mesure de précaution on copie le fichier de configuration avant d'y toucher :
 
-<AP>cd /etc/apache2/sites-available && cp default-ssl.conf default-ssl.conf.backup</AP>
+<AP>
+  cd /etc/apache2/sites-available && cp default-ssl.conf default-ssl.conf.backup
+</AP>
 
 On va modifier les lignes suivantes :
 
@@ -265,36 +270,39 @@ L'interface OCS devrait être disponible en HTTPS : *https://172.16.0.53/ocsrepo
 
 ### Export du certificat vers le client
 
-Pour poouvoir effectuer des déploiements d'application, il faut que l'agent OCS dispose du certificat que l'on a préalablement créé. Cepandant, il faut que celui-ci soit renommé en *cacert.pem*
+Pour poouvoir effectuer des déploiements d'application, il faut que l'agent OCS dispose du certificat que l'on a préalablement créé. Cepandant, il faut que celui-ci soit renommé en _cacert.pem_
 
 On peut utiliser la commande SCP, pour effectuer une copie en SSH :
 
-<AP>scp server.crt alex@172.16.0.51:/var/lib/ocsinventory-agent/http\:__172.16.0.53_ocsinventory/cacert.pem</AP>
+<AP>
+  scp server.crt
+  alex@172.16.0.51:/var/lib/ocsinventory-agent/http\:__172.16.0.53_ocsinventory/cacert.pem
+</AP>
 
 ### Test sur une machine Debian
 
 Le déploiement ne se fait pas automatiquement, il faut au préalable le configurer dans l'interface OCS :
 
-- Se rendre sur *Configuration* dans le menu en haut, puis *General configuration*, puis sur la gauche *Télédéploiement*.
-- Mettre *DOWNLOAD* à *ON*
+- Se rendre sur _Configuration_ dans le menu en haut, puis _General configuration_, puis sur la gauche _Télédéploiement_.
+- Mettre _DOWNLOAD_ à _ON_
 - En option, on changer les options de fréquence, de chemin des paquets qui seront installés.
-- Enfin cliquer sur *Mettre à jour*.
+- Enfin cliquer sur _Mettre à jour_.
 
 Création d'un télédéploiement :
 
-- Se rendre sur *Télédéploiement* dans le menu en haut, puis *Création*. Si ce message d'affiche c'est qu'Apache ne dispose pas des droits requis sur le dossier */var/lib/ocsinventory-reports*.
+- Se rendre sur _Télédéploiement_ dans le menu en haut, puis _Création_. Si ce message d'affiche c'est qu'Apache ne dispose pas des droits requis sur le dossier _/var/lib/ocsinventory-reports_.
 
 ![Ecran de configuration](./img/ocs11.png)
-  
+
 <AP>chown -R www-data:www-data /var/lib/ocsinventory-reports</AP>
 
-On va déposer sur la machine cliente un fichier png nommé *Circle5th+Mode.PNG*, on choississant le système *UNIX/LINUX*, l'action *Stocker* et le chemin */tmp/*.
+On va déposer sur la machine cliente un fichier png nommé _Circle5th+Mode.PNG_, on choississant le système _UNIX/LINUX_, l'action _Stocker_ et le chemin _/tmp/_.
 
 ![Ecran de configuration](./img/ocs12.png)
 
-Cliquer sur *Envoyer*, une fois terminé.
+Cliquer sur _Envoyer_, une fois terminé.
 
-- Se rendre sur *Télédéploiement* dans le menu en haut, puis *Activation*. Le déploiement que l'on vient de créer devrait être visible :
+- Se rendre sur _Télédéploiement_ dans le menu en haut, puis _Activation_. Le déploiement que l'on vient de créer devrait être visible :
 
 ![Ecran de configuration](./img/ocs13.png)
 
@@ -302,13 +310,13 @@ Il faut cliquer sur cet îcone pour activer le déploiement :
 
 ![Ecran de configuration](./img/ocs14.png)
 
-- Se rendre sur *Toutes les machines* dans le menu en haut, puis sélectionner la machine *Debian*.
+- Se rendre sur _Toutes les machines_ dans le menu en haut, puis sélectionner la machine _Debian_.
 
-- Dans le menu de gauche, cliquer sur *Télédéploiement* et *Ajouter un paquet*.
+- Dans le menu de gauche, cliquer sur _Télédéploiement_ et _Ajouter un paquet_.
 
-- Choisir *NON* pour *Utiliser les options avancées de téléploiement*, puis Valider.
+- Choisir _NON_ pour _Utiliser les options avancées de téléploiement_, puis Valider.
 
-- Lancer le déploiement en cliquant sur l'icône juste en dessous de *Actions* :
+- Lancer le déploiement en cliquant sur l'icône juste en dessous de _Actions_ :
 
 ![Ecran de configuration](./img/ocs15.png)
 
@@ -338,6 +346,6 @@ Notre fichier est bien arrivé :
 -rwxrwxrwx 1 root root 319481 juin   8  2020 Circle5th+Mode.PNG
 ```
 
-- Pour vérifier sur l'interface que le fichier à bien été déployer, se rendre sur *Télédéploiement* puis *Activation*, le déploiement devrait être en succès.
+- Pour vérifier sur l'interface que le fichier à bien été déployer, se rendre sur _Télédéploiement_ puis _Activation_, le déploiement devrait être en succès.
 
 ![Ecran de configuration](./img/ocs17.png)

@@ -67,7 +67,6 @@ rsyslogd  8.1901.0 (aka 2019.01) compiled with:
 See https://www.rsyslog.com for more information.
 ```
 
-
 ### Installer une pile LAMP
 
 Il est nécessaire d'installer au préalable une pile LAMP :
@@ -77,7 +76,7 @@ Il est nécessaire d'installer au préalable une pile LAMP :
 
 ### Configuration basique pour MariaDB
 
-Le mot de passe *root* pour MariaDB doit être définie :
+Le mot de passe _root_ pour MariaDB doit être définie :
 
 <AP>mysql\_secure\_installation</AP>
 
@@ -185,13 +184,13 @@ dbconfig-common: flushing administrative password
 
 ## Configuration de Rsyslog
 
-Le fichier de configuration principal se situe ici : */etc/rsyslog.conf*
+Le fichier de configuration principal se situe ici : _/etc/rsyslog.conf_
 
 On effectue une copie du fichier avant de le modifier pour éviter les problèmes.
 
 <AP>cp /etc/rsyslog.conf /etc/rsyslog.conf.save</AP>
 
-On va éditer le fichier de fichier de configuration pour activer le protocole *imtcp* sur le port *514*, c'est le protocole par défaut pour syslog. Pour cela il faut décommenter les lignes présentes sous *# provides TCP syslog reception*, comme ceci :
+On va éditer le fichier de fichier de configuration pour activer le protocole _imtcp_ sur le port _514_, c'est le protocole par défaut pour syslog. Pour cela il faut décommenter les lignes présentes sous _# provides TCP syslog reception_, comme ceci :
 
 ```make
 # provides TCP syslog reception
@@ -211,9 +210,9 @@ Puis on redémarre le service syslog :
 
 ## CLI rsyslogd
 
-Rsyslog c'est aussi une CLI ou l'on peut executer certaines actions, voici un extrait tiré du *man rsyslogd* :
+Rsyslog c'est aussi une CLI ou l'on peut executer certaines actions, voici un extrait tiré du _man rsyslogd_ :
 
-```man
+```bash
 OPTIONS
        -D     Runs  the Bison config parser in debug mode. This may help when hard to find syntax errors are reported. Please note
               that the output generated is deeply technical and orignally targeted towards developers.
@@ -253,7 +252,7 @@ On installe apache2 pour simuler un serveur web.
 
 <AP>apt install apache2 -y</AP>
 
-Il est assez facile d'ajouter une machine cliente à monitorer, cela se passe dans le fichier de configuration principal de rsyslog */etc/rsyslog.conf*:
+Il est assez facile d'ajouter une machine cliente à monitorer, cela se passe dans le fichier de configuration principal de rsyslog _/etc/rsyslog.conf_:
 
 Il faut ajouter la ligne suivante à la toute fin du fichier :
 
@@ -261,27 +260,32 @@ Il faut ajouter la ligne suivante à la toute fin du fichier :
 *.* @@172.16.0.23:514
 ```
 
-On indique qu'il faut envoyer tous les logs vers l'ip du serveur Rsyslog. Le double *@* permet de spécifier que nous sommes en TCP avec bien entendu le port d'écoute par défaut IMTCP 514. Puis on redémarre resyslog :
+On indique qu'il faut envoyer tous les logs vers l'ip du serveur Rsyslog. Le double _@_ permet de spécifier que nous sommes en TCP avec bien entendu le port d'écoute par défaut IMTCP 514. Puis on redémarre resyslog :
 
 <AP>systemctl restart rsyslog</AP>
 
-On peut rentrer manullement une phrase qui apparaitra dans les logs avec *logger* :
+On peut rentrer manullement une phrase qui apparaitra dans les logs avec _logger_ :
 
 <AP>logger -s " Ceci est un client Rsyslog "</AP>
 
 ## LogAnalyzer
 
-LogAnalyzer est une application qui vise à fournir un visuel et une interface pour Rsyslog. 
+LogAnalyzer est une application qui vise à fournir un visuel et une interface pour Rsyslog.
 
 ### Installation
 
 D'abord, on télécharge le contenu via le site officiel :
 
-<AP>cd /srv && wget https://download.adiscon.com/loganalyzer/loganalyzer-4.1.12.tar.gz</AP>
+<AP>
+  cd /srv && wget
+  https://download.adiscon.com/loganalyzer/loganalyzer-4.1.12.tar.gz
+</AP>
 
 On décompresse et on renomme :
 
-<AP>tar -xzvf loganalyzer-4.1.12.tar.gz && mv loganalyzer-4.1.12/ loganalyzer</AP>
+<AP>
+  tar -xzvf loganalyzer-4.1.12.tar.gz && mv loganalyzer-4.1.12/ loganalyzer
+</AP>
 
 On copie le dossier dans le répertoire d'apache :
 
@@ -299,7 +303,7 @@ Toute la configuration se fait directement sur l'application en ligne, l'erreur 
 
 ![rsyslog](./img/loganalyzer1.png)
 
-Ensuite, on coche la case *yes* pour la question *enable user database* et on rentre les identifiants de la base de données, LogAnalyzer va ajouter ses tables à la base de donnée Syslog :
+Ensuite, on coche la case _yes_ pour la question _enable user database_ et on rentre les identifiants de la base de données, LogAnalyzer va ajouter ses tables à la base de donnée Syslog :
 
 ![rsyslog](./img/loganalyzer2.png)
 
@@ -311,7 +315,7 @@ On nous demande créer un accès administrateur pour l'accès à LogAnalyzer :
 
 ![rsyslog](./img/loganalyzer4.png)
 
-Il faut paramètrer la source des logs, donc ici c'est toujours la même table *Syslog* mais attention au *Database Tablename* qui doit d'écrire avec des majuscules comme ceci : *SystemEvents*
+Il faut paramètrer la source des logs, donc ici c'est toujours la même table _Syslog_ mais attention au _Database Tablename_ qui doit d'écrire avec des majuscules comme ceci : _SystemEvents_
 
 ![rsyslog](./img/loganalyzer5.png)
 
@@ -321,7 +325,7 @@ Ce message de fin conclue la bonne configuration :
 
 ### Test
 
-On veut maintenant savoir si le client envoit bien ses logs au serveur, pour cela on clique sur *Show Events* puis on tape *apache* dans la barre de recherche. On voit bien notre client :
+On veut maintenant savoir si le client envoit bien ses logs au serveur, pour cela on clique sur _Show Events_ puis on tape _apache_ dans la barre de recherche. On voit bien notre client :
 
 ![rsyslog](./img/loganalyzer7.png)
 

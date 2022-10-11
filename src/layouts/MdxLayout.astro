@@ -42,11 +42,11 @@ const imageSrc = await images[image]() as Record<string,any>
       class="absolute top-0 h-full w-full object-cover opacity-40"
     />
   </section>
-  <main class="grid grid-cols-[2fr_1fr] items-start mx-auto max-w-4xl gap-x-10">
-    <article class="max-w-xl markdown">
+  <main class="grid md:grid-cols-[2fr_1fr] items-start mx-auto max-w-4xl md:gap-x-10 mb-16">
+    <article class="max-w-xl mx-auto markdown">
       <slot />
     </article>
-    <aside class="block sticky top-24 text-xs overflow-y-scroll mt-20">
+    <aside class="hidden md:block sticky top-24 text-xs overflow-y-scroll mt-20">
       <HeadingsToc headings={headings} />
     </aside>
   </main>
