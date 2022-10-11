@@ -8,6 +8,8 @@ services:
     labels:
       caddy: alexandre-dosreis.me
       caddy.reverse_proxy: "{{upstreams 8043}}"
+    networks:
+      - caddy
 
 networks:
   caddy:
