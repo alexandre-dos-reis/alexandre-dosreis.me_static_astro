@@ -269,12 +269,9 @@ On créé un utilisateur `grafana` et une base de donnée `grafana` :
 
 <AP>mysql -uroot -p</AP>
 
-<AP>CREATE DATABASE grafana CHARACTER SET utf8 COLLATE utf8_bin;</AP>
+<AP a="SQL $">CREATE DATABASE grafana CHARACTER SET utf8 COLLATE utf8_bin;</AP>
 
-<AP>
-  GRANT ALL PRIVILEGES ON grafana.* TO grafana@localhost IDENTIFIED BY
-  'grafana';
-</AP>
+<AP a="SQL $">GRANT ALL PRIVILEGES ON grafana.* TO grafana@localhost IDENTIFIED BY 'grafana';</AP>
 
 ### Installer un plugin pour Zabbix
 
