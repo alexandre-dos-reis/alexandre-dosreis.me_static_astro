@@ -10,19 +10,6 @@ const articlesOnline = sortMdByDate(
   )
 );
 
-// const articlesWithLogo = await Promise.all(
-//   articlesOnline.map(async (a) => {
-//     const filesAvailable = await Astro.glob<{ default: string }>(
-//       `/src/pages/**/logo.{png,jpg,jpeg}`
-//     );
-//     const imageSrc = filesAvailable.find((f) =>
-//       f.default.startsWith(`/src/pages${a.url}`)
-//     )?.default;
-//     a.frontmatter.imageSrc = imageSrc || "";
-//     return a;
-//   })
-// );
-
 const categories = getCategories(articlesOnline, Astro.url.pathname);
 const length = articlesOnline.length
 ---

@@ -8,9 +8,25 @@ type Props = MDXLayoutProps<Article>;
 
 const { frontmatter: fm, headings } = Astro.props;
 
-const headerSrcImage = (
-  await Astro.glob<{ default: string }>(`/src/pages/**/head.{png,jpg,jpeg}`)
-).find((x) => x.default.startsWith(`/src/pages${fm.url!}`))?.default;
+// const headerSrcImage = "/src/pages" + fm.url + "/head.jpg";
+
+// Import static OK
+// const headerSrcImage = (
+//   await import("src/pages/blog/code/git-outil-de-gestion-de-versions/head.jpg")
+// ).default;
+
+// console.log(fm.url);
+
+// const headerSrcImage = (await import("/src/pages" + fm.url + "/head.jpg")).default;
+// const headerSrcImage = (
+//   await Astro.glob<{ default: string }>(`/src/pages/**/head.jpg`)
+// ).find((x) => x.default.startsWith(`/src/pages${fm.url!}`))?.default!;
+
+// https://github.com/withastro/astro/issues/3373
+const image = "/src/pages" + fm.url + "/head.jpg"
+const images = import.meta.glob('/src/pages/**/head.jpg')
+const imageSrc = await images[image]() as Record<string,any>
+
 ---
 
 <HtmlLayout title={fm.title}>
@@ -22,7 +38,7 @@ const headerSrcImage = (
       <h1 class="w-full text-center px-4">{fm.title}</h1>
     </div>
     <img
-      src={headerSrcImage}
+      src={imageSrc.default}
       class="absolute top-0 h-full w-full object-cover opacity-40"
     />
   </section>

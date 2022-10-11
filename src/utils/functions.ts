@@ -12,6 +12,10 @@ export function getCategories(
   articles: MDXInstance<Article>[],
   pathname: string
 ) {
+  if (pathname.endsWith("/")) {
+    pathname = pathname.slice(0, pathname.length - 1);
+  }
+
   const categoriesWithDup = articles.map((a) => {
     const slug = a.url?.replace(pathname + "/", "").replace(/\/.*/, "");
     return { href: `${pathname}/${slug}`, name: unslugify(slug!), slug };

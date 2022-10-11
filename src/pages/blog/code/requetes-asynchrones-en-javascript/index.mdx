@@ -12,7 +12,7 @@ Quelle est la différence entre un code synchrone et asynchrone ?
 
 # The problem
 
-The **A** in [Ajax](https://en.wikipedia.org/wiki/Ajax_(programming)) stands for [asynchronous](https://www.merriam-webster.com/dictionary/asynchronous). That means sending the request (or rather receiving the response) is taken out of the normal execution flow. In your example, `$.ajax` returns immediately and the next statement, `return result;`, is executed before the function you passed as `success` callback was even called.
+The **A** in [Ajax](<https://en.wikipedia.org/wiki/Ajax_(programming)>) stands for [asynchronous](https://www.merriam-webster.com/dictionary/asynchronous). That means sending the request (or rather receiving the response) is taken out of the normal execution flow. In your example, `$.ajax` returns immediately and the next statement, `return result;`, is executed before the function you passed as `success` callback was even called.
 
 Here is an analogy which hopefully makes the difference between synchronous and asynchronous flow clearer:
 
@@ -24,17 +24,17 @@ The same is happening when you make a function call containing "normal" code:
 
 ```js
 function findItem() {
-        var item;
-        while(item_not_found) {
-            // search
-        }
-        return item;
-    }
+  var item;
+  while (item_not_found) {
+    // search
+  }
+  return item;
+}
 
-    var item = findItem();
+var item = findItem();
 
-    // Do something with item
-    doSomethingElse();
+// Do something with item
+doSomethingElse();
 ```
 
 Even though `findItem` might take a long time to execute, any code coming after `var item = findItem();` has to _wait_ until the function returns the result.
@@ -46,10 +46,10 @@ You call your friend again for the same reason. But this time you tell him that 
 That's exactly what's happening when you do an Ajax request.
 
 ```js
-findItem(function(item) {
-        // Do something with the item
-    });
-    doSomethingElse();
+findItem(function (item) {
+  // Do something with the item
+});
+doSomethingElse();
 ```
 
 Instead of waiting for the response, the execution continues immediately and the statement after the Ajax call is executed. To get the response eventually, you provide a function to be called once the response was received, a _callback_ (notice something? _call back_ ?). Any statement coming after that call is executed before the callback is called.
@@ -66,9 +66,9 @@ All of this is a really bad user experience. The user won't be able to tell whet
 
 In the following we will look at three different solutions that are all building on top of each other:
 
-*   **Promises with `async/await`** (ES2017+, available in older browsers if you use a transpiler or regenerator)
-*   **Callbacks** (popular in node)
-*   **Promises with `then()`** (ES2015+, available in older browsers if you use one of the many promise libraries)
+- **Promises with `async/await`** (ES2017+, available in older browsers if you use a transpiler or regenerator)
+- **Callbacks** (popular in node)
+- **Promises with `then()`** (ES2015+, available in older browsers if you use one of the many promise libraries)
 
 **All three are available in current browsers, and node 7+.**
 
@@ -86,41 +86,40 @@ Here is an example that builds on top of delay above:
 
 ```js
 // Using 'superagent' which will return a promise.
-var superagent = require('superagent')
+var superagent = require("superagent");
 
-    // This is isn't declared as `async` because it already returns a promise
-    function delay() {
-        // `delay` returns a promise
-        return new Promise(function(resolve, reject) {
-        // Only `delay` is able to resolve or reject the promise
-        setTimeout(function() {
-                resolve(42); // After 3 seconds, resolve the promise with value 42
-        }, 3000);
-    });
+// This is isn't declared as `async` because it already returns a promise
+function delay() {
+  // `delay` returns a promise
+  return new Promise(function (resolve, reject) {
+    // Only `delay` is able to resolve or reject the promise
+    setTimeout(function () {
+      resolve(42); // After 3 seconds, resolve the promise with value 42
+    }, 3000);
+  });
 }
 
 async function getAllBooks() {
-    try {
+  try {
     // GET a list of book IDs of the current user
-    var bookIDs = await superagent.get('/user/books');
+    var bookIDs = await superagent.get("/user/books");
     // wait for 3 seconds (just for the sake of this example)
     await delay();
     // GET information about each book
-    return await superagent.get('/books/ids='+JSON.stringify(bookIDs));
-    } catch(error) {
+    return await superagent.get("/books/ids=" + JSON.stringify(bookIDs));
+  } catch (error) {
     // If any of the awaited promises was rejected, this catch block
     // would catch the rejection reason
     return null;
-    }
+  }
 }
 
-
 // Start an IIFE to use `await` at the top level
-(async function(){
-    let books = await getAllBooks();
-    console.log(books);
+(async function () {
+  let books = await getAllBooks();
+  console.log(books);
 })();
-````
+```
 
 Current [browser](https://kangax.github.io/compat-table/es2016plus/#test-async_functions) and [node](http://node.green/#ES2017-features-async-functions) versions support `async/await`. You can also support older environments by transforming your code to ES5 with the help of [regenerator](https://github.com/facebook/regenerator) (or tools that use regenerator, such as [Babel](https://babeljs.io/)).
 
@@ -132,36 +131,36 @@ In the example of the question, you can make `foo` accept a callback and use it 
 
 ```js
 var result = foo();
-    // Code that depends on 'result'
+// Code that depends on 'result'
 ```
 
 becomes
 
 ```js
-foo(function(result) {
-        // Code that depends on 'result'
-    });
+foo(function (result) {
+  // Code that depends on 'result'
+});
 ```
 
 Here we defined the function "inline" but you can pass any function reference:
 
 ```js
 function myCallback(result) {
-        // Code that depends on 'result'
-    }
+  // Code that depends on 'result'
+}
 
-    foo(myCallback);
+foo(myCallback);
 ```
 
 `foo` itself is defined as follows:
 
 ```js
 function foo(callback) {
-        $.ajax({
-            // ...
-            success: callback
-        });
-    }
+  $.ajax({
+    // ...
+    success: callback,
+  });
+}
 ```
 
 `callback` will refer to the function we pass to `foo` when we call it and we pass it on to `success`. I.e. once the Ajax request is successful, `$.ajax` will call `callback` and pass the response to the callback (which can be referred to with `result`, since this is how we defined the callback).
@@ -170,14 +169,14 @@ You can also process the response before passing it to the callback:
 
 ```js
 function foo(callback) {
-        $.ajax({
-            // ...
-            success: function(response) {
-                // For example, filter the response
-                callback(filtered_response);
-            }
-        });
-    }
+  $.ajax({
+    // ...
+    success: function (response) {
+      // For example, filter the response
+      callback(filtered_response);
+    },
+  });
+}
 ```
 
 It's easier to write code using callbacks than it may seem. After all, JavaScript in the browser is heavily event-driven (DOM events). Receiving the Ajax response is nothing else but an event. Difficulties could arise when you have to work with third-party code, but most problems can be solved by just thinking through the application flow.
@@ -194,47 +193,48 @@ Here is an example of using a promise:
 
 ```js
 function delay() {
-      // `delay` returns a promise
-      return new Promise(function(resolve, reject) {
-        // Only `delay` is able to resolve or reject the promise
-        setTimeout(function() {
-          resolve(42); // After 3 seconds, resolve the promise with value 42
-        }, 3000);
-      });
-    }
+  // `delay` returns a promise
+  return new Promise(function (resolve, reject) {
+    // Only `delay` is able to resolve or reject the promise
+    setTimeout(function () {
+      resolve(42); // After 3 seconds, resolve the promise with value 42
+    }, 3000);
+  });
+}
 
-    delay()
-      .then(function(v) { // `delay` returns a promise
-        console.log(v); // Log the value once it is resolved
-      })
-      .catch(function(v) {
-        // Or do something else if it is rejected
-        // (it would not happen in this example, since `reject` is not called).
-      });
+delay()
+  .then(function (v) {
+    // `delay` returns a promise
+    console.log(v); // Log the value once it is resolved
+  })
+  .catch(function (v) {
+    // Or do something else if it is rejected
+    // (it would not happen in this example, since `reject` is not called).
+  });
 ```
 
 Applied to our Ajax call we could use promises like this:
 
 ```js
 function ajax(url) {
-      return new Promise(function(resolve, reject) {
-        var xhr = new XMLHttpRequest();
-        xhr.onload = function() {
-          resolve(this.responseText);
-        };
-        xhr.onerror = reject;
-        xhr.open('GET', url);
-        xhr.send();
-      });
-    }
+  return new Promise(function (resolve, reject) {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+      resolve(this.responseText);
+    };
+    xhr.onerror = reject;
+    xhr.open("GET", url);
+    xhr.send();
+  });
+}
 
-    ajax("/echo/json")
-      .then(function(result) {
-        // Code depending on result
-      })
-      .catch(function() {
-        // An error occurred
-      });
+ajax("/echo/json")
+  .then(function (result) {
+    // Code depending on result
+  })
+  .catch(function () {
+    // An error occurred
+  });
 ```
 
 Describing all the advantages that promise offer is beyond the scope of this answer, but if you write new code, you should seriously consider them. They provide a great abstraction and separation of your code.
@@ -265,20 +265,20 @@ Keep in mind that promises and deferred objects are just _containers_ for a futu
 
 ```js
 function checkPassword() {
-        return $.ajax({
-            url: '/password',
-            data: {
-                username: $('#username').val(),
-                password: $('#password').val()
-            },
-            type: 'POST',
-            dataType: 'json'
-        });
-    }
+  return $.ajax({
+    url: "/password",
+    data: {
+      username: $("#username").val(),
+      password: $("#password").val(),
+    },
+    type: "POST",
+    dataType: "json",
+  });
+}
 
-    if (checkPassword()) {
-        // Tell the user they're logged in
-    }
+if (checkPassword()) {
+  // Tell the user they're logged in
+}
 ```
 
 This code misunderstands the above asynchronous issues. Specifically, `$.ajax()` doesn't freeze the code while it checks the '/password' page on your server - it sends a request to the server and while it waits, it immediately returns a jQuery Ajax Deferred object, not the response from the server. That means the `if` statement is going to always get this Deferred object, treat it as `true`, and proceed as though the user is logged in. Not good.
@@ -287,16 +287,16 @@ But the fix is easy:
 
 ```js
 checkPassword()
-    .done(function(r) {
-        if (r) {
-            // Tell the user they're logged in
-        } else {
-            // Tell the user their password was bad
-        }
-    })
-    .fail(function(x) {
-        // Tell the user something bad happened
-    });
+  .done(function (r) {
+    if (r) {
+      // Tell the user they're logged in
+    } else {
+      // Tell the user their password was bad
+    }
+  })
+  .fail(function (x) {
+    // Tell the user something bad happened
+  });
 ```
 
 ## Not recommended: Synchronous "Ajax" calls
@@ -305,7 +305,7 @@ As I mentioned, some(!) asynchronous operations have synchronous counterparts. I
 
 ### Without jQuery
 
-If you directly use a [`XMLHttpRequest`](https://xhr.spec.whatwg.org/) object, pass `false` as third argument to [`.open`](https://xhr.spec.whatwg.org/#the-open()-method).
+If you directly use a [`XMLHttpRequest`](https://xhr.spec.whatwg.org/) object, pass `false` as third argument to [`.open`](<https://xhr.spec.whatwg.org/#the-open()-method>).
 
 ### jQuery
 
@@ -313,12 +313,12 @@ If you use [jQuery](http://api.jquery.com/jQuery.ajax/), you can set the `async`
 
 ```js
 function foo() {
-        var jqXHR = $.ajax({
-            //...
-            async: false
-        });
-        return jqXHR.responseText;
-    }
+  var jqXHR = $.ajax({
+    //...
+    async: false,
+  });
+  return jqXHR.responseText;
+}
 ```
 
 If you use any other jQuery Ajax method, such as `$.get`, `$.getJSON`, etc., you have to change it to `$.ajax` (since you can only pass configuration parameters to `$.ajax`).
