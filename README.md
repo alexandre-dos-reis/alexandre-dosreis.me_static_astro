@@ -1,5 +1,7 @@
 # alexandre-dosreis.me
 
+[![Build Status](https://drone.reges.fr/api/badges/alexandre-dos-reis/alexandre-dosreis.me_static_astro/status.svg)](https://drone.reges.fr/alexandre-dos-reis/alexandre-dosreis.me_static_astro)
+
 Ceci est le code source de mon portfolio.
 
 - Fait avec Astro.
