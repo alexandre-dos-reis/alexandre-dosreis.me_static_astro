@@ -25,13 +25,15 @@ const articlesByCategory = sortMdByDate(
 ).filter((a) => a.url?.startsWith(Astro.url.pathname));
 
 const length = articlesByCategory.length;
+
+const unsluggedCat = unslugify(category as string)
 ---
 
-<BaseLayout title={unslugify(category as string)}>
+<BaseLayout title={unsluggedCat}>
   <section>
     <h2>
       {length} Publication{length !== 1 ? "s" : ""} pour la catégorie <i
-        >{category as string}</i>
+        >{unsluggedCat}</i>
     </h2>
     <ul class="list-none">
       {
