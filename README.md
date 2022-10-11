@@ -13,3 +13,4 @@ Ceci est le code source de mon portfolio.
 - [Emoji](https://www.copyandpastesymbols.net)
 - [Shiki themes](https://github.com/shikijs/shiki/blob/main/docs/themes.md#all-themes)
 - [Free pictures](https://unsplash.com/s/photos/monitoring?orientation=landscape)
+
