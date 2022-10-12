@@ -1,4 +1,5 @@
 ---
+import { techsList } from "src/utils/techs-list";
 import Link from "./Link.astro";
 
 interface Props {
@@ -6,9 +7,12 @@ interface Props {
   imageSrc: string;
   title: string;
   content: string;
+  techs: number[];
 }
 
-const { href, imageSrc, title, content } = Astro.props;
+const { href, imageSrc, title, content, techs } = Astro.props;
+
+const techStack: typeof techsList = techs.map(t => techsList[t]!)
 ---
 
 <div class="w-full grid grid-cols-1 md:grid-cols-2 mb-6 gap-6 rounded-lg">
@@ -23,6 +27,8 @@ const { href, imageSrc, title, content } = Astro.props;
       <Link href={href}>{title}</Link>
     </h3>
     <p>{content}</p>
-    <!-- <p class="mb-0">NextJS, React, Directus</p> -->
+    <p class="mb-0 flex flex-wrap justify-center">
+      {techStack.map(t => <span class={`${t.color} py-1 px-2 m-1 rounded-xl whitespace-nowrap text-gray-50 font-semibold`}>{t.tech}</span>)}
+    </p>
   </div>
 </div>

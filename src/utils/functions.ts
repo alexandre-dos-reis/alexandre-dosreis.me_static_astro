@@ -33,3 +33,17 @@ export function sortMdByDate(articles: MDXInstance<Article>[]) {
       new Date(a.frontmatter.date).valueOf()
   );
 }
+
+export function sortCategoriesAlphabetically(
+  categories: ReturnType<typeof getCategories>
+) {
+  return categories.sort((a, b) => {
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  });
+}

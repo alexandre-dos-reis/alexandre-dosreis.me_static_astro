@@ -1,7 +1,7 @@
 ---
 import Link from "src/components/Link.astro";
 import BaseLayout from "src/layouts/BaseLayout.astro";
-import { getCategories, sortMdByDate, unslugify } from "src/utils/functions";
+import { getCategories, sortCategoriesAlphabetically, sortMdByDate, unslugify } from "src/utils/functions";
 import type { Article } from "src/utils/types";
 
 export async function getStaticPaths() {
@@ -26,14 +26,43 @@ const articlesByCategory = sortMdByDate(
 
 const length = articlesByCategory.length;
 
-const unsluggedCat = unslugify(category as string)
+const unsluggedCat = unslugify(category as string);
+
+const categories = sortCategoriesAlphabetically(getCategories(
+  sortMdByDate(
+    (await Astro.glob<Article>(`/src/pages/blog/**/*.mdx`)).filter(
+      (a) => !a.frontmatter.draft
+    )
+  ),
+  Astro.url.pathname.replace(category as string, "")
+));
 ---
 
 <BaseLayout title={unsluggedCat}>
   <section>
+    <h2>Catégories 🏷️ #️⃣</h2>
+    <ul class="list-none flex flex-wrap">
+      <li class="bg-gray-300 py-[2px] px-2 m-1 rounded-lg">
+        <Link class="text-gray-800 text-sm" href="/blog">
+          Toutes les catégories
+        </Link>
+      </li>
+      {
+        categories.map((c) => (
+          <li class="bg-gray-300 py-[2px] px-2 m-1 rounded-lg">
+            <Link class="text-gray-800 text-sm" href={c.href}>
+              {c.name}
+            </Link>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+  <section>
     <h2>
-      {length} Publication{length !== 1 ? "s" : ""} pour la catégorie <i
-        >{unsluggedCat}</i>
+      {length} publication{length !== 1 ? "s" : ""} 📃 pour la catégorie <i
+        >{unsluggedCat}</i
+      >
     </h2>
     <ul class="list-none">
       {

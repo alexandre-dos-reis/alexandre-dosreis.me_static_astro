@@ -1,7 +1,11 @@
 ---
 import Link from "src/components/Link.astro";
 import Layout from "src/layouts/BaseLayout.astro";
-import { getCategories, sortMdByDate } from "src/utils/functions";
+import {
+  getCategories,
+  sortCategoriesAlphabetically,
+  sortMdByDate,
+} from "src/utils/functions";
 import type { Article } from "src/utils/types";
 
 const articlesOnline = sortMdByDate(
@@ -10,37 +14,40 @@ const articlesOnline = sortMdByDate(
   )
 );
 
-const categories = getCategories(articlesOnline, Astro.url.pathname);
-const length = articlesOnline.length
+const categories = sortCategoriesAlphabetically(
+  getCategories(articlesOnline, Astro.url.pathname)
+);
+const length = articlesOnline.length;
 ---
 
 <Layout title="Blog">
-  <div class="grid md:grid-cols-[3fr_1fr] items-start mx-auto max-w-4xl md:gap-x-10">
-    <section>
-      <h2>{length} Publication{length !== 1 ? "s" : ""} 📄</h2>
-      <ul class="list-none">
-        {
-          articlesOnline.map((a) => (
-            <li class="flex gap-x-10">
-              <time class="text-gray-500 whitespace-nowrap">{a.frontmatter.date}</time>
-              <Link href={a.url}>{a.frontmatter.title}</Link>
-            </li>
-          ))
-        }
-      </ul>
-    </section>
-    <section class="hidden md:block">
-      <!-- <h3>Catégories 🏷️</h3> -->
-      <h3>Catégories</h3>
-      <ul class="list-none flex flex-wrap">
-        {
-          categories.map((c) => (
-            <li class="bg-gray-300 py-[2px] px-2 m-1 rounded-lg">
-              <Link class="text-gray-800 text-sm" href={c.href}>{c.name}</Link>
-            </li>
-          ))
-        }
-      </ul>
-    </section>
-  </div>
+  <section>
+    <h2>Catégories 🏷️</h2>
+    <ul class="list-none flex flex-wrap">
+      {
+        categories.map((c) => (
+          <li class="bg-gray-300 py-[2px] px-2 m-1 rounded-lg">
+            <Link class="text-gray-800 text-sm" href={c.href}>
+              {c.name}
+            </Link>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+  <section>
+    <h2>{length} Publication{length !== 1 ? "s" : ""} 📃</h2>
+    <ul class="list-none">
+      {
+        articlesOnline.map((a) => (
+          <li class="flex gap-x-10">
+            <time class="text-gray-500 whitespace-nowrap">
+              {a.frontmatter.date}
+            </time>
+            <Link href={a.url}>{a.frontmatter.title}</Link>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 </Layout>
