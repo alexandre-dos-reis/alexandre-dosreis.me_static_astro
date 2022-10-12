@@ -242,11 +242,11 @@ On se connecte à nos bases de données depuis le serveur web avec l'utilisateur
 
 Cliquer sur *importer* en haut à gauche.
 
-![Adminer4](./img/mariadb5.png)
+![Adminer5](./img/mariadb5.png)
 
 Puis sur *Sélect. fichiers*, choisir un fichier au format *sql*.
 
-![Adminer4](./img/mariadb6.png)
+![Adminer6](./img/mariadb6.png)
 
 La base de données *bdd_vehicules* s'est correctement importée.
 
@@ -280,9 +280,17 @@ La bdd s'est bien importée !
 
 ### Depuis Adminer
 
+Sur le menu à gauche, cliquez sur `exporter`:
+
+![Adminer7](./img/mariadb7.png)
+
+Sélectionner la sortie `enregistrer` et le format `sql`. Les options suivantes dépendent de vos besoins mais il est possible de sélectionner une à une les tables à exporter ainsi que les données associées.
+
+![Adminer8](./img/mariadb8.png)
+
 ### Depuis le serveur en CLI
 
-Pour effectuer un dump de la bdd, on fera :
+Pour effectuer un dump de la bdd, on fera:
 
 <AP>mysqldump -u root -p [Nom de la BDD] > [fichier de dump]</AP>
 
