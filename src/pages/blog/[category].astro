@@ -28,13 +28,16 @@ const length = articlesByCategory.length;
 
 const unsluggedCat = unslugify(category as string);
 
+let catString = category as string
+catString = catString.endsWith("/") ? catString.slice(0, catString.length - 1) : catString
+
 const categories = sortCategoriesAlphabetically(getCategories(
   sortMdByDate(
     (await Astro.glob<Article>(`/src/pages/blog/**/*.mdx`)).filter(
       (a) => !a.frontmatter.draft
     )
   ),
-  Astro.url.pathname.replace(category as string, "")
+  Astro.url.pathname.replace(catString, "")
 ));
 ---
 
