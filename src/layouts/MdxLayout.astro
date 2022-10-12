@@ -42,7 +42,7 @@ const imageSrc = await images[image]() as Record<string,any>
       class="absolute top-0 h-full w-full object-cover opacity-40"
     />
   </section>
-  <main class="grid md:grid-cols-[2fr_1fr] items-start mx-auto max-w-4xl md:gap-x-10 mb-16">
+  <main class="block md:grid md:grid-cols-[2fr_1fr] md:items-start mx-auto px-2 max-w-4xl md:gap-x-10 mb-16">
     <article class="max-w-xl mx-auto markdown">
       <slot />
     </article>

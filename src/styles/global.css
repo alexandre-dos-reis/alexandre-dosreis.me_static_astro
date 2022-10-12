@@ -108,11 +108,11 @@
     }
 
     .markdown img {
-        @apply rounded-xl mb-8 mt-8
+        @apply block mb-8 mt-8 w-full sm:w-auto max-w-full mx-auto rounded-xl
     }
 
     .markdown table {
-        @apply min-w-full border text-center border-collapse bg-gray-800 border-gray-600 mt-3 mb-6
+        @apply border text-center border-collapse bg-gray-800 border-gray-600 mt-3 mb-6
     }
 
     .markdown thead, .markdown tr {
