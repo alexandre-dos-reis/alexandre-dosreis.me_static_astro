@@ -103,10 +103,10 @@ Le but est de pouvoir envoyer des courriels avec Postfix puis de les récupérer
 - Un MDA (Mail Delivery Agent) chargé de délivrer le message provenant du MTA dans une boîte aux lettres (Procmail).
 - un serveur POP (Post Office Protocol) chargé du courrier sortant (Dovecot).
 
-| Machine        | OS          | Distribution | Version | Rôle         | Nom d'hôte | IP            |
-| -------------- | ----------- | ------------ | ------- | ------------ | ---------- | ------------- |
-| VM Virtual Box | GNU / Linux | Debian       | 10.5    | Serveur DNS  | ns1        | 172.16.150.20 |
-| VM Virtual Box | GNU / Linux | Debian       | 10.5    | Serveur SMTP | clientldap | 172.16.150.21 |
+| Machine        | OS          | Distribution | Version | Rôle                    | Nom d'hôte | IP            |
+| -------------- | ----------- | ------------ | ------- | ----------------------- | ---------- | ------------- |
+| VM Virtual Box | GNU / Linux | Debian       | 10.5    | Serveur DNS             | ns1        | 172.16.150.16 |
+| VM Virtual Box | GNU / Linux | Debian       | 10.5    | Serveur SMTP, POP, IMAP | mail       | 172.16.150.19 |
 
 Avant de pouvoir mettre en place un serveur de courriel, il est nécessaire d'avoir un serveur DNS car il s'en servira pour l'acheminement des courriels.
 

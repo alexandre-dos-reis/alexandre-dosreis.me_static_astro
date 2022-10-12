@@ -45,11 +45,6 @@ const categories = sortCategoriesAlphabetically(getCategories(
   <section>
     <h2>Catégories 🏷️ #️⃣</h2>
     <ul class="list-none flex flex-wrap">
-      <li class="bg-gray-300 py-[2px] px-2 m-1 rounded-lg">
-        <Link class="text-gray-800 text-sm" href="/blog">
-          Toutes les catégories
-        </Link>
-      </li>
       {
         categories.map((c) => (
           <li class="bg-gray-300 py-[2px] px-2 m-1 rounded-lg">
