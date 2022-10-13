@@ -20,7 +20,7 @@ const { title } = Astro.props;
       Alexandre Dos Reis | Portfolio & Blog{title ? ` | ${title}` : ""}
     </title>
   </head>
-  <body>
+  <body class="relative" data-bs-spy="scroll" data-bs-target="#scrollspy" data-bs-offset="200">
     <Header />
     <slot />
     <Footer />

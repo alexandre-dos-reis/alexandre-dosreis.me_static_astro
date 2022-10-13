@@ -1,7 +1,13 @@
 ---
 import Link from "src/components/Link.astro";
 import BaseLayout from "src/layouts/BaseLayout.astro";
-import { getCategories, sortCategoriesAlphabetically, sortMdByDate, unslugify } from "src/utils/functions";
+import {
+  getCategories,
+  removeTrailingSlash,
+  sortCategoriesAlphabetically,
+  sortMdByDate,
+  unslugify,
+} from "src/utils/functions";
 import type { Article } from "src/utils/types";
 
 export async function getStaticPaths() {
@@ -28,22 +34,21 @@ const length = articlesByCategory.length;
 
 const unsluggedCat = unslugify(category as string);
 
-let pathname = Astro.url.pathname
-pathname = pathname.endsWith("/") ? pathname.slice(0, pathname.length - 1) : pathname
-
-const categories = sortCategoriesAlphabetically(getCategories(
-  sortMdByDate(
-    (await Astro.glob<Article>(`/src/pages/blog/**/*.mdx`)).filter(
-      (a) => !a.frontmatter.draft
-    )
-  ),
-  pathname.replace(category as string, "")
-));
+const categories = sortCategoriesAlphabetically(
+  getCategories(
+    sortMdByDate(
+      (await Astro.glob<Article>(`/src/pages/blog/**/*.mdx`)).filter(
+        (a) => !a.frontmatter.draft
+      )
+    ),
+    removeTrailingSlash(Astro.url.pathname).replace(category as string, "")
+  )
+);
 ---
 
 <BaseLayout title={unsluggedCat}>
   <section>
-    <h2>Catégories 🏷️ #️⃣</h2>
+    <h2>Catégories 🏷️</h2>
     <ul class="list-none flex flex-wrap">
       {
         categories.map((c) => (

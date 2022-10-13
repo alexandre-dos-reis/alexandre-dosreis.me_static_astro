@@ -3,10 +3,12 @@ import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
 import remarkMdxImages from 'remark-mdx-images';
 import remarkGfm from 'remark-gfm';
-import wrap from 'rehype-wrap'
-import frontmatter from '@mdxvac/remark-astro-frontmatter';
+import wrap from 'rehype-wrap-all'
+import autoFrontmatter from '@mdxvac/remark-astro-frontmatter';
 import autoImports from '@mdxvac/remark-astro-autoimports';
 import autoComponents from '@mdxvac/remark-astro-autocomponents';
+import sectionize from 'remark-sectionize'
+import moveHeadingsIdToSection from './src/utils/rehype/move-heading-id-to-section'
 
 export default defineConfig({
   markdown: {
@@ -17,9 +19,10 @@ export default defineConfig({
   },
   integrations: [tailwind(), mdx({
     extendDefaultPlugins: true,
-    remarkPlugins: [autoImports, autoComponents, frontmatter, remarkMdxImages, remarkGfm],
+    remarkPlugins: [autoImports, autoComponents, autoFrontmatter, remarkMdxImages, remarkGfm, sectionize],
     rehypePlugins: [
-      [wrap, {selector: 'table', wrapper: 'div.overflow-x-auto'}],
+      moveHeadingsIdToSection,
+      [wrap, { selector: 'table', wrapper: 'div.overflow-x-auto' }],
     ]
   })]
 });

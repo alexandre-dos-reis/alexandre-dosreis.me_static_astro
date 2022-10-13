@@ -23,11 +23,14 @@ const { frontmatter: fm, headings } = Astro.props;
 // ).find((x) => x.default.startsWith(`/src/pages${fm.url!}`))?.default!;
 
 // https://github.com/withastro/astro/issues/3373
-const image = "/src/pages" + fm.url + "/head.jpg"
-const images = import.meta.glob('/src/pages/**/head.jpg')
-const imageSrc = await images[image]() as Record<string,any>
-
+const image = "/src/pages" + fm.url + "/head.jpg";
+const images = import.meta.glob("/src/pages/**/head.jpg");
+const imageSrc = (await images[image]()) as Record<string, any>;
 ---
+
+<script>
+  import "tw-elements";
+</script>
 
 <HtmlLayout title={fm.title}>
   <section
@@ -42,11 +45,16 @@ const imageSrc = await images[image]() as Record<string,any>
       class="absolute top-0 h-full w-full object-cover opacity-40"
     />
   </section>
-  <main class="block md:grid md:grid-cols-[2fr_1fr] md:items-start mx-auto px-2 md:px-0 max-w-4xl md:gap-x-10 mb-16">
+  <main
+    class="block md:grid md:grid-cols-[2fr_1fr] md:items-start mx-auto px-2 md:px-0 max-w-4xl md:gap-x-10 mb-16"
+  >
     <article class="max-w-xl mx-auto markdown">
       <slot />
     </article>
-    <aside class="hidden md:block sticky top-24 text-xs overflow-y-scroll mt-20">
+    <aside
+      class="hidden md:block sticky top-24 text-xs overflow-y-scroll mt-20"
+      id="scrollspy"
+    >
       <HeadingsToc headings={headings} />
     </aside>
   </main>

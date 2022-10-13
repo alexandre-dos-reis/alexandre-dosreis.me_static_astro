@@ -15,12 +15,15 @@
     "@astrojs/tailwind": "^2.0.2",
     "@mdxvac/remark-astro-autocomponents": "^0.0.1",
     "astro": "^1.4.6",
-    "rehype-wrap": "^1.1.0",
+    "rehype-wrap-all": "^1.1.0",
     "remark": "^14.0.2",
     "remark-gfm": "^3.0.1",
     "remark-mdx-images": "^2.0.0",
+    "remark-sectionize": "^1.1.1",
     "rollup": "^2.79.1",
-    "tailwindcss": "^3.0.24"
+    "tailwindcss": "^3.0.24",
+    "tw-elements": "1.0.0-alpha12",
+    "unist-util-visit-parents": "^5.1.1"
   },
   "devDependencies": {
     "@mdxvac/remark-astro-autoimports": "^0.0.3",

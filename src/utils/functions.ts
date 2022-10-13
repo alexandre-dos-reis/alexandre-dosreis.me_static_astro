@@ -12,12 +12,8 @@ export function getCategories(
   articles: MDXInstance<Article>[],
   pathname: string
 ) {
-  if (pathname.endsWith("/")) {
-    pathname = pathname.slice(0, pathname.length - 1);
-  }
-
   const categoriesWithDup = articles.map((a) => {
-    const slug = a.url?.replace(pathname + "/", "").replace(/\/.*/, "");
+    const slug = a.url?.replace(removeTrailingSlash(pathname) + "/", "").replace(/\/.*/, "");
     return { href: `${pathname}/${slug}`, name: unslugify(slug!), slug };
   });
 
@@ -46,4 +42,11 @@ export function sortCategoriesAlphabetically(
     }
     return 0;
   });
+}
+
+export function removeTrailingSlash(pathname: string): string {
+  if (pathname.endsWith("/")) {
+    return pathname.slice(0, pathname.length - 1);
+  }
+  return pathname;
 }
