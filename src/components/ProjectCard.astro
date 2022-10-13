@@ -27,7 +27,7 @@ const techStack: typeof techsList = techs.map(t => techsList[t]!)
       <Link href={href}>{title}</Link>
     </h3>
     <p>{content}</p>
-    <p class="mb-0 flex flex-wrap justify-center text-sm">
+    <p class="mb-0 flex flex-wrap text-sm">
       {techStack.map(t => <span class={`${t.color} py-1 px-2 m-1 rounded-xl whitespace-nowrap text-gray-50 font-semibold`}>{t.tech}</span>)}
     </p>
   </div>

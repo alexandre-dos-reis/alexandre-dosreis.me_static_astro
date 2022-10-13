@@ -162,16 +162,9 @@ La notion d'ACL est assez généraliste et désigne une liste de contrôle d'acc
 
 On déclare l'access-list de la façon suivante :
 
-<table>
-  <tbody>
-    <tr>
-      <td>access-list</td>
-      <td>numéro\_access\_list</td>
-      <td>permit/deny</td>
-      <td>conditions</td>
-    </tr>
-  </tbody>
-</table>
+```
+[access-list] [numéro_access_list] [permit/deny] [conditions]
+```
 
 On crée d'abord l'ACL puis on l'affecte à une interface. Il est possible de résumer le fonctionnement des ACL de la façon suivante :
 

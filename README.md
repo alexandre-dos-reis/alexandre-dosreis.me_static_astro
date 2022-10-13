@@ -11,7 +11,8 @@ Ceci est le code source de mon portfolio.
 ## Links
 
 - [Tailwind Cheat Sheet](https://tailwindcomponents.com/cheatsheet)
-- [Emoji](https://emojiterra.com/laptop-computer)
-- [Emoji](https://www.copyandpastesymbols.net)
+- [emojiterra](https://emojiterra.com/laptop-computer)
+- [copyandpastesymbols](https://www.copyandpastesymbols.net)
 - [Shiki themes](https://github.com/shikijs/shiki/blob/main/docs/themes.md#all-themes)
 - [Free pictures](https://unsplash.com/s/photos/monitoring?orientation=landscape)
+- [creating-a-rehype-syntax-highlighting-plugin](https://www.timlrx.com/blog/creating-a-rehype-syntax-highlighting-plugin)
