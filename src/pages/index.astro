@@ -10,6 +10,31 @@ import ipv4 from "src/assets/ipv4.png";
 import cmd from "src/assets/cmd.png";
 import ProjectCard from "src/components/ProjectCard.astro";
 import Social from "src/components/Social.astro";
+
+const primaryStack = [
+  "NodeJS",
+  "ReactJs",
+  "NextJs",
+  "Typescript",
+  "tRPC",
+  "Docker",
+  "PostGreSQL",
+  "Directus 9",
+  "Caddy",
+  "VSCode",
+];
+
+const secondaryStack = [
+  "GraphQL",
+  "Astro",
+  "Dotnet",
+  " Angular",
+  "Sql Server",
+  "Symfony",
+  "Ansible",
+];
+
+const learningStack = ['Kubernetes']
 ---
 
 <Layout title="Accueil">
@@ -46,15 +71,32 @@ import Social from "src/components/Social.astro";
     <h2>Les technos 👨‍💻</h2>
     <p>
       Actuellement pour développer une application, les technos que je
-      privilégie sont : NodeJS, ReactJs, NextJs, Typescript, tRPC, Docker,
-      PostGreSQL, Directus, Caddy, VSCode.
+      privilégie sont:
+    </p>
+    <p class="flex flex-wrap gap-y-2 mb-8">
+      {
+        primaryStack.map((s) => (
+          <span class="bg-gray-700 py-1 px-2 mx-1 rounded-xl whitespace-nowrap text-gray-50">{s}</span>
+        ))
+      }
+    </p>
+    <p>Mais j'ai pu aussi utiliser:</p>
+    <p class="flex flex-wrap gap-y-2 mb-8">
+      {
+        secondaryStack.map((s) => (
+          <span class="bg-gray-700 py-1 px-2 mx-1 rounded-xl whitespace-nowrap text-gray-50">{s}</span>
+        ))
+      }
     </p>
     <p>
-      Mais j'ai pu aussi utiliser : GraphQL, Astro, Dotnet, Angular, Sql Server,
-      Symfony, Ansible et d'autres...
+      Techno(s) en cours d'apprentissage:
     </p>
-    <p>
-      Techno en cours d'apprentissage : <span class="font-bold">Kubernetes</span>
+    <p class="flex flex-wrap gap-y-2 mb-8">
+      {
+        learningStack.map((s) => (
+          <span class="bg-gray-700 py-1 px-2 mx-1 rounded-xl whitespace-nowrap text-gray-50">{s}</span>
+        ))
+      }
     </p>
   </section>
 
