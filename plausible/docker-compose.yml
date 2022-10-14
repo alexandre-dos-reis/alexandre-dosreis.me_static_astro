@@ -1,0 +1,64 @@
+version: "3.3"
+services:
+  adr-mail:
+    image: bytemark/smtp
+    restart: always
+    networks:
+      - plausible-alexandre-dosreis
+
+  adr-plausible_db:
+    image: postgres:14-alpine
+    restart: always
+    volumes:
+      - plausible-adr-db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+  adr-plausible_events_db:
+    image: clickhouse/clickhouse-server:22.6-alpine
+    restart: always
+    volumes:
+      - plausible-adr-event-data:/var/lib/clickhouse
+      - ./clickhouse/clickhouse-config.xml:/etc/clickhouse-server/config.d/logging.xml:ro
+      - ./clickhouse/clickhouse-user-config.xml:/etc/clickhouse-server/users.d/logging.xml:ro
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    networks:
+      - plausible-alexandre-dosreis
+
+  adr-plausible:
+    image: plausible/analytics:latest
+    restart: always
+    command: sh -c "sleep 10 && /entrypoint.sh db createdb && /entrypoint.sh db migrate && /entrypoint.sh db init-admin && /entrypoint.sh run"
+    depends_on:
+      - adr-plausible_db
+      - adr-plausible_events_db
+      - adr-mail
+    environment:
+      - ADMIN_USER_EMAIL=${ADMIN_USER_EMAIL}
+      - ADMIN_USER_NAME=${ADMIN_USER_NAME}
+      - ADMIN_USER_PWD=${ADMIN_USER_PWD}
+      - BASE_URL=${BASE_URL}
+      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+      - DISABLE_REGISTRATION=true
+    networks:
+      - plausible-alexandre-dosreis
+      - caddy
+    labels:
+      caddy: plausible.alexandre-dosreis.me
+      caddy.reverse_proxy: "{{upstreams 8000}}"
+
+volumes:
+  plausible-adr-db-data:
+    driver: local
+  plausible-adr-event-data:
+    driver: local
+  geoip:
+    driver: local
+
+networks:
+  plausible-alexandre-dosreis:
+  caddy:
+    external: true
