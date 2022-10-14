@@ -15,4 +15,5 @@ Ceci est le code source de mon portfolio.
 - [copyandpastesymbols](https://www.copyandpastesymbols.net)
 - [Shiki themes](https://github.com/shikijs/shiki/blob/main/docs/themes.md#all-themes)
 - [Free pictures](https://unsplash.com/s/photos/monitoring?orientation=landscape)
-- [creating-a-rehype-syntax-highlighting-plugin](https://www.timlrx.com/blog/creating-a-rehype-syntax-highlighting-plugin)
+- [Creating a rehype syntax highlighting plugin](https://www.timlrx.com/blog/creating-a-rehype-syntax-highlighting-plugin)
+- [Search and replace in VS Code using Regular Expressions](https://flaviocopes.com/vscode-search-replace-regex/)
