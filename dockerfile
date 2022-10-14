@@ -10,4 +10,4 @@ RUN pnpm run build
 FROM pierrezemb/gostatic:latest
 COPY --from=builder /app/dist /srv/http
 EXPOSE 8043
-CMD ["goStatic"]
+CMD [ "-fallback", "404.html" ]

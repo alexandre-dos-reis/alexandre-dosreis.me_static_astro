@@ -3,8 +3,7 @@ version: '3.7'
 services:
   alexandre-dosreis_me-astro:
     container_name: alexandre-dosreis_me-astro
-    build: 
-      context: .
+    build: .
     labels:
       caddy: alexandre-dosreis.me
       caddy.reverse_proxy: "{{upstreams 8043}}"
