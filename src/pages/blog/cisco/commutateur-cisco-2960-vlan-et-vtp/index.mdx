@@ -215,7 +215,7 @@ Notre configuration est bonne.
 
 ## Segmentation du réseau
 
-Nos VLANs sont en place sur tous les commutateurs, on va effectuera un test pour vérifier que les trames du vlan 20 ne sont pas diffusées sur les ports dédiés au vlan 30. Pour cela, on utilisera les pcs 1, 2, 3 et 5, on leur attribuera une adresse ip située dans le même réseau. On s’assurera que les PCs 1 et 2 communiquent bien ensemble au moyen de la commande _ping_.
+Nos VLANs sont en place sur tous les commutateurs, on effectuera un test pour vérifier que les trames du vlan 20 ne sont pas diffusées sur les ports dédiés au vlan 30. Pour cela, on utilisera les pcs 1, 2, 3 et 5, on leur attribuera une adresse ip située dans le même réseau. On s’assurera que les PCs 1 et 2 communiquent bien ensemble au moyen de la commande _ping_.
 
 On s’assurera également que les tables _Mac_ des commtateurs 1 et 2 et que les tables _Arp_ de pc1 et pc2 sont vides, sinon on ne verrait pas clairement que les vlans sont actifs.
 
@@ -390,4 +390,4 @@ Pour que les commutateurs puissent se transmettre les informations liées aux VL
 
 ## Conclusion
 
-Nos commutateurs sont désormais correctement bien configurés et segmentent la circulation des trames via les VLANs, mais si une personne de la comptabilité veut communiquer avec la production, il ne pourra pas, car non seulement il n’est pas situé dans le même VLAN mais en plus il n’est pas sur le réseau IP. C’est pourquoi, il va nous falloir configurer un routeur, c'est que ce que nous allons voir dans l'article suivant : [Routeur Cisco - Routage inter VLAN et ACL](https://alexandre-dosreis.me/articles/routeur-cisco-routage-inter-vlan-et-acl)
+Nos commutateurs sont désormais correctement bien configurés et segmentent la circulation des trames via les VLANs, mais si une personne de la comptabilité veut communiquer avec la production, il ne pourra pas, car non seulement il n’est pas situé dans le même VLAN mais en plus il n’est pas sur le réseau IP. C’est pourquoi, il va nous falloir configurer un routeur, c'est que ce que nous allons voir dans l'article suivant : [Routeur Cisco - Routage inter VLAN et ACL](/blog/cisco/routeur-cisco-1841-routage-inter-vlan-et-acl)

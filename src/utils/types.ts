@@ -5,6 +5,7 @@ export interface Article {
   date: string;
   draft: boolean;
   imageSrc?: string;
+  minutes: number
 }
 
 export interface NestedMH extends MarkdownHeading {

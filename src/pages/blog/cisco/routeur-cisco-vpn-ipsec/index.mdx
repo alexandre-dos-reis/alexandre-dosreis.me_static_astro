@@ -16,7 +16,7 @@ Un VPN est créé en établissant une connexion virtuelle point à point via l'u
 
 ## Topologie
 
-Voici le schéma qui sera utilisé pour effectuer les tests :
+Voici le schéma qui sera utilisé pour effectuer les tests:
 
 ![Schém Cisco VPN](./img/vpn.png)
 
@@ -31,13 +31,13 @@ Ce schéma tente de reproduire un vpn site à site entre 2 entreprises situés �
 
 On configure la route 0 pour rediriger tous les paquets vers **l'internet** au cas où le routeur ne s'est pas où envoyer un paquet en particulier.
 
-Pour le routeur de Paris :
+Pour le routeur de Paris:
 
 ```
 Paris(config)#ip route 0.0.0.0 0.0.0.0 51.49.78.90
 ```
 
-Pour le routeur de Caen :
+Pour le routeur de Caen:
 
 ```
 Caen(config)#ip route 0.0.0.0 0.0.0.0 67.43.131.57
@@ -47,7 +47,7 @@ Caen(config)#ip route 0.0.0.0 0.0.0.0 67.43.131.57
 
 C'est le protocole RIP V2 qui est utilisé pour une question de rapidité de mise en place.
 
-Pour le routeur de Paris :
+Pour le routeur de Paris:
 
 ```
 Paris(config)#router rip
@@ -58,7 +58,7 @@ Paris(config-router)#passive-interface gigabitEthernet 0/0
 Paris(config-router)#no auto-summary
 ```
 
-Pour le routeur de Caen :
+Pour le routeur de Caen:
 
 ```
 Caen(config)#router rip
@@ -73,7 +73,7 @@ Caen(config-router)#no auto-summary
 
 ### Activation du paquet Security Technology
 
-il faut dans un 1er temps actibver le module de sécurité _secirutyk9_. Sur les 2 routeurs effectuer ces commandes :
+il faut dans un 1er temps activer le module de sécurité `secirutyk9`. Sur les 2 routeurs, effectuer ces commandes:
 
 ```
 Paris#conf t
@@ -87,7 +87,7 @@ Paris(config)#exit
 Proceed with reload? [confirm]
 ```
 
-Pour voir si c'est actif :
+Pour voir si c'est actif:
 
 ```
 Paris>sh version
@@ -164,7 +164,7 @@ Paris(config-crypto-map)#set security-association lifetime seconds 120
 
 ### Application sur l'interface
 
-On applique la crypto map sur l'interface de sortie du routeur :
+On applique la crypto map sur l'interface de sortie du routeur:
 
 ```
 Paris(config)#int S0/0/0
@@ -176,7 +176,7 @@ Il reste à faire les mêmes opérations pour le routeur de Caen, en mettant en 
 
 ### Résultats des configurations
 
-Pour le routeur Paris, on a :
+Pour le routeur Paris, on a:
 
 ```
 license udi pid CISCO1941/K9 sn FTX1524FD55-
@@ -239,7 +239,7 @@ ip flow-export version 9
 access-list 100 permit ip 172.16.0.0 0.0.255.255 192.168.0.0 0.0.0.255
 ```
 
-Pour le router de Caen, on a :
+Pour le router de Caen, on a:
 
 ```
 license udi pid CISCO1941/K9 sn FTX15241N39-
@@ -305,13 +305,13 @@ access-list 100 permit ip 192.168.0.0 0.0.0.255 172.16.0.0 0.0.255.255
 
 ### Ping
 
-Après avoir configuré les 2 routeurs, les 2 machines aux extrémités du réseau devraient pouvoir se pinger entre elles et communiquer de manière cryptée. Si tel n'est pas le cas, on peut effectuer un _sh run_ afin de vérifier s'il n'y a pas un message du style : _configuration incomplete_.
+Après avoir configuré les 2 routeurs, les 2 machines aux extrémités du réseau devraient pouvoir se pinger entre elles et communiquer de manière cryptée. Si tel n'est pas le cas, on peut effectuer un _sh run_ afin de vérifier s'il n'y a pas un message du style: _configuration incomplete_.
 
 ### sh crypto map
 
-On peut débugger avec la commande _sh crypto map_ qui doit nous renvoyer ces résultats de la configuration courante :
+On peut débugger avec la commande _sh crypto map_ qui doit nous renvoyer ces résultats de la configuration courante:
 
-Pour Paris :
+Pour Paris:
 
 ```
 Crypto Map MAP1 1 ipsec-isakmp
@@ -328,7 +328,7 @@ Crypto Map MAP1 1 ipsec-isakmp
                 Serial0/0/0
 ```
 
-Pour Caen :
+Pour Caen:
 
 ```
 Crypto Map MAP1 1 ipsec-isakmp
@@ -347,7 +347,7 @@ Crypto Map MAP1 1 ipsec-isakmp
 
 ### show crypto ipsec sa
 
-Cette commande permet de renvoyer combien de paquets ont été encrypté et décrypté, voici un exemple pour Caen :
+Cette commande permet de renvoyer combien de paquets ont été encrypté et décrypté, voici un exemple pour Caen:
 
 ```
 interface: Serial0/0/1
@@ -374,7 +374,7 @@ interface: Serial0/0/1
 
 Les commandes _show crypto isakmp policy_ et _show crypto isakmp sa_ permettent d'afficher les informations par rapport au protocole ISAKMP avec SA pour _Security Association_.
 
-Voilà ces commandes pour Caen :
+Voilà ces commandes pour Caen:
 
 ```
 Caen#sh crypto isakmp policy
