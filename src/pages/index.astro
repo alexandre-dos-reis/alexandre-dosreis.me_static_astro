@@ -10,7 +10,9 @@ import ipv4 from "src/assets/ipv4.png";
 import cmd from "src/assets/cmd.png";
 import ProjectCard from "src/components/ProjectCard.astro";
 import Social from "src/components/Social.astro";
+import TechStack from "src/components/TechStack.astro";
 
+// TODO: USE THE TECH LIST INSTEAD
 const primaryStack = [
   "NodeJS",
   "ReactJs",
@@ -28,13 +30,14 @@ const secondaryStack = [
   "GraphQL",
   "Astro",
   "Dotnet",
-  " Angular",
+  "Angular",
   "Sql Server",
   "Symfony",
   "Ansible",
 ];
+//
 
-const learningStack = ['Kubernetes']
+const learningStack = ["Kubernetes"];
 ---
 
 <Layout title="Accueil">
@@ -76,7 +79,9 @@ const learningStack = ['Kubernetes']
     <p class="flex flex-wrap gap-y-2 mb-8">
       {
         primaryStack.map((s) => (
-          <span class="bg-gray-700 py-1 px-2 mx-1 rounded-xl whitespace-nowrap text-gray-50">{s}</span>
+          <span class="bg-gray-700 py-1 px-2 mx-1 rounded-xl whitespace-nowrap text-gray-50">
+            {s}
+          </span>
         ))
       }
     </p>
@@ -84,17 +89,19 @@ const learningStack = ['Kubernetes']
     <p class="flex flex-wrap gap-y-2 mb-8">
       {
         secondaryStack.map((s) => (
-          <span class="bg-gray-700 py-1 px-2 mx-1 rounded-xl whitespace-nowrap text-gray-50">{s}</span>
+          <span class="bg-gray-700 py-1 px-2 mx-1 rounded-xl whitespace-nowrap text-gray-50">
+            {s}
+          </span>
         ))
       }
     </p>
-    <p>
-      Techno(s) en cours d'apprentissage:
-    </p>
+    <p>Techno(s) en cours d'apprentissage:</p>
     <p class="flex flex-wrap gap-y-2 mb-8">
       {
         learningStack.map((s) => (
-          <span class="bg-gray-700 py-1 px-2 mx-1 rounded-xl whitespace-nowrap text-gray-50">{s}</span>
+          <span class="bg-gray-700 py-1 px-2 mx-1 rounded-xl whitespace-nowrap text-gray-50">
+            {s}
+          </span>
         ))
       }
     </p>
@@ -131,21 +138,21 @@ const learningStack = ['Kubernetes']
       href="https://atelier-amelie.fr"
       title="L'atelier d'Amélie"
       content="Le site d'Amélie Gille Dos Reis. Il est dédié à l'enluminure et à la calligraphie."
-      techs={[0, 1, 4, 5]}
+      techs={["symfony", "mariadb", "webcomponent", "react"]}
     />
     <ProjectCard
       imageSrc={ipv4}
       href="https://www.npmjs.com/package/ipv4-calc"
       title="Calculatrice IPv4"
       content="Une librarie Javascript permettant d'effectuer des calculs de réseaux IPv4."
-      techs={[8, 9]}
+      techs={["typescript", "nodejs"]}
     />
     <ProjectCard
       imageSrc={cmd}
       href="https://linux-debian-commandes.alexandre-dosreis.me"
       title="Lexique linux"
       content="Un lexique de commandes GNU Linux dont je me sers tout le temps."
-      techs={[8, 2, 5, 6]}
+      techs={["typescript", "nextjs", "react", "directus9"]}
     />
   </section>
 </Layout>

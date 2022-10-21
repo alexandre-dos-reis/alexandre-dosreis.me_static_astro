@@ -1,0 +1,19 @@
+---
+import { techList, TechType } from "src/utils/techs-list";
+
+interface Props {
+  techs: TechType[];
+}
+
+const { techs } = Astro.props;
+---
+
+{
+  techs.map((t) => (
+    <span
+      class={`${techList[t]?.color} py-1 px-2 m-1 rounded-xl whitespace-nowrap text-gray-50 font-semibold`}
+    >
+      {techList[t]?.label}
+    </span>
+  ))
+}
