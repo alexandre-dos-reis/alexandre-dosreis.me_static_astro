@@ -15,4 +15,3 @@ steps:
 - name: Deploy via docker
   commands:
   - docker-compose up -d --force-recreate --build
-  - docker image prune -af
