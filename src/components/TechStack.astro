@@ -3,15 +3,16 @@ import { techList, TechType } from "src/utils/techs-list";
 
 interface Props {
   techs: TechType[];
+  colorize?: boolean
 }
 
-const { techs } = Astro.props;
+const { techs, colorize = true } = Astro.props;
 ---
 
 {
   techs.map((t) => (
     <span
-      class={`${techList[t]?.color} py-1 px-2 m-1 rounded-xl whitespace-nowrap text-gray-50 font-semibold`}
+      class={`${colorize ? techList[t]?.color : `bg-gray-700`} py-1 px-2 m-1 rounded-xl whitespace-nowrap text-gray-50 font-semibold`}
     >
       {techList[t]?.label}
     </span>

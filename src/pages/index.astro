@@ -11,50 +11,18 @@ import cmd from "src/assets/cmd.png";
 import ProjectCard from "src/components/ProjectCard.astro";
 import Social from "src/components/Social.astro";
 import TechStack from "src/components/TechStack.astro";
-
-// TODO: USE THE TECH LIST INSTEAD
-const primaryStack = [
-  "NodeJS",
-  "ReactJs",
-  "NextJs",
-  "Typescript",
-  "tRPC",
-  "Docker",
-  "PostGreSQL",
-  "Directus 9",
-  "Caddy",
-  "VSCode",
-];
-
-const secondaryStack = [
-  "GraphQL",
-  "Astro",
-  "Dotnet",
-  "Angular",
-  "Sql Server",
-  "Symfony",
-  "Ansible",
-];
-//
-
-const learningStack = ["Kubernetes"];
 ---
 
 <Layout title="Accueil">
   <section>
     <h2>Qui suis-je ? 🕵️‍♂️</h2>
     <p>
-      Bonjour 👋 je m'appelle <span class="text-rose-400 text-lg"
-        >Alexandre Dos Reis</span
-      > et je suis développeur fullstack depuis 2019. Je suis en <b
-        >recherche d'emploi</b
-      > depuis la rentrée !
+      Bonjour 👋 je m'appelle <span class="text-rose-400 text-lg">Alexandre Dos Reis</span> et je suis
+      développeur fullstack depuis 2019. Je suis en <b>recherche d'emploi</b> depuis la rentrée !
     </p>
     <p>
-      Ce site me sert de portfolio mais aussi de recueil d'articles et
-      procédures écrit pendant mes études, visible dans la partie <a
-        href="/blog">blog</a
-      >.
+      Ce site me sert de portfolio mais aussi de recueil d'articles et procédures écrit pendant mes
+      études, visible dans la partie <a href="/blog">blog</a>.
     </p>
     <div class="flex flex-wrap items-center gap-x-4">
       <p>Retrouvez-moi sur :</p>
@@ -65,45 +33,41 @@ const learningStack = ["Kubernetes"];
   <section>
     <h2>Mes compétences 🤹</h2>
     <p>
-      Mes principales compétences sont le développement d'application web,
-      depuis la modélisation de données jusqu'à l'interface utilisateur, en
-      passant par l'infrastructure et l'administration système.
+      Mes principales compétences sont le développement d'application web, depuis la modélisation de
+      données jusqu'à l'interface utilisateur, en passant par l'infrastructure et l'administration
+      système.
     </p>
   </section>
   <section>
     <h2>Les technos 👨‍💻</h2>
-    <p>
-      Actuellement pour développer une application, les technos que je
-      privilégie sont:
-    </p>
+    <p>Actuellement les technos que je privilégie sont:</p>
     <p class="flex flex-wrap gap-y-2 mb-8">
-      {
-        primaryStack.map((s) => (
-          <span class="bg-gray-700 py-1 px-2 mx-1 rounded-xl whitespace-nowrap text-gray-50">
-            {s}
-          </span>
-        ))
-      }
+      <TechStack
+        colorize={false}
+        techs={[
+          "nodejs",
+          "react",
+          "nextjs",
+          "typescript",
+          "trpc",
+          "docker",
+          "pgsql",
+          "directus9",
+          "caddy",
+          "vscode",
+        ]}
+      />
     </p>
-    <p>Mais j'ai pu aussi utiliser:</p>
+    <p>Mais je pourrai utiliser:</p>
     <p class="flex flex-wrap gap-y-2 mb-8">
-      {
-        secondaryStack.map((s) => (
-          <span class="bg-gray-700 py-1 px-2 mx-1 rounded-xl whitespace-nowrap text-gray-50">
-            {s}
-          </span>
-        ))
-      }
+      <TechStack
+        colorize={false}
+        techs={["graphql", "astro", "dotnet", "angular", "sqlserver", "symfony", "ansible"]}
+      />
     </p>
     <p>Techno(s) en cours d'apprentissage:</p>
     <p class="flex flex-wrap gap-y-2 mb-8">
-      {
-        learningStack.map((s) => (
-          <span class="bg-gray-700 py-1 px-2 mx-1 rounded-xl whitespace-nowrap text-gray-50">
-            {s}
-          </span>
-        ))
-      }
+      <TechStack colorize={false} techs={["kubernetes"]} />
     </p>
   </section>
 
