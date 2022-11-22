@@ -7,7 +7,7 @@ import gum from "src/assets/gum.jpg";
 import up from "src/assets/univers-paie.jpg";
 import aa from "src/assets/atelier-amelie.png";
 import ipv4 from "src/assets/ipv4.png";
-import cmd from "src/assets/cmd.png";
+import unixCmd from "src/assets/unix-cmd.png";
 import ProjectCard from "src/components/ProjectCard.astro";
 import Social from "src/components/Social.astro";
 import TechStack from "src/components/TechStack.astro";
@@ -55,7 +55,7 @@ import TechStack from "src/components/TechStack.astro";
           "directus9",
           "caddy",
           "vscode",
-          "plausible"
+          "plausible",
         ]}
       />
     </p>
@@ -99,6 +99,13 @@ import TechStack from "src/components/TechStack.astro";
   <section>
     <h2 class="mb-4">Mes derniers projets 🎁</h2>
     <ProjectCard
+      imageSrc={unixCmd}
+      href="https://linux-debian-commandes.alexandre-dosreis.me"
+      title="Lexique linux"
+      content="Un lexique de commandes Unix dont je me sers tout le temps."
+      techs={["typescript", "nextjs", "jotai", "directus9", "graphql"]}
+    />
+    <ProjectCard
       imageSrc={aa}
       href="https://atelier-amelie.fr"
       title="L'atelier d'Amélie"
@@ -111,13 +118,6 @@ import TechStack from "src/components/TechStack.astro";
       title="Calculatrice IPv4"
       content="Une librarie Javascript permettant d'effectuer des calculs de réseaux IPv4."
       techs={["typescript", "nodejs"]}
-    />
-    <ProjectCard
-      imageSrc={cmd}
-      href="https://linux-debian-commandes.alexandre-dosreis.me"
-      title="Lexique linux"
-      content="Un lexique de commandes GNU Linux dont je me sers tout le temps."
-      techs={["typescript", "nextjs", "react", "directus9"]}
     />
   </section>
 </Layout>

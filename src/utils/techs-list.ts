@@ -21,6 +21,7 @@ export type TechType =
   | "ansible"
   | "dotnet"
   | "plausible"
+  | "jotai"
   | (string & {});
 
 export type Tech = { label: string; color: string };
@@ -50,5 +51,6 @@ export const techList: Record<TechType, Tech> = {
   sqlserver: { label: "Sql Server", color: "bg-[#0179d5]" },
   trpc: { label: "tRPC", color: "bg-[#388cca]" },
   vscode: { label: "VSCode", color: "bg-[#0067b9]" },
-  plausible : {label: "Plausible", color: "bg-[#5851ed]"}
+  plausible : {label: "Plausible", color: "bg-[#5851ed]"},
+  jotai : {label: "Jotai", color: "bg-[#0c0c0d]"},
 };
