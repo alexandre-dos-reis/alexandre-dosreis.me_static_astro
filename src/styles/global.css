@@ -78,7 +78,7 @@
 
     @font-face {
         font-family: 'dancing';
-        src: url('./fonts/DancingScript.ttf');
+        src: url('/src/styles/fonts/DancingScript.ttf');
     }
 
     .handwriting {
