@@ -22,6 +22,8 @@ export type TechType =
   | "dotnet"
   | "plausible"
   | "jotai"
+  | "vim"
+  | "neovim"
   | (string & {});
 
 export type Tech = { label: string; color: string };
@@ -51,6 +53,8 @@ export const techList: Record<TechType, Tech> = {
   sqlserver: { label: "Sql Server", color: "bg-[#0179d5]" },
   trpc: { label: "tRPC", color: "bg-[#388cca]" },
   vscode: { label: "VSCode", color: "bg-[#0067b9]" },
-  plausible : {label: "Plausible", color: "bg-[#5851ed]"},
-  jotai : {label: "Jotai", color: "bg-[#0c0c0d]"},
+  plausible: { label: "Plausible", color: "bg-[#5851ed]" },
+  jotai: { label: "Jotai", color: "bg-[#0c0c0d]" },
+  vim: { label: "Vim", color: "bg-[#0c0c0d]" },
+  neovim: { label: "Neovim", color: "bg-[#0c0c0d]" },
 };
