@@ -4,7 +4,7 @@ WORKDIR /app
 COPY pnpm-lock.yaml ./
 RUN pnpm fetch
 COPY . .
-RUN pnpm install --offline
+RUN pnpm install --offline --no-frozen-lockfile
 RUN pnpm run build
 
 FROM pierrezemb/gostatic:latest
