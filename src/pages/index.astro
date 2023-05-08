@@ -2,6 +2,7 @@
 import Layout from "src/layouts/BaseLayout.astro";
 import JobCard from "src/components/JobCard.astro";
 import GridContainer from "src/components/GridContainer.astro";
+import finishers from "src/assets/finishers.jpg";
 import volvo from "src/assets/volvo.jpg";
 import gum from "src/assets/gum.jpg";
 import up from "src/assets/univers-paie.jpg";
@@ -11,6 +12,7 @@ import unixCmd from "src/assets/unix-cmd.png";
 import ProjectCard from "src/components/ProjectCard.astro";
 import Social from "src/components/Social.astro";
 import TechStack from "src/components/TechStack.astro";
+import Link from "src/components/Link.astro";
 ---
 
 <Layout title="Accueil">
@@ -18,11 +20,11 @@ import TechStack from "src/components/TechStack.astro";
     <h2>Qui suis-je ? 🕵️‍♂️</h2>
     <p>
       Bonjour 👋 je m'appelle <span class="text-rose-400 text-lg">Alexandre Dos Reis</span> et je suis
-      développeur fullstack depuis 2019. Je suis en <b>recherche d'emploi</b> depuis la rentrée !
+      développeur fullstack depuis 2019. Depuis Decembre 2022, je travaille chez <Link href="https://www.finishers.com">finishers</Link>. 
     </p>
     <p>
       Ce site me sert de portfolio mais aussi de recueil d'articles et procédures écrit pendant mes
-      études, visible dans la partie <a href="/blog">blog</a>.
+      études, visible dans la partie <Link href="/blog">blog</Link>.
     </p>
     <div class="flex flex-wrap items-center gap-x-4">
       <p>Retrouvez-moi sur :</p>
@@ -76,6 +78,12 @@ import TechStack from "src/components/TechStack.astro";
   <section>
     <h2>Mes derniers jobs 🏬</h2>
     <GridContainer>
+      <JobCard
+        imageSrc={finishers}
+        href="https://www.finishers.com"
+        title="Finishers"
+        content="Full stack developper | 2022 - En cours"
+      />
       <JobCard
         imageSrc={volvo}
         href="https://www.volvogroup.com/fr"
