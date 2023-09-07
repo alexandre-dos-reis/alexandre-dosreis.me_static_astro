@@ -17,6 +17,7 @@ const articlesOnline = sortMdByDate(
 const categories = sortCategoriesAlphabetically(
   getCategories(articlesOnline, Astro.url.pathname)
 );
+
 const length = articlesOnline.length;
 ---
 

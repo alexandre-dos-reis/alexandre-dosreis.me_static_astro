@@ -2,11 +2,12 @@
 import Link from "src/components/Link.astro";
 import Layout from "src/layouts/BaseLayout.astro";
 import idSrc from "src/assets/photo-id.jpg";
+import { Image } from "astro:assets"
 ---
 
 <Layout title="Mon parcours">
   <section class="flex justify-center">
-    <img src={idSrc} alt="Photo Alexandre Dos Reis" class="rounded-full" />
+    <Image src={idSrc} alt="Photo Alexandre Dos Reis" class="rounded-full" />
   </section>
   <section>
     <h2>Parcours Pro</h2>

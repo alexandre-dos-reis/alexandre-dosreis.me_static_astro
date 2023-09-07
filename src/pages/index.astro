@@ -10,9 +10,11 @@ import aa from "src/assets/atelier-amelie.png";
 import ipv4 from "src/assets/ipv4.png";
 import unixCmd from "src/assets/unix-cmd.png";
 import ProjectCard from "src/components/ProjectCard.astro";
+
 import Social from "src/components/Social.astro";
 import TechStack from "src/components/TechStack.astro";
 import Link from "src/components/Link.astro";
+
 ---
 
 <Layout title="Accueil">
@@ -79,25 +81,25 @@ import Link from "src/components/Link.astro";
     <h2>Mes derniers jobs 🏬</h2>
     <GridContainer>
       <JobCard
-        imageSrc={finishers}
+        image={finishers}
         href="https://www.finishers.com"
         title="Finishers"
         content="Full stack developper | 2022 - En cours"
       />
       <JobCard
-        imageSrc={volvo}
+        image={volvo}
         href="https://www.volvogroup.com/fr"
         title="Volvo Trucks"
         content="Digital & IT developer | 2021 - 2022"
       />
       <JobCard
-        imageSrc={up}
+        image={up}
         href="https://www.universpaie.com"
         title="HR-Path Univers Paie"
         content="Technicien d'exploitation | 2019 - 2021"
       />
       <JobCard
-        imageSrc={gum}
+        image={gum}
         href="https://www.gum.paris"
         title="Green United Music"
         content="Ingénieur du son | 2012 - 2019"
@@ -108,7 +110,7 @@ import Link from "src/components/Link.astro";
   <section>
     <h2 class="mb-4">Mes derniers projets 🎁</h2>
     <ProjectCard
-      imageSrc={unixCmd}
+      image={unixCmd}
       href="https://linux-debian-commandes.alexandre-dosreis.me"
       title="Lexique linux"
       content="Un lexique de commandes Unix dont je me sers tout le temps."
@@ -116,14 +118,14 @@ import Link from "src/components/Link.astro";
       sourceSrc='https://github.com/alexandre-dos-reis/commands-v4'
     />
     <ProjectCard
-      imageSrc={aa}
+      image={aa}
       href="https://atelier-amelie.fr"
       title="L'atelier d'Amélie"
       content="Le site d'Amélie Gille Dos Reis. Il est dédié à l'enluminure et à la calligraphie."
       techs={["symfony", "mariadb", "webcomponent", "react"]}
     />
     <ProjectCard
-      imageSrc={ipv4}
+      image={ipv4}
       href="https://www.npmjs.com/package/ipv4-calc"
       title="Calculatrice IPv4"
       content="Une librarie Javascript permettant d'effectuer des calculs de réseaux IPv4."

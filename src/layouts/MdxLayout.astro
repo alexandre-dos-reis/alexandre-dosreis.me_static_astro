@@ -3,6 +3,7 @@ import type { MDXLayoutProps } from "astro";
 import type { Article } from "src/utils/types";
 import HeadingsToc from "src/components/HeadingsToc.astro";
 import HtmlLayout from "./HtmlLayout.astro";
+import { Image } from "astro:assets"
 
 type Props = MDXLayoutProps<Article>;
 
@@ -10,8 +11,8 @@ const { frontmatter: fm, headings } = Astro.props;
 
 // https://github.com/withastro/astro/issues/3373
 const image = "/src/pages" + fm.url + "/head.jpg";
-const images = import.meta.glob("/src/pages/**/head.jpg");
-const imageSrc = (await images[image]()) as Record<string, any>;
+const allImages = import.meta.glob("/src/pages/**/head.jpg") as Record<string, () => Promise<{default: ImageMetadata}>>
+const imageSrc = (await allImages[image as keyof typeof allImages]?.())!
 
 const duration = Math.round(fm.minutes);
 ---
@@ -30,8 +31,9 @@ const duration = Math.round(fm.minutes);
         {fm.title}
       </h1>
     </div>
-    <img
-      src={imageSrc.default}
+    <Image
+      src={imageSrc?.default}
+      alt=""
       class="absolute top-0 h-full w-full object-cover opacity-40"
     />
   </section>
