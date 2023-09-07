@@ -1,4 +1,4 @@
-FROM node:16 as builder
+FROM node:18 as builder
 #RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
 RUN npm i -g pnpm
 WORKDIR /app
