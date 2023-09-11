@@ -13,6 +13,10 @@ const navLinks: { href: string; label: string }[] = [
     label: "Contact",
   },
 ];
+
+
+const currentUrl = Astro.url.pathname
+const starterUrl = "/" + currentUrl.split('/')[1]
 ---
 
 <header
@@ -30,7 +34,7 @@ const navLinks: { href: string; label: string }[] = [
             <li class="flex justify-center items-end m-0">
               <Link
                 href={n.href}
-                class="mx-3 no-underline tracking-wide text-2xl"
+                class={`mx-3 tracking-wide text-2xl ${starterUrl === n.href ? "underline decoration-1 underline-offset-[10px]" : ""}`}
               >
                 {n.label}
               </Link>

@@ -23,8 +23,7 @@
     "remark-sectionize": "^1.1.1",
     "rollup": "^2.79.1",
     "sharp": "^0.32.5",
-    "tailwindcss": "^3.2.4",
-    "tw-elements": "1.0.0-alpha12",
+    "tw-elements": "1.0.0-rc.1",
     "unist-util-visit-parents": "^5.1.1"
   },
   "devDependencies": {
@@ -32,6 +31,7 @@
     "@mdxvac/remark-astro-frontmatter": "^0.0.3",
     "prettier": "^3.0.3",
     "prettier-plugin-astro": "^0.12.0",
+    "tailwindcss": "^3.2.4",
     "typescript": "^5.2.2"
   }
 }
