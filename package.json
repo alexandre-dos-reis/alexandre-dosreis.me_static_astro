@@ -4,17 +4,17 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "astro dev",
+    "dev": "bunx --bun astro dev",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro build && astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^1.0.2",
-    "@astrojs/tailwind": "^5.0.0",
+    "@astrojs/mdx": "2.1.0",
+    "@astrojs/tailwind": "5.1.0",
     "@mdxvac/remark-astro-autocomponents": "^0.0.1",
-    "astro": "^3.0.10",
+    "astro": "4.2.4",
     "mdast-util-to-string": "^3.1.0",
     "reading-time": "^1.5.0",
     "rehype-wrap-all": "^1.1.0",
@@ -23,7 +23,6 @@
     "remark-sectionize": "^1.1.1",
     "rollup": "^2.79.1",
     "sharp": "^0.32.5",
-    "tw-elements": "1.0.0-rc.1",
     "unist-util-visit-parents": "^5.1.1"
   },
   "devDependencies": {

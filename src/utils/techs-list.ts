@@ -1,34 +1,4 @@
-export type TechType =
-  | "nextjs"
-  | "symfony"
-  | "mariadb"
-  | "preact"
-  | "webcomponent"
-  | "react"
-  | "directus9"
-  | "astro"
-  | "typescript"
-  | "nodejs"
-  | "trpc"
-  | "docker"
-  | "pgsql"
-  | "caddy"
-  | "vscode"
-  | "kubernetes"
-  | "graphql"
-  | "angular"
-  | "sqlserver"
-  | "ansible"
-  | "dotnet"
-  | "plausible"
-  | "jotai"
-  | "vim"
-  | "neovim"
-  | (string & {});
-
-export type Tech = { label: string; color: string };
-
-export const techList: Record<TechType, Tech> = {
+export const techList = {
   astro: {
     label: "Astro",
     color: "bg-[#65219e]",
@@ -57,4 +27,6 @@ export const techList: Record<TechType, Tech> = {
   jotai: { label: "Jotai", color: "bg-[#0c0c0d]" },
   vim: { label: "Vim", color: "bg-[#0c0c0d]" },
   neovim: { label: "Neovim", color: "bg-[#0c0c0d]" },
-};
+} satisfies Record<string, { label: string; color: string }>;
+
+export type TechType = keyof typeof techList;
