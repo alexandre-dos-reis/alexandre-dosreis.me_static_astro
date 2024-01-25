@@ -6,7 +6,7 @@ export const techCategories = {
   database: { label: "Base de données", color: "bg-slate-900" },
   sysadmin: { label: "Administrateur système", color: "bg-violet-900" },
   devops: { label: "Devops", color: "bg-pink-900" },
-  editor: { label: "Êditeur", color: "bg-stone-800" },
+  editor: { label: "Éditeur", color: "bg-stone-800" },
   code: { label: "Code", color: "bg-yellow-900" },
 } satisfies Record<string, { label: string; color: string }>;
 
