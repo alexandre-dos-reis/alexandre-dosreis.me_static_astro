@@ -12,24 +12,21 @@ import unixCmd from "src/assets/unix-cmd.png";
 import ProjectCard from "src/components/ProjectCard.astro";
 
 import Social from "src/components/Social.astro";
-import TechStack from "src/components/TechStack.astro";
 import Link from "src/components/Link.astro";
+import { techList, techCategories } from "src/utils/techs-list";
+import { iter } from "src/utils/functions";
 ---
 
 <Layout title="Accueil">
   <section>
     <h2>Qui suis-je ? 🕵️‍♂️</h2>
     <p>
-      Bonjour 👋 je m'appelle <span class="text-rose-400 text-lg">Alexandre Dos Reis</span> et je
-      suis développeur fullstack depuis 2019. Depuis Decembre 2022, je travaille chez <Link
-        href="https://www.finishers.com"
-      >
-        finishers
-      </Link>.
+      Bonjour 👋 je m'appelle <span class="text-rose-400 text-lg">Alexandre Dos Reis</span> et je suis développeur fullstack
+      depuis 2019. Depuis Decembre 2022, je travaille chez <Link href="https://www.finishers.com">finishers</Link>.
     </p>
     <p>
-      Ce site me sert de portfolio mais aussi de recueil d'articles et procédures écrit pendant mes
-      études, visible dans la partie <Link href="/blog">blog</Link>.
+      Ce site me sert de portfolio mais aussi de recueil d'articles et procédures écrit pendant mes études, visible dans
+      la partie <Link href="/blog">blog</Link>.
     </p>
     <div class="flex flex-wrap items-center gap-x-4">
       <p>Retrouvez-moi sur :</p>
@@ -40,44 +37,35 @@ import Link from "src/components/Link.astro";
   <section>
     <h2>Mes compétences 🤹</h2>
     <p>
-      Mes principales compétences sont le développement d'application web, depuis la modélisation de
-      données jusqu'à l'interface utilisateur, en passant par l'infrastructure et l'administration
-      système.
+      Mes principales compétences sont le développement d'application web, depuis la modélisation de données jusqu'à
+      l'interface utilisateur, en passant par l'infrastructure et l'administration système.
     </p>
   </section>
   <section>
     <h2>Les technos 👨‍💻</h2>
-    <p>Actuellement les technos que je privilégie sont:</p>
-    <p class="flex flex-wrap gap-y-2 mb-8">
-      <TechStack
-        colorize={false}
-        techs={[
-          "nodejs",
-          "react",
-          "nextjs",
-          "typescript",
-          "trpc",
-          "docker",
-          "pgsql",
-          "directus9",
-          "caddy",
-          "vscode",
-          "plausible",
-        ]}
-      />
-    </p>
-    <p>Mais je pourrai utiliser:</p>
-    <p class="flex flex-wrap gap-y-2 mb-8">
-      <TechStack
-        colorize={false}
-        techs={["graphql", "astro", "dotnet", "angular", "sqlserver", "symfony"]}
-      />
-    </p>
-    <p>Techno(s) en cours d'apprentissage:</p>
-    <p class="flex flex-wrap gap-y-2 mb-8">
-      <TechStack colorize={false} techs={["vim"]} />
-      <TechStack colorize={false} techs={["neovim"]} />
-    </p>
+    <p class="mb-8">Voici une liste non-exhaustive des technos que j'utilise :</p>
+    {
+      iter(techCategories, (cat, key) => ({ ...cat, key }))
+        .sort((a, b) => {
+          const allTechs = iter(techList, (t) => t.cat);
+          const techALength = allTechs.filter((t) => t === a.key).length;
+          const techBLength = allTechs.filter((t) => t === b.key).length;
+          return techALength > techBLength ? -1 : 1;
+        })
+        .map((cat) => (
+          <ul class="flex flex-wrap justify-center gap-y-1 gap-x-3 mb-3 list-none max-w-[500px] mx-auto">
+            {iter(techList, (t) => t)
+              .filter((t) => t.cat === cat.key)
+              .map((t) => (
+                <li
+                  class={`${cat.color} border border-gray-400 text-gray-50 font-semibold px-3 py-1 rounded-xl whitespace-nowrap`}
+                >
+                  {t.label}
+                </li>
+              ))}
+          </ul>
+        ))
+    }
   </section>
 
   <section>
@@ -116,8 +104,8 @@ import Link from "src/components/Link.astro";
       image={unixCmd}
       href="https://linux-debian-commandes.alexandre-dosreis.me"
       title="Lexique linux"
-      content="Un lexique de commandes Unix dont je me sers tout le temps."
-      techs={["typescript", "nextjs", "jotai", "directus9", "graphql"]}
+      content="Un lexique de commandes Unix."
+      techs={["typescript", "nextjs", "jotai", "directus", "graphql"]}
       sourceSrc="https://github.com/alexandre-dos-reis/commands-v4"
     />
     <ProjectCard

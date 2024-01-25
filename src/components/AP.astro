@@ -1,13 +1,13 @@
 ---
 interface Props {
   a?: string;
-  p?: string
+  p?: string;
 }
 
 const { a = "$" } = Astro.props;
 ---
 
-<div class="mdx-ap mb-6 rounded-xl bg-[#212121] flex relative items-center overflow-hidden">
+<div class="mdx-ap mb-6 rounded-xl border border-gray-600 bg-[#212121] flex relative items-center overflow-hidden">
   <div class="bg-gray-700 h-full px-4 py-2 text-black whitespace-nowrap">{a}</div>
-  <code class="px-2 whitespace-nowrap overflow-x-auto"><slot/></code>
+  <code class="px-2 whitespace-nowrap overflow-x-auto"><slot /></code>
 </div>

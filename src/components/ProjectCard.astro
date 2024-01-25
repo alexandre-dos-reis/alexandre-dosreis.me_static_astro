@@ -1,5 +1,5 @@
 ---
-import type { TechType } from "src/utils/techs-list";
+import { type AllTechType } from "src/utils/techs-list";
 import Link from "./Link.astro";
 import TechStack from "./TechStack.astro";
 import type { ImageMetadata } from "astro";
@@ -9,7 +9,7 @@ interface Props {
   image: ImageMetadata;
   title: string;
   content: string;
-  techs: TechType[];
+  techs: AllTechType[];
   sourceSrc?: string;
 }
 
