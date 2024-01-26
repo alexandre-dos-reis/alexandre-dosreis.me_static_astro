@@ -140,10 +140,3 @@
     @apply list-inside;
   }
 }
-
-@layer components {
-  .mdx-ap a {
-    @apply text-gray-200;
-  }
-}
-

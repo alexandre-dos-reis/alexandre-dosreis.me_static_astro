@@ -1,7 +1,12 @@
 {
   "extends": "astro/tsconfigs/strictest",
   "compilerOptions": {
+    "allowJs": true,
+    "strictNullChecks": true,
     "module": "ESNext",
-    "baseUrl": "."
-  }
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+    },
+  },
 }
