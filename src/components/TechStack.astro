@@ -1,20 +1,17 @@
 ---
-import { techList, TechType } from "src/utils/techs-list";
+import { allTypes, type AllTechType } from "src/utils/techs-list";
 
 interface Props {
-  techs: TechType[];
-  colorize?: boolean
+  techs: AllTechType[];
 }
 
-const { techs, colorize = true } = Astro.props;
+const { techs } = Astro.props;
 ---
 
 {
   techs.map((t) => (
-    <span
-      class={`${colorize ? techList[t]?.color : `bg-gray-700`} py-1 px-2 m-1 rounded-xl whitespace-nowrap text-gray-50 font-semibold`}
-    >
-      {techList[t]?.label}
+    <span class={"bg-gray-700 py-1 px-2 m-1 rounded-xl whitespace-nowrap text-gray-50 font-semibold"}>
+      {allTypes[t]?.label}
     </span>
   ))
 }

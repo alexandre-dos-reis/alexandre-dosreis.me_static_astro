@@ -15,18 +15,8 @@ export default defineConfig({
     tailwind(),
     mdx({
       extendDefaultPlugins: true,
-      remarkPlugins: [
-        autoImports,
-        autoComponents,
-        autoFrontmatter,
-        remarkMdxImages,
-        sectionize,
-        remarkReadingTime,
-      ],
-      rehypePlugins: [
-        moveHeadingsIdToSection,
-        [wrap, { selector: "table", wrapper: "div.overflow-x-auto" }],
-      ],
+      remarkPlugins: [autoImports, autoComponents, autoFrontmatter, remarkMdxImages, sectionize, remarkReadingTime],
+      rehypePlugins: [moveHeadingsIdToSection, [wrap, { selector: "table", wrapper: "div.overflow-x-auto" }]],
     }),
   ],
 });
