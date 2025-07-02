@@ -5,7 +5,7 @@ export type TechType =
   | "preact"
   | "webcomponent"
   | "react"
-  | "directus9"
+  | "directus"
   | "astro"
   | "typescript"
   | "nodejs"
@@ -14,16 +14,20 @@ export type TechType =
   | "pgsql"
   | "caddy"
   | "vscode"
+  | "React-Three-Fiber"
   | "kubernetes"
   | "graphql"
   | "angular"
   | "sqlserver"
   | "ansible"
+  | "nix"
   | "dotnet"
   | "plausible"
   | "jotai"
   | "vim"
   | "neovim"
+  | "ghostty"
+  | "tmux"
   | (string & {});
 
 export type Tech = { label: string; color: string };
@@ -33,12 +37,15 @@ export const techList: Record<TechType, Tech> = {
     label: "Astro",
     color: "bg-[#65219e]",
   },
-  directus9: { label: "Directus 9", color: "bg-[#607D8B]" },
+  directus: { label: "Directus", color: "bg-[#607D8B]" },
+  nix: { label: "Nix", color: "bg-[#3d863d]" },
   nodejs: { label: "NodeJS", color: "bg-[#3d863d]" },
+  bun: { label: "Bun", color: "bg-[#3d863d]" },
   mariadb: { label: "MariaDB", color: "bg-[#E35169]" },
   nextjs: { label: "NextJS", color: "bg-[#97890C]" },
   preact: { label: "Preact", color: "bg-[#9E8DE4]" },
   react: { label: "React", color: "bg-[#00C897]" },
+  "React-Three-Fiber": { label: "React-Three-Fiber", color: "bg-[#00C897]" },
   symfony: { label: "Symfony", color: "bg-[#1d4fd8]" },
   typescript: { label: "Typescript", color: "bg-[#3379c6]" },
   webcomponent: { label: "Web Components", color: "bg-[#F7971C]" },
@@ -57,4 +64,6 @@ export const techList: Record<TechType, Tech> = {
   jotai: { label: "Jotai", color: "bg-[#0c0c0d]" },
   vim: { label: "Vim", color: "bg-[#0c0c0d]" },
   neovim: { label: "Neovim", color: "bg-[#0c0c0d]" },
+  tmux: { label: "Tmux", color: "bg-[#0c0c0d]" },
+  ghostty: { label: "Ghostty", color: "bg-[#0c0c0d]" },
 };

@@ -1,9 +1,9 @@
 ---
-import { techList, TechType } from "src/utils/techs-list";
+import { techList, type TechType } from "src/utils/techs-list";
 
 interface Props {
   techs: TechType[];
-  colorize?: boolean
+  colorize?: boolean;
 }
 
 const { techs, colorize = true } = Astro.props;
